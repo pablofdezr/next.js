@@ -71,6 +71,12 @@ describe('validateAppPaths', () => {
 
       expect(() => validateAppPaths(paths)).not.toThrow()
     })
+
+    it('allows hybrid segments alongside static and dynamic routes', () => {
+      const paths = ['/house-in-[location]', '/house-in-sevilla', '/[slug]']
+
+      expect(() => validateAppPaths(paths)).not.toThrow()
+    })
   })
 
   describe('interception route validation', () => {
@@ -133,6 +139,20 @@ describe('validateAppPaths', () => {
   })
 
   describe('should detect ambiguous routes', () => {
+    it('detects conflict between hybrid routes with the same pattern', () => {
+      const paths = ['/house-in-[location]', '/house-in-[city]']
+
+      expect(() => validateAppPaths(paths)).toThrowErrorMatchingInlineSnapshot(`
+       "Ambiguous app routes detected:
+
+       Ambiguous route pattern "/house-in-[*]" matches multiple routes:
+         - /house-in-[location]
+         - /house-in-[city]
+
+       These routes cannot be distinguished from each other when matching URLs. Please ensure that dynamic segments have unique patterns or use different static segments."
+      `)
+    })
+
     it('detects conflict from normalized parallel routes (most common case)', () => {
       // This represents:
       // - app/blog/[slug]/page.tsx
@@ -318,6 +338,16 @@ describe('validateAppPaths', () => {
           validateAppPaths(paths)
         ).toThrowErrorMatchingInlineSnapshot(
           `"Optional route parameters are not yet supported ("[[slug]]") in route "/blog/[[slug]]"."`
+        )
+      })
+
+      it('detects catch-all segments with prefixes or suffixes', () => {
+        const paths = ['/docs-[...slug]']
+
+        expect(() =>
+          validateAppPaths(paths)
+        ).toThrowErrorMatchingInlineSnapshot(
+          `"Catch-all segments cannot include prefixes or suffixes ("docs-[...slug]") in route "/docs-[...slug]"."`
         )
       })
 

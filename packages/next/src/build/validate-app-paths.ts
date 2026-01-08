@@ -2,12 +2,26 @@ import {
   getParamProperties,
   type SegmentParam,
 } from '../shared/lib/router/utils/get-segment-param'
+import { INTERCEPTION_ROUTE_MARKERS } from '../shared/lib/router/utils/interception-routes'
 import {
   isInterceptionAppRoute,
   parseAppRoute,
   type NormalizedAppRoute,
   type NormalizedAppRouteSegment,
 } from '../shared/lib/router/routes/app'
+
+const PARAMETER_PATTERN = /^([^[]*)\[((?:\[[^\]]*\])|[^\]]+)\](.*)$/
+
+function stripInterceptionMarker(prefix: string) {
+  const marker = INTERCEPTION_ROUTE_MARKERS.find((m) => prefix.startsWith(m))
+  return marker ? prefix.slice(marker.length) : prefix
+}
+
+function getSegmentAffixes(segmentName: string) {
+  const match = segmentName.match(PARAMETER_PATTERN)
+  if (!match) return null
+  return { prefix: match[1], suffix: match[3] }
+}
 
 /**
  * Validates segment parameters for common syntax errors.
@@ -79,10 +93,44 @@ function validateAppRoute(route: NormalizedAppRoute): void {
 
     // Type narrowing - only process dynamic segments
     if (segment.type === 'dynamic') {
+      const segmentMatch = segment.name.match(PARAMETER_PATTERN)
+      if (segmentMatch) {
+        let errorParamName = segmentMatch[2]
+        if (errorParamName.startsWith('[') && errorParamName.endsWith(']')) {
+          errorParamName = errorParamName.slice(1, -1)
+        }
+        if (errorParamName.startsWith('...')) {
+          errorParamName = errorParamName.substring(3)
+        }
+
+        if (
+          errorParamName.startsWith('[') ||
+          errorParamName.endsWith(']') ||
+          segmentMatch[3].includes(']')
+        ) {
+          if (segmentMatch[3].includes(']')) {
+            errorParamName = `${errorParamName}]`
+          }
+          throw new Error(
+            `Segment names may not start or end with extra brackets ('${errorParamName}') in route "${route.pathname}".`
+          )
+        }
+      }
+
       // First, validate syntax
       validateSegmentParam(segment.param, route.pathname)
 
       const properties = getParamProperties(segment.param.paramType)
+
+      const segmentAffixes = getSegmentAffixes(segment.name)
+      if (segmentAffixes && properties.repeat) {
+        const prefix = stripInterceptionMarker(segmentAffixes.prefix)
+        if (prefix.length > 0 || segmentAffixes.suffix.length > 0) {
+          throw new Error(
+            `Catch-all segments cannot include prefixes or suffixes ("${segment.name}") in route "${route.pathname}".`
+          )
+        }
+      }
 
       if (properties.repeat) {
         if (properties.optional) {
@@ -176,10 +224,17 @@ function normalizeSegments(
           return segment.name
         }
 
-        // Dynamic segment - normalize the parameter name by replacing the
-        // parameter name with a wildcard. The interception marker is already
-        // included in the segment name, so no special handling is needed.
-        return segment.name.replace(segment.param.paramName, '*')
+        // Dynamic segment - normalize to a structural wildcard while
+        // preserving any static prefix/suffix and interception markers.
+        const match = segment.name.match(PARAMETER_PATTERN)
+        if (!match) {
+          return segment.name.replace(segment.param.paramName, '*')
+        }
+
+        const { repeat, optional } = getParamProperties(segment.param.paramType)
+        const placeholder = repeat ? (optional ? '[[...*]]' : '[...*]') : '[*]'
+
+        return `${match[1]}${placeholder}${match[3]}`
       })
       .join('/')
   )

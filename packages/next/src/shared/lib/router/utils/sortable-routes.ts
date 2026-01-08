@@ -1,6 +1,9 @@
 /**
  * A route that can be sorted by specificity.
  */
+import { PARAMETER_PATTERN, parseMatchedParameter } from './get-dynamic-param'
+import { INTERCEPTION_ROUTE_MARKERS } from './interception-routes'
+
 export type SortableRoute = {
   /**
    * The source page of the route. This represents the original page that's on
@@ -25,12 +28,13 @@ export type SortableRoute = {
  *
  * Specificity order (most to least specific):
  * 1. Static segments (e.g., "about", "api") - return 0
- * 2. Dynamic segments (e.g., "[id]", "[slug]") - return 1
- * 3. Catch-all segments (e.g., "[...slug]") - return 2
- * 4. Optional catch-all segments (e.g., "[[...slug]]") - return 3
+ * 2. Hybrid segments (e.g., "post-[id]", "house-in-[city]") - return 1
+ * 3. Dynamic segments (e.g., "[id]", "[slug]") - return 2
+ * 4. Catch-all segments (e.g., "[...slug]") - return 3
+ * 5. Optional catch-all segments (e.g., "[[...slug]]") - return 4
  *
  * @param segment - A single path segment (e.g., "api", "[id]", "[...slug]")
- * @returns A numeric specificity value (0-3, where 0 is most specific)
+ * @returns A numeric specificity value (0-4, where 0 is most specific)
  */
 export function getSegmentSpecificity(segment: string): number {
   // Static segments are most specific - they match exactly one path
@@ -38,23 +42,33 @@ export function getSegmentSpecificity(segment: string): number {
     return 0
   }
 
-  // Optional catch-all [[...param]] is least specific - matches zero or more segments
-  if (segment.startsWith('[[...') && segment.endsWith(']]')) {
-    return 3
+  const match = segment.match(PARAMETER_PATTERN)
+  if (!match) {
+    // Malformed dynamic-like segments still sort after static segments.
+    if (segment.startsWith('[') && segment.endsWith(']')) {
+      return 2
+    }
+
+    return 0
   }
 
-  // Catch-all [...param] is less specific - matches one or more segments
-  if (segment.startsWith('[...') && segment.endsWith(']')) {
-    return 2
+  const { repeat, optional } = parseMatchedParameter(match[2])
+  if (repeat) {
+    return optional ? 4 : 3
   }
 
-  // Regular dynamic [param] is more specific than catch-all - matches exactly one segment
-  if (segment.startsWith('[') && segment.endsWith(']')) {
+  const prefix = match[1]
+  const suffix = match[3]
+  const marker = INTERCEPTION_ROUTE_MARKERS.find((m) => prefix.startsWith(m))
+  const prefixWithoutMarker = marker ? prefix.slice(marker.length) : prefix
+
+  // Hybrid segments include a prefix/suffix around a param.
+  if (prefixWithoutMarker.length > 0 || suffix.length > 0) {
     return 1
   }
 
-  // Default to static (fallback case)
-  return 0
+  // Regular dynamic [param] is more specific than catch-all - matches exactly one segment
+  return 2
 }
 
 /**
@@ -94,8 +108,8 @@ export function compareRouteSegments(pathA: string, pathB: string): number {
     const specificityA = getSegmentSpecificity(segA)
     const specificityB = getSegmentSpecificity(segB)
 
-    // Lower specificity number = more specific route
-    // Example: "api" (0) vs "[slug]" (1) - "api" wins
+    // Lower specificity number = more specific route.
+    // Example: "api" (0) vs "post-[id]" (1) vs "[slug]" (2)
     if (specificityA !== specificityB) {
       return specificityA - specificityB
     }

@@ -105,22 +105,22 @@ function getParametrizedRoute(
     )
     const paramMatches = segment.match(PARAMETER_PATTERN) // Check for parameters
 
-    if (markerMatch && paramMatches && paramMatches[2]) {
-      const { key, optional, repeat } = parseMatchedParameter(paramMatches[2])
-      groups[key] = { pos: groupIndex++, repeat, optional }
-      segments.push(`/${escapeStringRegexp(markerMatch)}([^/]+?)`)
-    } else if (paramMatches && paramMatches[2]) {
+    if (paramMatches && paramMatches[2]) {
+      // Use the generic param path so prefixes/suffixes (including interception
+      // markers) are preserved; the special-case marker branch dropped them.
       const { key, repeat, optional } = parseMatchedParameter(paramMatches[2])
       groups[key] = { pos: groupIndex++, repeat, optional }
 
-      if (includePrefix && paramMatches[1]) {
+      const shouldIncludePrefix =
+        (includePrefix || markerMatch) && paramMatches[1]
+      if (shouldIncludePrefix) {
         segments.push(`/${escapeStringRegexp(paramMatches[1])}`)
       }
 
       let s = repeat ? (optional ? '(?:/(.+?))?' : '/(.+?)') : '/([^/]+?)'
 
       // Remove the leading slash if includePrefix already added it.
-      if (includePrefix && paramMatches[1]) {
+      if (shouldIncludePrefix && s.startsWith('/')) {
         s = s.substring(1)
       }
 
@@ -149,8 +149,8 @@ function getParametrizedRoute(
 export function getRouteRegex(
   normalizedRoute: string,
   {
-    includeSuffix = false,
-    includePrefix = false,
+    includeSuffix = true,
+    includePrefix = true,
     excludeOptionalTrailingSlash = false,
   }: GetRouteRegexOptions = {}
 ): RouteRegex {
@@ -382,8 +382,8 @@ export function getNamedRouteRegex(
   const result = getNamedParametrizedRoute(
     normalizedRoute,
     options.prefixRouteKeys,
-    options.includeSuffix ?? false,
-    options.includePrefix ?? false,
+    options.includeSuffix ?? true,
+    options.includePrefix ?? true,
     options.backreferenceDuplicateKeys ?? false,
     options.reference
   )
