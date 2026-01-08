@@ -1,3 +1,19 @@
+## Hybrid Routes Fork
+
+This build adds hybrid route segments to the App Router (for example
+`/house-in-[city]`), enabling static + dynamic combinations within a single
+segment.
+
+[![npm](https://img.shields.io/npm/v/next-hybrid.svg?style=for-the-badge&labelColor=000000)](https://www.npmjs.com/package/next-hybrid)
+
+Use this forked build of Next.js with hybrid route segments:
+
+```bash
+pnpm add next-hybrid
+# or keep the dependency name as `next`:
+pnpm add next@npm:next-hybrid
+```
+
 <div align="center">
   <a href="https://nextjs.org">
     <picture>
