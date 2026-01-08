@@ -2,6 +2,7 @@ import { isDynamicRoute } from './is-dynamic'
 
 describe('isDynamicRoute', () => {
   describe('strict', () => {
+    // Strict mode now treats prefix/suffix segments as dynamic to support hybrid routes.
     it('should return true for dynamic routes', () => {
       expect(isDynamicRoute('/blog/[...slug]')).toBe(true)
     })
@@ -11,15 +12,15 @@ describe('isDynamicRoute', () => {
     })
 
     it('should return true for dynamic routes with a suffix', () => {
-      expect(isDynamicRoute('/blog/[slug].json')).toBe(false)
+      expect(isDynamicRoute('/blog/[slug].json')).toBe(true)
     })
 
-    it('should return false for dynamic routes with a prefix', () => {
-      expect(isDynamicRoute('/blog/$d$slug$[...slug]/')).toBe(false)
+    it('should return true for dynamic routes with a prefix', () => {
+      expect(isDynamicRoute('/blog/$d$slug$[...slug]/')).toBe(true)
     })
 
-    it('should return false for dynamic routes with a suffix and prefix', () => {
-      expect(isDynamicRoute('/blog/$d$slug$[...slug].json')).toBe(false)
+    it('should return true for dynamic routes with a suffix and prefix', () => {
+      expect(isDynamicRoute('/blog/$d$slug$[...slug].json')).toBe(true)
     })
   })
 

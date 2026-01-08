@@ -951,6 +951,18 @@ importers:
         specifier: workspace:*
         version: link:../../../packages/next
 
+  examples/hybrid-routing:
+    dependencies:
+      next:
+        specifier: workspace:*
+        version: link:../../packages/next
+      react:
+        specifier: 19.3.0-canary-65eec428-20251218
+        version: 19.3.0-canary-65eec428-20251218
+      react-dom:
+        specifier: 19.3.0-canary-65eec428-20251218
+        version: 19.3.0-canary-65eec428-20251218(react@19.3.0-canary-65eec428-20251218)
+
   packages/create-next-app:
     devDependencies:
       '@types/async-retry':

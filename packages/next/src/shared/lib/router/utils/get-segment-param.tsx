@@ -6,6 +6,8 @@ export type SegmentParam = {
   paramType: DynamicParamTypes
 }
 
+const PARAMETER_PATTERN = /^([^[]*)\[((?:\[[^\]]*\])|[^\]]*)\](.*)$/
+
 /**
  * Parse dynamic route segment to type of parameter
  */
@@ -20,30 +22,40 @@ export function getSegmentParam(segment: string): SegmentParam | null {
     segment = segment.slice(interceptionMarker.length)
   }
 
-  if (segment.startsWith('[[...') && segment.endsWith(']]')) {
-    return {
-      // TODO-APP: Optional catchall does not currently work with parallel routes,
-      // so for now aren't handling a potential interception marker.
-      paramType: 'optional-catchall',
-      paramName: segment.slice(5, -2),
-    }
-  }
+  const segmentMatch = segment.match(PARAMETER_PATTERN)
+  if (segmentMatch) {
+    // Optional catch-all still inherits the existing limitation with parallel
+    // routes, but parsing is now generic and does not special-case interception.
+    let paramName = segmentMatch[2]
+    let optional = false
 
-  if (segment.startsWith('[...') && segment.endsWith(']')) {
-    return {
-      paramType: interceptionMarker
-        ? `catchall-intercepted-${interceptionMarker}`
-        : 'catchall',
-      paramName: segment.slice(4, -1),
+    if (paramName.startsWith('[') && paramName.endsWith(']')) {
+      paramName = paramName.slice(1, -1)
+      optional = true
     }
-  }
 
-  if (segment.startsWith('[') && segment.endsWith(']')) {
+    let repeat = false
+    if (paramName.startsWith('...')) {
+      paramName = paramName.slice(3)
+      repeat = true
+    }
+
+    if (optional && !repeat) {
+      // Preserve old behavior for unsupported optional params.
+      paramName = `[${paramName}]`
+    }
+
     return {
-      paramType: interceptionMarker
-        ? `dynamic-intercepted-${interceptionMarker}`
-        : 'dynamic',
-      paramName: segment.slice(1, -1),
+      paramType: repeat
+        ? optional
+          ? 'optional-catchall'
+          : interceptionMarker
+            ? `catchall-intercepted-${interceptionMarker}`
+            : 'catchall'
+        : interceptionMarker
+          ? `dynamic-intercepted-${interceptionMarker}`
+          : 'dynamic',
+      paramName,
     }
   }
 

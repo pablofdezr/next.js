@@ -786,6 +786,18 @@ describe('sortPages', () => {
     ])
   })
 
+  it('should order hybrid routes between static and dynamic', () => {
+    const pages = ['/[slug]', '/house-in-[location]', '/house-in-sevilla']
+
+    const sorted = sortPages(pages)
+
+    expect(sorted).toEqual([
+      '/house-in-sevilla',
+      '/house-in-[location]',
+      '/[slug]',
+    ])
+  })
+
   it('should sort lexicographically when specificity is equal', () => {
     const pages = ['/zebra', '/apple', '/mango']
 
@@ -869,23 +881,23 @@ describe('getSegmentSpecificity', () => {
     expect(getSegmentSpecificity('about-us')).toBe(0)
   })
 
-  it('should return 1 for dynamic segments', () => {
-    expect(getSegmentSpecificity('[id]')).toBe(1)
-    expect(getSegmentSpecificity('[slug]')).toBe(1)
-    expect(getSegmentSpecificity('[userId]')).toBe(1)
-    expect(getSegmentSpecificity('[post-id]')).toBe(1)
+  it('should return 2 for dynamic segments', () => {
+    expect(getSegmentSpecificity('[id]')).toBe(2)
+    expect(getSegmentSpecificity('[slug]')).toBe(2)
+    expect(getSegmentSpecificity('[userId]')).toBe(2)
+    expect(getSegmentSpecificity('[post-id]')).toBe(2)
   })
 
-  it('should return 2 for catch-all segments', () => {
-    expect(getSegmentSpecificity('[...slug]')).toBe(2)
-    expect(getSegmentSpecificity('[...path]')).toBe(2)
-    expect(getSegmentSpecificity('[...params]')).toBe(2)
+  it('should return 3 for catch-all segments', () => {
+    expect(getSegmentSpecificity('[...slug]')).toBe(3)
+    expect(getSegmentSpecificity('[...path]')).toBe(3)
+    expect(getSegmentSpecificity('[...params]')).toBe(3)
   })
 
-  it('should return 3 for optional catch-all segments', () => {
-    expect(getSegmentSpecificity('[[...slug]]')).toBe(3)
-    expect(getSegmentSpecificity('[[...path]]')).toBe(3)
-    expect(getSegmentSpecificity('[[...params]]')).toBe(3)
+  it('should return 4 for optional catch-all segments', () => {
+    expect(getSegmentSpecificity('[[...slug]]')).toBe(4)
+    expect(getSegmentSpecificity('[[...path]]')).toBe(4)
+    expect(getSegmentSpecificity('[[...params]]')).toBe(4)
   })
 
   it('should handle edge cases', () => {
@@ -894,13 +906,13 @@ describe('getSegmentSpecificity', () => {
     expect(getSegmentSpecificity(']')).toBe(0) // Malformed bracket
     expect(getSegmentSpecificity('[id')).toBe(0) // Missing closing bracket
     expect(getSegmentSpecificity('id]')).toBe(0) // Missing opening bracket
-    expect(getSegmentSpecificity('[[...slug]')).toBe(1) // Malformed optional catch-all - treated as dynamic
-    expect(getSegmentSpecificity('[...slug]]')).toBe(2) // Malformed optional catch-all - treated as catch-all
+    expect(getSegmentSpecificity('[[...slug]')).toBe(2) // Malformed optional catch-all - treated as dynamic
+    expect(getSegmentSpecificity('[...slug]]')).toBe(3) // Malformed optional catch-all - treated as catch-all
   })
 
   it('should handle segments with brackets but not dynamic routes', () => {
-    expect(getSegmentSpecificity('api[version]')).toBe(0) // Contains brackets but not a dynamic route
-    expect(getSegmentSpecificity('users[admin]')).toBe(0)
+    expect(getSegmentSpecificity('api[version]')).toBe(1) // Hybrid segment with prefix
+    expect(getSegmentSpecificity('users[admin]')).toBe(1)
   })
 })
 
@@ -913,9 +925,9 @@ describe('compareRouteSegments', () => {
   })
 
   it('should prioritize static over dynamic segments', () => {
-    expect(compareRouteSegments('/api/users', '/api/[id]')).toBe(-1)
-    expect(compareRouteSegments('/api/[id]', '/api/users')).toBe(1)
-    expect(compareRouteSegments('/blog/about', '/blog/[slug]')).toBe(-1)
+    expect(compareRouteSegments('/api/users', '/api/[id]')).toBe(-2)
+    expect(compareRouteSegments('/api/[id]', '/api/users')).toBe(2)
+    expect(compareRouteSegments('/blog/about', '/blog/[slug]')).toBe(-2)
   })
 
   it('should prioritize dynamic over catch-all segments', () => {
@@ -981,10 +993,10 @@ describe('compareRouteSegments', () => {
 
   it('should handle complex nested comparisons', () => {
     expect(compareRouteSegments('/[lang]/blog/[slug]', '/en/blog/[slug]')).toBe(
-      1
+      2
     )
     expect(compareRouteSegments('/en/blog/[slug]', '/[lang]/blog/[slug]')).toBe(
-      -1
+      -2
     )
     expect(
       compareRouteSegments('/[lang]/blog/[...slug]', '/[lang]/blog/[slug]')

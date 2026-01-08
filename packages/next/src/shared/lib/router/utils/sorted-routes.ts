@@ -1,9 +1,17 @@
+import { PARAMETER_PATTERN } from './get-dynamic-param'
+import { INTERCEPTION_ROUTE_MARKERS } from './interception-routes'
+
 class UrlNode {
   placeholder: boolean = true
   children: Map<string, UrlNode> = new Map()
   slugName: string | null = null
+  hybridSlugNames: Map<string, string> = new Map()
   restSlugName: string | null = null
   optionalRestSlugName: string | null = null
+  restSlugPrefix: string | null = null
+  optionalRestSlugPrefix: string | null = null
+  restSlugSuffix: string | null = null
+  optionalRestSlugSuffix: string | null = null
 
   insert(urlPath: string): void {
     this._insert(urlPath.split('/').filter(Boolean), [], false)
@@ -18,6 +26,13 @@ class UrlNode {
     if (this.slugName !== null) {
       childrenPaths.splice(childrenPaths.indexOf('[]'), 1)
     }
+    const hybridKeys = [...this.hybridSlugNames.keys()].sort()
+    for (const key of hybridKeys) {
+      const index = childrenPaths.indexOf(key)
+      if (index >= 0) {
+        childrenPaths.splice(index, 1)
+      }
+    }
     if (this.restSlugName !== null) {
       childrenPaths.splice(childrenPaths.indexOf('[...]'), 1)
     }
@@ -28,6 +43,14 @@ class UrlNode {
     const routes = childrenPaths
       .map((c) => this.children.get(c)!._smoosh(`${prefix}${c}/`))
       .reduce((prev, curr) => [...prev, ...curr], [])
+
+    for (const key of hybridKeys) {
+      const slugName = this.hybridSlugNames.get(key)
+      if (!slugName) continue
+
+      const segment = key.replace('[]', `[${slugName}]`)
+      routes.push(...this.children.get(key)!._smoosh(`${prefix}${segment}/`))
+    }
 
     if (this.slugName !== null) {
       routes.push(
@@ -47,18 +70,26 @@ class UrlNode {
     }
 
     if (this.restSlugName !== null) {
+      const segmentPrefix = this.restSlugPrefix ?? ''
+      const segmentSuffix = this.restSlugSuffix ?? ''
       routes.push(
         ...this.children
           .get('[...]')!
-          ._smoosh(`${prefix}[...${this.restSlugName}]/`)
+          ._smoosh(
+            `${prefix}${segmentPrefix}[...${this.restSlugName}]${segmentSuffix}/`
+          )
       )
     }
 
     if (this.optionalRestSlugName !== null) {
+      const segmentPrefix = this.optionalRestSlugPrefix ?? ''
+      const segmentSuffix = this.optionalRestSlugSuffix ?? ''
       routes.push(
         ...this.children
           .get('[[...]]')!
-          ._smoosh(`${prefix}[[...${this.optionalRestSlugName}]]/`)
+          ._smoosh(
+            `${prefix}${segmentPrefix}[[...${this.optionalRestSlugName}]]${segmentSuffix}/`
+          )
       )
     }
 
@@ -82,16 +113,23 @@ class UrlNode {
     // The next segment in the urlPaths list
     let nextSegment = urlPaths[0]
 
-    // Check if the segment matches `[something]`
-    if (nextSegment.startsWith('[') && nextSegment.endsWith(']')) {
-      // Strip `[` and `]`, leaving only `something`
-      let segmentName = nextSegment.slice(1, -1)
+    // Use PARAMETER_PATTERN so we handle both fully dynamic and hybrid segments.
+    const paramMatches = nextSegment.match(PARAMETER_PATTERN)
+    if (paramMatches) {
+      let segmentName = paramMatches[2]
+      const prefix = paramMatches[1]
+      const suffix = paramMatches[3]
+      const marker = INTERCEPTION_ROUTE_MARKERS.find((m) =>
+        prefix.startsWith(m)
+      )
+      // Interception markers are part of the prefix but shouldn't count as a hybrid affix.
+      const prefixWithoutMarker = marker ? prefix.slice(marker.length) : prefix
 
-      let isOptional = false
+      let optional = false
       if (segmentName.startsWith('[') && segmentName.endsWith(']')) {
         // Strip optional `[` and `]`, leaving only `something`
         segmentName = segmentName.slice(1, -1)
-        isOptional = true
+        optional = true
       }
 
       if (segmentName.startsWith('…')) {
@@ -100,15 +138,29 @@ class UrlNode {
         )
       }
 
+      let repeat = false
       if (segmentName.startsWith('...')) {
         // Strip `...`, leaving only `something`
         segmentName = segmentName.substring(3)
-        isCatchAll = true
+        repeat = true
       }
 
-      if (segmentName.startsWith('[') || segmentName.endsWith(']')) {
+      const hasHybridAffix = prefixWithoutMarker.length > 0 || suffix.length > 0
+      const hasAnyAffix = prefix.length > 0 || suffix.length > 0
+      // hasHybridAffix is used to block catch-all with static affixes.
+      // Examples (segment-level):
+      // - OK: "[id]", "post-[id]", "(.)[id]"
+      // - Error: "post-[...slug]", "[...slug]-tail"
+      // - Error: "[type]-in-[location]" (multiple params in one segment)
+
+      if (
+        segmentName.startsWith('[') ||
+        segmentName.endsWith(']') ||
+        suffix.includes(']')
+      ) {
+        const badName = `${segmentName}${suffix.includes(']') ? ']' : ''}`
         throw new Error(
-          `Segment names may not start or end with extra brackets ('${segmentName}').`
+          `Segment names may not start or end with extra brackets ('${badName}').`
         )
       }
 
@@ -140,7 +192,7 @@ class UrlNode {
             )
           }
 
-          if (slug.replace(/\W/g, '') === nextSegment.replace(/\W/g, '')) {
+          if (slug.replace(/\W/g, '') === nextSlug.replace(/\W/g, '')) {
             throw new Error(
               `You cannot have the slug names "${slug}" and "${nextSlug}" differ only by non-word symbols within a single dynamic path`
             )
@@ -150,17 +202,39 @@ class UrlNode {
         slugNames.push(nextSlug)
       }
 
-      if (isCatchAll) {
-        if (isOptional) {
+      if (repeat) {
+        // Catch-all segments cannot have static affixes in the same segment.
+        // Examples:
+        // - OK: "/docs/[...slug]", "/(.)[...slug]"
+        // - Error: "/docs-[...slug]", "/[...slug]-tail"
+        if (hasHybridAffix) {
+          throw new Error(
+            `Catch-all segments cannot include prefixes or suffixes ("${urlPaths[0]}").`
+          )
+        }
+
+        isCatchAll = true
+        if (optional) {
           if (this.restSlugName != null) {
             throw new Error(
               `You cannot use both an required and optional catch-all route at the same level ("[...${this.restSlugName}]" and "${urlPaths[0]}" ).`
+            )
+          }
+          if (
+            this.optionalRestSlugName != null &&
+            ((this.optionalRestSlugPrefix ?? '') !== prefix ||
+              (this.optionalRestSlugSuffix ?? '') !== suffix)
+          ) {
+            throw new Error(
+              `You cannot use different optional catch-all route patterns at the same level ("${urlPaths[0]}").`
             )
           }
 
           handleSlug(this.optionalRestSlugName, segmentName)
           // slugName is kept as it can only be one particular slugName
           this.optionalRestSlugName = segmentName
+          this.optionalRestSlugPrefix = prefix
+          this.optionalRestSlugSuffix = suffix
           // nextSegment is overwritten to [[...]] so that it can later be sorted specifically
           nextSegment = '[[...]]'
         } else {
@@ -169,24 +243,48 @@ class UrlNode {
               `You cannot use both an optional and required catch-all route at the same level ("[[...${this.optionalRestSlugName}]]" and "${urlPaths[0]}").`
             )
           }
+          if (
+            this.restSlugName != null &&
+            ((this.restSlugPrefix ?? '') !== prefix ||
+              (this.restSlugSuffix ?? '') !== suffix)
+          ) {
+            throw new Error(
+              `You cannot use different catch-all route patterns at the same level ("${urlPaths[0]}").`
+            )
+          }
 
           handleSlug(this.restSlugName, segmentName)
           // slugName is kept as it can only be one particular slugName
           this.restSlugName = segmentName
+          this.restSlugPrefix = prefix
+          this.restSlugSuffix = suffix
           // nextSegment is overwritten to [...] so that it can later be sorted specifically
           nextSegment = '[...]'
         }
       } else {
-        if (isOptional) {
+        if (optional) {
           throw new Error(
             `Optional route parameters are not yet supported ("${urlPaths[0]}").`
           )
         }
-        handleSlug(this.slugName, segmentName)
-        // slugName is kept as it can only be one particular slugName
-        this.slugName = segmentName
-        // nextSegment is overwritten to [] so that it can later be sorted specifically
-        nextSegment = '[]'
+
+        if (hasAnyAffix) {
+          // Group by static affixes so /post-[id] and /post-[slug] collide.
+          // Examples:
+          // - "/post-[id]" + "/post-[slug]" -> conflict at this level.
+          // - "/post-[id]" + "/item-[id]" -> no conflict (different prefix).
+          // - "/house-in-[location]" -> hybrid segment allowed.
+          const hybridKey = `${prefix}[]${suffix}`
+          handleSlug(this.hybridSlugNames.get(hybridKey) ?? null, segmentName)
+          this.hybridSlugNames.set(hybridKey, segmentName)
+          nextSegment = hybridKey
+        } else {
+          handleSlug(this.slugName, segmentName)
+          // slugName is kept as it can only be one particular slugName
+          this.slugName = segmentName
+          // nextSegment is overwritten to [] so that it can later be sorted specifically
+          nextSegment = '[]'
+        }
       }
     }
 
