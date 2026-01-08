@@ -4,9 +4,13 @@
   "description": "The React Framework",
   "main": "./dist/server/next.js",
   "license": "MIT",
-  "repository": "vercel/next.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pablofdezr/next.js",
+    "directory": "packages/next"
+  },
   "bugs": "https://github.com/vercel/next.js/issues",
-  "homepage": "https://nextjs.org",
+  "homepage": "https://github.com/pablofdezr/next.js",
   "types": "index.d.ts",
   "files": [
     "dist",
