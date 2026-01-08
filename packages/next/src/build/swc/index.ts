@@ -131,7 +131,10 @@ const __INTERNAL_CUSTOM_TURBOPACK_BINDINGS =
 function checkVersionMismatch(pkgData: any) {
   const version = pkgData.version
 
-  if (version && version !== nextVersion) {
+  const normalizeVersion = (value: string | undefined) =>
+    value ? value.split('-')[0] : value
+
+  if (version && normalizeVersion(version) !== normalizeVersion(nextVersion)) {
     Log.warn(
       `Mismatching @next/swc version, detected: ${version} while Next.js is on ${nextVersion}. Please ensure these match`
     )
