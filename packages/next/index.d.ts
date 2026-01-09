@@ -1,6 +1,5 @@
 /// <reference types="./types/global" />
 /// <reference types="./types/compiled" />
-/// <reference path="./types/experimental-ai-content.d.ts" />
 /// <reference path="./dist/styled-jsx/types/index.d.ts" />
 /// <reference path="./app.d.ts" />
 /// <reference path="./cache.d.ts" />

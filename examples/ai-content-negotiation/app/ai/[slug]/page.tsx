@@ -1,5 +1,8 @@
 import { notFound } from "next/navigation";
-import type { ExperimentalAIContent, ExperimentalAIContentContext } from "next";
+import type {
+  ExperimentalAIContent,
+  ExperimentalAIContentContext,
+} from "next/experimental";
 
 type City = {
   name: string;

@@ -31,6 +31,8 @@
     "dynamic.d.ts",
     "error.js",
     "error.d.ts",
+    "experimental.js",
+    "experimental.d.ts",
     "future",
     "legacy",
     "script.js",
