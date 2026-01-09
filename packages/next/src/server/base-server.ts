@@ -58,6 +58,7 @@ import {
   STATIC_STATUS_PAGES,
   UNDERSCORE_NOT_FOUND_ROUTE,
   UNDERSCORE_NOT_FOUND_ROUTE_ENTRY,
+  AI_CONTENT_MANIFEST,
 } from '../shared/lib/constants'
 import { isDynamicRoute } from '../shared/lib/router/utils'
 import { execOnce } from '../shared/lib/utils'
@@ -1734,7 +1735,13 @@ export default abstract class Server<
     }
     return this.preparedPromise
   }
-  protected async prepareImpl(): Promise<void> {}
+  protected async prepareImpl(): Promise<void> {
+    if (this.aiContentRouter) {
+      await this.aiContentRouter.loadManifest(
+        path.join(this.distDir, 'server', AI_CONTENT_MANIFEST)
+      )
+    }
+  }
   protected async loadInstrumentationModule(): Promise<any> {}
 
   public async close(): Promise<void> {}
