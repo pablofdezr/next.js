@@ -33,7 +33,9 @@ export default function Page() {
   return (
     <div className="space-y-8">
       <section>
-        <h2 className="text-lg font-semibold">Destinations (Standard Dynamic)</h2>
+        <h2 className="text-lg font-semibold">
+          Destinations (Standard Dynamic)
+        </h2>
         <p className="mt-2 text-sm text-slate-600">
           Select a destination to view its content or request a specific format.
         </p>
@@ -51,13 +53,22 @@ export default function Page() {
               </Link>
               <p className="mt-1 text-sm text-slate-600">{item.summary}</p>
               <div className="mt-3 flex gap-2 text-xs font-medium text-slate-500">
-                <a href={`/ai/${item.slug}.md`} className="hover:text-slate-700">
+                <a
+                  href={`/ai/${item.slug}.md`}
+                  className="hover:text-slate-700"
+                >
                   .md
                 </a>
-                <a href={`/ai/${item.slug}.json`} className="hover:text-slate-700">
+                <a
+                  href={`/ai/${item.slug}.json`}
+                  className="hover:text-slate-700"
+                >
                   .json
                 </a>
-                <a href={`/ai/${item.slug}.llm`} className="hover:text-slate-700">
+                <a
+                  href={`/ai/${item.slug}.llm`}
+                  className="hover:text-slate-700"
+                >
                   .llm
                 </a>
               </div>
@@ -106,10 +117,38 @@ export default function Page() {
       </section>
 
       <section>
+        <h2 className="text-lg font-semibold">Minimal Example</h2>
+        <p className="mt-2 text-sm text-slate-600">
+          A very concise example of AI content negotiation using a static route.
+        </p>
+        <div className="mt-4">
+          <div className="border border-slate-200 p-4 rounded-lg hover:border-slate-300 transition-colors max-w-sm">
+            <Link
+              href="/paris"
+              className="text-lg font-semibold text-slate-900 hover:underline"
+            >
+              Paris (Minimal)
+            </Link>
+            <div className="mt-3 flex gap-2 text-xs font-medium text-slate-500">
+              <a href="/paris.md" className="hover:text-slate-700">
+                .md
+              </a>
+              <a href="/paris.json" className="hover:text-slate-700">
+                .json
+              </a>
+              <a href="/paris.llm" className="hover:text-slate-700">
+                .llm
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
         <h2 className="text-lg font-semibold">Accept Headers</h2>
         <div className="mt-4 overflow-hidden rounded-lg border border-slate-200 bg-slate-50">
           <pre className="overflow-x-auto p-4 text-xs text-slate-700">
-{`curl -H "Accept: text/markdown" http://localhost:3000/ai/sevilla
+            {`curl -H "Accept: text/markdown" http://localhost:3000/ai/sevilla
 curl -H "Accept: application/json" http://localhost:3000/ai/sevilla
 curl -H "Accept: application/llm+json" http://localhost:3000/ai/sevilla`}
           </pre>
