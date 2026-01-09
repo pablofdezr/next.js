@@ -144,6 +144,7 @@ import { NextRequestHint } from './web/adapter'
 import type { RouteModule } from './route-modules/route-module'
 import { type FallbackMode, parseFallbackField } from '../lib/fallback'
 import { SegmentPrefixRSCPathnameNormalizer } from './normalizers/request/segment-prefix-rsc'
+import { AIContentRouter } from './ai-content-router'
 import { shouldServeStreamingMetadata } from './lib/streaming-metadata'
 import { decodeQueryPathParameter } from './lib/decode-query-path-parameter'
 import { NoFallbackError } from '../shared/lib/no-fallback-error.external'
@@ -330,6 +331,7 @@ export default abstract class Server<
   protected readonly renderOpts: BaseRenderOpts
   protected readonly serverOptions: Readonly<ServerOptions>
   protected readonly appPathRoutes?: Record<string, string[]>
+  protected readonly aiContentRouter: AIContentRouter
   protected readonly clientReferenceManifest?: DeepReadonly<ClientReferenceManifest>
   protected interceptionRoutePatterns: RegExp[]
   protected nextFontManifest?: DeepReadonly<NextFontManifest>
@@ -589,6 +591,23 @@ export default abstract class Server<
 
     // Configure the routes.
     this.matchers = this.getRouteMatchers()
+
+    this.aiContentRouter = new AIContentRouter({
+      distDir: this.distDir,
+      cdnCacheControlHeader: this.nextConfig.experimental.cdnCacheControlHeader,
+    })
+
+    if (dev) {
+      const ensurePage =
+        typeof (this as any).ensurePage === 'function'
+          ? (this as any).ensurePage.bind(this)
+          : undefined
+      this.aiContentRouter.setDevRouting({
+        matchers: this.matchers,
+        i18nProvider: this.i18nProvider,
+        ensurePage,
+      })
+    }
 
     // Start route compilation. We don't wait for the routes to finish loading
     // because we use the `waitTillReady` promise below in `handleRequest` to
@@ -1482,6 +1501,16 @@ export default abstract class Server<
       // when invokePath is specified we can short short circuit resolving
       // we only honor this header if we are inside of a render worker to
       // prevent external users coercing the routing path
+      if (this.aiContentRouter) {
+        const aiHandled = await this.aiContentRouter.handle(
+          parsedUrl.pathname || '',
+          req,
+          res,
+          parsedUrl
+        )
+        if (aiHandled) return
+      }
+
       const invokePath = getRequestMeta(req, 'invokePath')
       const useInvokePath = !useMatchedPathHeader && invokePath
 

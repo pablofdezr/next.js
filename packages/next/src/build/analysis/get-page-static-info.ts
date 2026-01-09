@@ -21,6 +21,7 @@ import { isEdgeRuntime } from '../../lib/is-edge-runtime'
 import { RSC_MODULE_TYPES } from '../../shared/lib/constants'
 import type { RSCMeta } from '../webpack/loaders/get-module-build-info'
 import { PAGE_TYPES } from '../../lib/page-types'
+import type { AIContentFormat } from '../manifests/ai-content-manifest'
 import {
   AppSegmentConfigSchemaKeys,
   parseAppSegmentConfig,
@@ -43,7 +44,7 @@ import { normalizePagePath } from '../../shared/lib/page-path/normalize-page-pat
 import { isProxyFile } from '../utils'
 
 const PARSE_PATTERN =
-  /(?<!(_jsx|jsx-))runtime|preferredRegion|getStaticProps|getServerSideProps|generateStaticParams|export const|generateImageMetadata|generateSitemaps|middleware|proxy/
+  /(?<!(_jsx|jsx-))runtime|preferredRegion|getStaticProps|getServerSideProps|generateStaticParams|export const|generateImageMetadata|generateSitemaps|experimentalGenerateAI|experimentalAIFormats|middleware|proxy/
 
 export type ProxyMatcher = {
   regexp: string
@@ -80,6 +81,8 @@ export interface AppPageStaticInfo {
   generateStaticParams?: boolean
   generateSitemaps?: boolean
   generateImageMetadata?: boolean
+  experimentalGenerateAI?: boolean
+  supportedAIFormats?: AIContentFormat[]
   middleware?: ProxyConfig
   config: Omit<AppSegmentConfig, 'runtime' | 'maxDuration'> | undefined
   runtime: AppSegmentConfig['runtime'] | undefined
@@ -96,6 +99,8 @@ export interface PagesPageStaticInfo {
   generateStaticParams?: boolean
   generateSitemaps?: boolean
   generateImageMetadata?: boolean
+  experimentalGenerateAI?: boolean
+  supportedAIFormats?: AIContentFormat[]
   middleware?: ProxyConfig
   config:
     | (Omit<PagesSegmentConfig, 'runtime' | 'config' | 'maxDuration'> & {
@@ -120,6 +125,10 @@ const ACTION_MODULE_LABEL =
 
 const CLIENT_DIRECTIVE = 'use client'
 const SERVER_ACTION_DIRECTIVE = 'use server'
+
+const AI_CONTENT_EXPORT = 'experimentalGenerateAI'
+const AI_FORMATS_EXPORT = 'experimentalAIFormats'
+const DEFAULT_AI_FORMATS: AIContentFormat[] = ['markdown', 'json', 'llm']
 
 export type RSCModuleType = 'server' | 'client'
 export function getRSCModuleInformation(
@@ -303,6 +312,92 @@ function checkExports(
   } catch {}
 
   return {}
+}
+
+function hasExportedIdentifier(ast: any, name: string): boolean {
+  if (!Array.isArray(ast?.body)) {
+    return false
+  }
+
+  for (const node of ast.body) {
+    if (
+      node.type === 'ExportDeclaration' &&
+      node.declaration?.type === 'FunctionDeclaration' &&
+      node.declaration.identifier?.value === name
+    ) {
+      return true
+    }
+
+    if (
+      node.type === 'ExportDeclaration' &&
+      node.declaration?.type === 'VariableDeclaration'
+    ) {
+      for (const declaration of node.declaration?.declarations || []) {
+        if (declaration.id?.value === name) {
+          return true
+        }
+      }
+    }
+
+    if (node.type === 'ExportNamedDeclaration') {
+      for (const specifier of node.specifiers || []) {
+        if (
+          specifier.type === 'ExportSpecifier' &&
+          specifier.orig?.type === 'Identifier' &&
+          specifier.orig.value === name
+        ) {
+          return true
+        }
+      }
+    }
+  }
+
+  return false
+}
+
+function detectAIFormatsFromContent(content: string): AIContentFormat[] {
+  const formats: AIContentFormat[] = []
+  if (/\bmarkdown\s*:/.test(content)) formats.push('markdown')
+  if (/\bjson\s*:/.test(content)) formats.push('json')
+  if (/\bllm\s*:/.test(content)) formats.push('llm')
+  return formats
+}
+
+function getAIContentInfo({ ast, content }: { ast: any; content: string }): {
+  experimentalGenerateAI: boolean
+  supportedAIFormats?: AIContentFormat[]
+} {
+  if (!hasExportedIdentifier(ast, AI_CONTENT_EXPORT)) {
+    return { experimentalGenerateAI: false }
+  }
+
+  let supportedAIFormats: AIContentFormat[] | undefined
+  try {
+    const exportedFormats = extractExportedConstValue(ast, AI_FORMATS_EXPORT)
+    if (Array.isArray(exportedFormats)) {
+      supportedAIFormats = exportedFormats.filter(
+        (format): format is AIContentFormat =>
+          format === 'markdown' || format === 'json' || format === 'llm'
+      )
+    }
+  } catch (e) {
+    if (e instanceof UnsupportedValueError) {
+      // Ignore unsupported values for experimental AI formats.
+    }
+  }
+
+  if (!supportedAIFormats || supportedAIFormats.length === 0) {
+    supportedAIFormats = detectAIFormatsFromContent(content)
+  }
+
+  if (!supportedAIFormats || supportedAIFormats.length === 0) {
+    supportedAIFormats = DEFAULT_AI_FORMATS.slice()
+  }
+
+  return {
+    experimentalGenerateAI: true,
+    supportedAIFormats,
+  }
 }
 
 function validateMiddlewareProxyExports({
@@ -635,6 +730,8 @@ export async function getAppPageStaticInfo({
     isDev,
   })
 
+  const aiContentInfo = getAIContentInfo({ ast, content })
+
   const {
     generateStaticParams,
     generateImageMetadata,
@@ -696,6 +793,7 @@ export async function getAppPageStaticInfo({
     generateImageMetadata,
     generateSitemaps,
     generateStaticParams,
+    ...aiContentInfo,
     config,
     middleware: parseMiddlewareConfig(page, exportedConfig.config, nextConfig),
     runtime: config.runtime,
@@ -730,6 +828,8 @@ export async function getPagesPageStaticInfo({
     pageFilePath,
     isDev,
   })
+
+  const aiContentInfo = getAIContentInfo({ ast, content })
 
   const { getServerSideProps, getStaticProps, exports } = checkExports(
     ast,
@@ -808,6 +908,7 @@ export async function getPagesPageStaticInfo({
     getStaticProps,
     getServerSideProps,
     rsc,
+    ...aiContentInfo,
     config,
     middleware: parseMiddlewareConfig(page, exportedConfig.config, nextConfig),
     runtime: resolvedRuntime,

@@ -77,6 +77,7 @@ import {
   MIDDLEWARE_REACT_LOADABLE_MANIFEST,
   SERVER_REFERENCE_MANIFEST,
   FUNCTIONS_CONFIG_MANIFEST,
+  AI_CONTENT_MANIFEST,
   DYNAMIC_CSS_MANIFEST,
   TURBOPACK_CLIENT_MIDDLEWARE_MANIFEST,
 } from '../shared/lib/constants'
@@ -111,7 +112,21 @@ import {
 } from '../telemetry/events'
 import type { EventBuildFeatureUsage } from '../telemetry/events'
 import { Telemetry } from '../telemetry/storage'
-import { discoverRoutes, createPagesMapping } from './route-discovery'
+import { discoverRoutes } from './route-discovery'
+import {
+  createPagesMapping,
+  collectAppFiles,
+  processPageRoutes,
+  processAppRoutes,
+  processLayoutRoutes,
+  extractSlotsFromAppRoutes,
+  extractSlotsFromDefaultFiles,
+  combineSlots,
+  getPageFilePath,
+  type RouteInfo,
+  type SlotInfo,
+  collectPagesFiles,
+} from './entries'
 import { sortByPageExts } from './sort-by-page-exts'
 import { getStaticInfoIncludingLayouts } from './get-static-info-including-layouts'
 import { PAGE_TYPES } from '../lib/page-types'
@@ -164,6 +179,13 @@ import { isAppRouteRoute } from '../lib/is-app-route-route'
 import { createClientRouterFilter } from '../lib/create-client-router-filter'
 import { startTypeChecking } from './type-check'
 import { generateInterceptionRoutesRewrites } from '../lib/generate-interception-routes-rewrites'
+import { isAPIRoute } from '../lib/is-api-route'
+import { removeTrailingSlash } from '../shared/lib/router/utils/remove-trailing-slash'
+import {
+  buildAIContentManifest,
+  normalizeSupportedFormats,
+  type AIContentManifestEntry,
+} from './manifests/ai-content-manifest'
 
 import { buildDataRoute } from '../server/lib/router-utils/build-data-route'
 import { collectBuildTraces } from './collect-build-traces'
@@ -670,6 +692,131 @@ async function writeImagesManifest(
     version: 1,
     images,
   })
+}
+
+function extractDynamicParams(route: string): string[] {
+  const { routeKeys } = getNamedRouteRegex(route, {
+    prefixRouteKeys: false,
+  })
+  return Object.keys(routeKeys)
+}
+
+async function collectAIContentManifestEntries({
+  mappedPages,
+  mappedAppPages,
+  pagesDir,
+  appDir,
+  rootDir,
+  config,
+  dir,
+}: {
+  mappedPages: MappedPages
+  mappedAppPages: MappedPages | undefined
+  pagesDir: string | undefined
+  appDir: string | undefined
+  rootDir: string
+  config: NextConfigComplete
+  dir: string
+}): Promise<AIContentManifestEntry[]> {
+  const entries: AIContentManifestEntry[] = []
+  const pageExtensions = config.pageExtensions
+
+  for (const page of Object.keys(mappedPages)) {
+    if (isReservedPage(page) || isAPIRoute(page)) {
+      continue
+    }
+
+    const absolutePagePath = mappedPages[page]
+    const pageFilePath = getPageFilePath({
+      absolutePagePath,
+      pagesDir,
+      appDir,
+      rootDir,
+    })
+
+    const staticInfo = await getStaticInfoIncludingLayouts({
+      isInsideAppDir: false,
+      pageFilePath,
+      appDir,
+      config,
+      isDev: false,
+      pageExtensions,
+      page,
+    })
+
+    if (!staticInfo.experimentalGenerateAI) {
+      continue
+    }
+
+    const route = removeTrailingSlash(page)
+    entries.push({
+      route,
+      page,
+      sourceFile: path.relative(dir, pageFilePath),
+      isAppPath: false,
+      isDynamic: isDynamicRoute(route),
+      hasGenerateStaticParams: !!staticInfo.generateStaticParams,
+      dynamicParams: extractDynamicParams(route),
+      supportedFormats: normalizeSupportedFormats(
+        staticInfo.supportedAIFormats
+      ),
+      defaultFormat: 'html',
+    })
+  }
+
+  if (appDir && mappedAppPages) {
+    for (const [appKey, absolutePagePath] of Object.entries(mappedAppPages)) {
+      if (isAppRouteRoute(appKey)) {
+        continue
+      }
+
+      const pageFilePath = getPageFilePath({
+        absolutePagePath,
+        pagesDir,
+        appDir,
+        rootDir,
+      })
+
+      if (isAppBuiltinPage(pageFilePath)) {
+        continue
+      }
+
+      const staticInfo = await getStaticInfoIncludingLayouts({
+        isInsideAppDir: true,
+        pageFilePath,
+        appDir,
+        config,
+        isDev: false,
+        pageExtensions,
+        page: appKey,
+      })
+
+      if (!staticInfo.experimentalGenerateAI) {
+        continue
+      }
+
+      const route = removeTrailingSlash(normalizeAppPath(appKey))
+      entries.push({
+        route,
+        page: appKey,
+        sourceFile: path.relative(dir, pageFilePath),
+        isAppPath: true,
+        isDynamic: isDynamicRoute(route),
+        hasGenerateStaticParams: !!staticInfo.generateStaticParams,
+        dynamicParams: extractDynamicParams(route),
+        supportedFormats: normalizeSupportedFormats(
+          staticInfo.supportedAIFormats
+        ),
+        revalidate:
+          staticInfo.type === PAGE_TYPES.APP
+            ? staticInfo.config?.revalidate
+            : undefined,
+        defaultFormat: 'html',
+      })
+    }
+  }
+
+  return entries
 }
 
 const STANDALONE_DIRECTORY = 'standalone' as const
@@ -1820,6 +1967,7 @@ export default async function build(
               BUILD_MANIFEST,
               PRERENDER_MANIFEST,
               path.join(SERVER_DIRECTORY, FUNCTIONS_CONFIG_MANIFEST),
+              path.join(SERVER_DIRECTORY, AI_CONTENT_MANIFEST),
               path.join(SERVER_DIRECTORY, MIDDLEWARE_MANIFEST),
               path.join(SERVER_DIRECTORY, MIDDLEWARE_BUILD_MANIFEST + '.js'),
               ...(bundler !== Bundler.Turbopack
@@ -2610,6 +2758,22 @@ export default async function build(
       }
 
       await writeFunctionsConfigManifest(distDir, functionsConfigManifest)
+
+      const aiContentEntries = await collectAIContentManifestEntries({
+        mappedPages,
+        mappedAppPages,
+        pagesDir,
+        appDir,
+        rootDir,
+        config,
+        dir,
+      })
+
+      await fs.mkdir(path.join(distDir, SERVER_DIRECTORY), { recursive: true })
+      await writeManifest(
+        path.join(distDir, SERVER_DIRECTORY, AI_CONTENT_MANIFEST),
+        buildAIContentManifest(aiContentEntries)
+      )
 
       // #endregion
       // #region NFT

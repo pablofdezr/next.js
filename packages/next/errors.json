@@ -1049,5 +1049,11 @@
   "1048": "Catch-all segments cannot include prefixes or suffixes (\"%s\").",
   "1049": "You cannot use different optional catch-all route patterns at the same level (\"%s\").",
   "1050": "You cannot use different catch-all route patterns at the same level (\"%s\").",
-  "1051": "Catch-all segments cannot include prefixes or suffixes (\"%s\") in route \"%s\"."
+  "1051": "Catch-all segments cannot include prefixes or suffixes (\"%s\") in route \"%s\".",
+  "1052": "Module %s does not export experimentalGenerateAI",
+  "1053": "Markdown format requested but not provided",
+  "1054": "JSON format requested but not provided",
+  "1055": "LLM format requested but not provided",
+  "1056": "HTML format should not be rendered here",
+  "1057": "Unknown format: %s"
 }

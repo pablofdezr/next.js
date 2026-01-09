@@ -56,6 +56,37 @@ export async function getLayoutOrPageModule(loaderTree: LoaderTree) {
   return { mod, modType, filePath }
 }
 
+type PageModuleResult = { mod: unknown; filePath: string | undefined }
+
+export async function getPageModule(
+  loaderTree: LoaderTree
+): Promise<PageModuleResult> {
+  const [segment, parallelRoutes, modules] = loaderTree
+  const isDefaultPage =
+    typeof modules.defaultPage !== 'undefined' &&
+    segment === DEFAULT_SEGMENT_KEY
+  const page = isDefaultPage ? modules.defaultPage : modules.page
+
+  if (page) {
+    const mod = await page[0]()
+    return { mod, filePath: page[1] }
+  }
+
+  const children = parallelRoutes.children
+  if (children) {
+    const result = await getPageModule(children)
+    if (result.mod) return result
+  }
+
+  for (const key of Object.keys(parallelRoutes)) {
+    if (key === 'children') continue
+    const result = await getPageModule(parallelRoutes[key])
+    if (result.mod) return result
+  }
+
+  return { mod: undefined, filePath: undefined }
+}
+
 export async function getComponentTypeModule(
   loaderTree: LoaderTree,
   moduleType: 'layout' | 'not-found' | 'forbidden' | 'unauthorized'
