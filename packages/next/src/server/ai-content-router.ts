@@ -1,5 +1,6 @@
 import type { BaseNextRequest, BaseNextResponse } from './base-http'
 import type { NextUrlWithParsedQuery } from './request-meta'
+import { addRequestMeta } from './request-meta'
 import type {
   AIContentFormat,
   AIContentManifest,
@@ -139,8 +140,25 @@ export class AIContentRouter {
       return true
     }
 
+    // Add match to request meta to enable logging in dev server
+    addRequestMeta(req, 'match', {
+      definition: {
+        kind: RouteKind.APP_PAGE,
+        page: entry.page,
+        pathname: entry.route,
+        filename: entry.sourceFile,
+        bundlePath: '',
+      },
+      params: params,
+    } as any)
+
     try {
       const searchParams = this.parseSearchParams(parsedUrl)
+
+      // Capture start of rendering phase for timing logs
+      const internalsStart = process.hrtime.bigint()
+      addRequestMeta(req, 'devRequestTimingInternalsEnd', internalsStart)
+
       const { body, revalidate } = await AIContentRenderer.render({
         entry,
         distDir: this.options.distDir,
@@ -262,7 +280,6 @@ export class AIContentRouter {
       definition.kind !== RouteKind.APP_PAGE &&
       definition.kind !== RouteKind.PAGES
     ) {
-      console.log('[AI Content Router] Wrong route kind:', definition.kind)
       return null
     }
 
@@ -273,10 +290,6 @@ export class AIContentRouter {
         : null
 
     if (this.devRouting.ensurePage) {
-      console.log(
-        '[AI Content Router] calling ensurePage for:',
-        definition.page
-      )
       await this.devRouting.ensurePage({
         page: definition.page,
         clientOnly: false,

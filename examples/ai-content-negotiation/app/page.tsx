@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const items = [
   {
     slug: "sevilla",
@@ -16,67 +18,103 @@ const items = [
   },
 ];
 
+const hybridItems = [
+  {
+    destination: "paris",
+    label: "Trip to Paris",
+  },
+  {
+    destination: "tokyo",
+    label: "Trip to Tokyo",
+  },
+];
+
 export default function Page() {
   return (
-    <main>
-      <h1 style={{ fontSize: 40, marginBottom: 12 }}>AI Content Negotiation</h1>
-      <p style={{ fontSize: 18, lineHeight: 1.5 }}>
-        This example shows how a single route can return HTML by default and
-        negotiate Markdown, JSON, or LLM payloads based on extension or Accept
-        headers.
-      </p>
-
-      <section style={{ marginTop: 32 }}>
-        <h2 style={{ fontSize: 24, marginBottom: 12 }}>Destinations</h2>
-        <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+    <div className="space-y-8">
+      <section>
+        <h2 className="text-lg font-semibold">Destinations (Standard Dynamic)</h2>
+        <p className="mt-2 text-sm text-slate-600">
+          Select a destination to view its content or request a specific format.
+        </p>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2">
           {items.map((item) => (
-            <li
+            <div
               key={item.slug}
-              style={{
-                marginBottom: 16,
-                padding: 16,
-                borderRadius: 12,
-                background: "#ffffff",
-                boxShadow: "0 1px 4px rgba(0, 0, 0, 0.08)",
-              }}
+              className="border border-slate-200 p-4 rounded-lg hover:border-slate-300 transition-colors"
             >
-              <a
+              <Link
                 href={`/ai/${item.slug}`}
-                style={{
-                  fontSize: 20,
-                  color: "#111827",
-                  textDecoration: "none",
-                }}
+                className="text-lg font-semibold text-slate-900 hover:underline"
               >
                 {item.title}
-              </a>
-              <p style={{ margin: "8px 0 0", color: "#4b5563" }}>
-                {item.summary}
-              </p>
-              <div style={{ marginTop: 8, display: "flex", gap: 12 }}>
-                <a href={`/ai/${item.slug}.md`}>.md</a>
-                <a href={`/ai/${item.slug}.json`}>.json</a>
-                <a href={`/ai/${item.slug}.llm`}>.llm</a>
+              </Link>
+              <p className="mt-1 text-sm text-slate-600">{item.summary}</p>
+              <div className="mt-3 flex gap-2 text-xs font-medium text-slate-500">
+                <a href={`/ai/${item.slug}.md`} className="hover:text-slate-700">
+                  .md
+                </a>
+                <a href={`/ai/${item.slug}.json`} className="hover:text-slate-700">
+                  .json
+                </a>
+                <a href={`/ai/${item.slug}.llm`} className="hover:text-slate-700">
+                  .llm
+                </a>
               </div>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       </section>
 
-      <section style={{ marginTop: 40 }}>
-        <h2 style={{ fontSize: 24, marginBottom: 12 }}>Accept Headers</h2>
-        <pre
-          style={{
-            background: "#111827",
-            color: "#e5e7eb",
-            padding: 16,
-            borderRadius: 12,
-            overflowX: "auto",
-          }}
-        >{`curl -H "Accept: text/markdown" http://localhost:3000/ai/sevilla
-curl -H "Accept: application/json" http://localhost:3000/ai/sevilla
-curl -H "Accept: application/llm+json" http://localhost:3000/ai/sevilla`}</pre>
+      <section>
+        <h2 className="text-lg font-semibold">Hybrid Routes</h2>
+        <p className="mt-2 text-sm text-slate-600">
+          Example of hybrid route segments with AI content support.
+        </p>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          {hybridItems.map((item) => (
+            <div
+              key={item.destination}
+              className="border border-slate-200 p-4 rounded-lg hover:border-slate-300 transition-colors"
+            >
+              <Link
+                href={`/trip-to-${item.destination}`}
+                className="text-lg font-semibold text-slate-900 hover:underline"
+              >
+                {item.label}
+              </Link>
+              <p className="mt-1 text-sm text-slate-600">
+                Matched by /trip-to-[destination]
+              </p>
+              <div className="mt-3 flex gap-2 text-xs font-medium text-slate-500">
+                <a
+                  href={`/trip-to-${item.destination}.md`}
+                  className="hover:text-slate-700"
+                >
+                  .md
+                </a>
+                <a
+                  href={`/trip-to-${item.destination}.json`}
+                  className="hover:text-slate-700"
+                >
+                  .json
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
-    </main>
+
+      <section>
+        <h2 className="text-lg font-semibold">Accept Headers</h2>
+        <div className="mt-4 overflow-hidden rounded-lg border border-slate-200 bg-slate-50">
+          <pre className="overflow-x-auto p-4 text-xs text-slate-700">
+{`curl -H "Accept: text/markdown" http://localhost:3000/ai/sevilla
+curl -H "Accept: application/json" http://localhost:3000/ai/sevilla
+curl -H "Accept: application/llm+json" http://localhost:3000/ai/sevilla`}
+          </pre>
+        </div>
+      </section>
+    </div>
   );
 }

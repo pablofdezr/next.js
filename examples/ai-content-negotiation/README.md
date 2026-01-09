@@ -2,7 +2,8 @@
 
 This example demonstrates the experimental AI content negotiation feature.
 It serves HTML by default and can negotiate Markdown, JSON, or LLM content
-via file extensions or Accept headers.
+via file extensions or Accept headers. It uses Tailwind CSS and the Geist
+font via `next/font/google`.
 
 ## Run
 
@@ -17,10 +18,10 @@ pnpm --filter=example-ai-content-negotiation dev
 ## Routes to Try
 
 - `/` -> home page
-- `/ai/sevilla` -> HTML
+- `/ai/sevilla` -> HTML (standard dynamic)
 - `/ai/sevilla.md` -> Markdown
-- `/ai/sevilla.json` -> JSON
-- `/ai/sevilla.llm` -> LLM payload
+- `/trip-to-paris` -> HTML (hybrid route)
+- `/trip-to-paris.md` -> Markdown (hybrid route)
 
 ## Accept Header Examples
 
