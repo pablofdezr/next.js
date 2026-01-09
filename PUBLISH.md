@@ -53,6 +53,20 @@ pnpm publish --tag canary --no-git-checks --no-provenance
 - `--no-git-checks`: Useful if the local git state isn't perfectly clean (e.g., untracked files) or if `pnpm` complains about branch status, but **use with caution**. Always try to commit changes first.
 - `--no-provenance`: **CRITICAL** when publishing from a local machine. provenance generation typically requires a supported CI/CD environment (like GitHub Actions). If omitted locally, publishing will fail with `Automatic provenance generation not supported for provider: null`.
 
+**Updating the Default (latest) Tag:**
+
+By default, npm shows the version tagged as `latest`. If you want the version you just published to be the default one shown on the npm package page (and installed via `npm install next-hybrid`), you must promote it:
+
+```bash
+npm dist-tag add next-hybrid@<version> latest
+```
+
+Example:
+
+```bash
+npm dist-tag add next-hybrid@16.1.1-hybrid.5 latest
+```
+
 ### 4. Verify
 
 - Check the npm page: https://www.npmjs.com/package/next-hybrid

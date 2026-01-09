@@ -12,7 +12,7 @@ App Router (for example `/house-in-[city]`) and **experimental AI Content Negoti
 
 ### AI Content Negotiation (Experimental)
 - Serve Markdown, JSON, or LLM-optimized payloads from the same route.
-- Negotiate content via file extension (e.g. `.md`, `.json`) or `Accept` header.
+- Negotiate content via file extension (e.g. `.md`, `.json`, `.llm`) or `Accept` header.
 - Define `experimentalGenerateAI` in your page to produce these formats.
 
 ## Create a new app (floating latest)
@@ -97,10 +97,27 @@ export async function experimentalGenerateAI(ctx: ExperimentalAIContentContext):
 }
 ```
 
-Access via:
+### Access via File Extensions
+
 - `/ai/foo` -> HTML
 - `/ai/foo.md` -> Markdown
 - `/ai/foo.json` -> JSON
+- `/ai/foo.llm` -> LLM JSON (if supported)
+
+### Access via Accept Headers
+
+You can also specify the `Accept` header to negotiate the content type:
+
+```bash
+# Get Markdown content
+curl -H "Accept: text/markdown" http://localhost:3000/ai/foo
+
+# Get JSON content
+curl -H "Accept: application/json" http://localhost:3000/ai/foo
+
+# Get LLM-optimized JSON content
+curl -H "Accept: application/llm+json" http://localhost:3000/ai/foo
+```
 
 ## Repository
 
