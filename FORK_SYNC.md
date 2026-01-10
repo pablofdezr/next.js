@@ -47,11 +47,15 @@ git rebase upstream/canary
 5. Resolve conflicts if any
 
 - Open files in VSCode and resolve `<<<<<<<` blocks.
+- **Common Conflict: `packages/next/package.json`**:
+  - You will likely conflict on `name` ("next-hybrid") and `version` (e.g., `16.1.1-hybrid.x`).
+  - **Resolution**: Keep your custom name and your custom hybrid version. Do NOT revert to the upstream `next` name or `canary` version.
 - Then:
 
 ```bash
 git add <files>
-git rebase --continue
+# Use GIT_EDITOR="cat" to avoid opening an interactive editor for commit messages if you're automating or just want to accept the default.
+GIT_EDITOR="cat" git rebase --continue
 ```
 
 Repeat until the rebase finishes. If you need to skip a commit:
@@ -83,3 +87,4 @@ Expected result: `0 <n>` (0 behind, n ahead).
 - Avoid `git pull` on canary; use fetch + rebase to keep history clean.
 - If the rebase repeatedly skips commits, that usually means they already exist
   upstream.
+- **Dependencies**: After syncing, it's good practice to run `pnpm install` to ensure your lockfile matches any new upstream dependencies, though your rebase should ideally handle this if there were no conflicts in the lockfile.
