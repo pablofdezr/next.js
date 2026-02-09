@@ -120,19 +120,24 @@ cd packages/next
 pnpm run build
 ```
 
-*Note: If `generate_types` fails, it is often due to strict type mismatches in the vendored dependencies after the rename. The build is configured to continue anyway.*
+_Note: If `generate_types` fails, it is often due to strict type mismatches in the vendored dependencies after the rename. The build is configured to continue anyway._
 
 ### 3. Publish to NPM
 
-Publish using the `hybrid` tag to keep it separated from regular releases:
+Publish using the `latest` tag so that the README and package metadata are correctly updated on the NPM landing page. You can also use the `hybrid` tag if you want to keep it as a secondary release.
 
 ```bash
+# Recommended: Publish as latest
+pnpm publish --no-git-checks --tag latest --access public --no-provenance
+
+# Optional: Publish with hybrid tag
 pnpm publish --no-git-checks --tag hybrid --access public --no-provenance
 ```
 
 ## Summary of Hybrid Modifications
 
 The following local changes are essential to keep `next-hybrid` working:
+
 - **`package.json`**: Name changed to `next-hybrid`.
 - **`taskfile.js`**: `generate_types` wrapped in try/catch to prevent build aborts on type errors.
 - **`next-runtime.webpack-config.js`**: Fixed `externalsMap` and internal aliases to use absolute paths or the `next-hybrid` name.
