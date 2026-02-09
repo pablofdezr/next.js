@@ -1,5 +1,5 @@
 import type { ChildProcess } from 'child_process'
-import { Worker as JestWorker } from 'next/dist/compiled/jest-worker'
+import { Worker as JestWorker } from 'next-hybrid/dist/compiled/jest-worker'
 import { Transform } from 'stream'
 import {
   formatDebugAddress,

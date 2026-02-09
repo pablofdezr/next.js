@@ -1,4 +1,4 @@
-import { configure } from 'next/dist/compiled/safe-stable-stringify'
+import { configure } from 'next-hybrid/dist/compiled/safe-stable-stringify'
 
 // Configure stringify with reasonable limits for action logging
 const stringify = configure({

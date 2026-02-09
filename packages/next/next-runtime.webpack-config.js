@@ -29,32 +29,78 @@ const pagesExternals = [
 ]
 
 const appExternals = []
+const compiledDir = path.join(__dirname, 'dist/compiled')
 
 function makeAppAliases({ experimental, bundler }) {
   const reactChannel = experimental ? '-experimental' : ''
 
   return {
-    react$: `next/dist/compiled/react${reactChannel}`,
-    'react/react.react-server$': `next/dist/compiled/react${reactChannel}/react.react-server`,
-    'react-dom$': `next/dist/compiled/react-dom${reactChannel}`,
-    'react/jsx-runtime$': `next/dist/compiled/react${reactChannel}/jsx-runtime`,
-    'react/jsx-dev-runtime$': `next/dist/compiled/react${reactChannel}/jsx-dev-runtime`,
-    'react/compiler-runtime$': `next/dist/compiled/react${reactChannel}/compiler-runtime`,
-    'react-dom/client$': `next/dist/compiled/react-dom${reactChannel}/client`,
+    react$: path.join(compiledDir, `react${reactChannel}`),
+    'react/react.react-server$': path.join(
+      compiledDir,
+      `react${reactChannel}/react.react-server`
+    ),
+    'react-dom$': path.join(compiledDir, `react-dom${reactChannel}`),
+    'react/jsx-runtime$': path.join(
+      compiledDir,
+      `react${reactChannel}/jsx-runtime`
+    ),
+    'react/jsx-dev-runtime$': path.join(
+      compiledDir,
+      `react${reactChannel}/jsx-dev-runtime`
+    ),
+    'react/compiler-runtime$': path.join(
+      compiledDir,
+      `react${reactChannel}/compiler-runtime`
+    ),
+    'react-dom/client$': path.join(
+      compiledDir,
+      `react-dom${reactChannel}/client`
+    ),
     // optimizations to ignore the legacy APIs in react-dom/server
-    'react-dom/server$': `next/dist/build/webpack/alias/react-dom-server${reactChannel}.js`,
-    'react-dom/static$': `next/dist/compiled/react-dom${reactChannel}/static.node`,
+    'react-dom/server$': path.join(
+      __dirname,
+      `dist/build/webpack/alias/react-dom-server${reactChannel}.js`
+    ),
+    'react-dom/static$': path.join(
+      compiledDir,
+      `react-dom${reactChannel}/static.node`
+    ),
     // react-server-dom-webpack alias
-    'react-server-dom-turbopack/client$': `next/dist/compiled/react-server-dom-turbopack${reactChannel}/client.node`,
-    'react-server-dom-turbopack/server$': `next/dist/compiled/react-server-dom-turbopack${reactChannel}/server.node`,
-    'react-server-dom-turbopack/server.node$': `next/dist/compiled/react-server-dom-turbopack${reactChannel}/server.node`,
-    'react-server-dom-turbopack/static$': `next/dist/compiled/react-server-dom-turbopack${reactChannel}/static.node`,
-    'react-server-dom-webpack/client$': `next/dist/compiled/react-server-dom-${bundler}${reactChannel}/client.node`,
-    'react-server-dom-webpack/server$': `next/dist/compiled/react-server-dom-${bundler}${reactChannel}/server.node`,
-    'react-server-dom-webpack/server.node$': `next/dist/compiled/react-server-dom-${bundler}${reactChannel}/server.node`,
-    'react-server-dom-webpack/static$': `next/dist/compiled/react-server-dom-${bundler}${reactChannel}/static.node`,
+    'react-server-dom-turbopack/client$': path.join(
+      compiledDir,
+      `react-server-dom-turbopack${reactChannel}/client.node`
+    ),
+    'react-server-dom-turbopack/server$': path.join(
+      compiledDir,
+      `react-server-dom-turbopack${reactChannel}/server.node`
+    ),
+    'react-server-dom-turbopack/server.node$': path.join(
+      compiledDir,
+      `react-server-dom-turbopack${reactChannel}/server.node`
+    ),
+    'react-server-dom-turbopack/static$': path.join(
+      compiledDir,
+      `react-server-dom-turbopack${reactChannel}/static.node`
+    ),
+    'react-server-dom-webpack/client$': path.join(
+      compiledDir,
+      `react-server-dom-${bundler}${reactChannel}/client.node`
+    ),
+    'react-server-dom-webpack/server$': path.join(
+      compiledDir,
+      `react-server-dom-${bundler}${reactChannel}/server.node`
+    ),
+    'react-server-dom-webpack/server.node$': path.join(
+      compiledDir,
+      `react-server-dom-${bundler}${reactChannel}/server.node`
+    ),
+    'react-server-dom-webpack/static$': path.join(
+      compiledDir,
+      `react-server-dom-${bundler}${reactChannel}/static.node`
+    ),
     '@vercel/turbopack-ecmascript-runtime/browser/dev/hmr-client/hmr-client.ts':
-      'next/dist/client/dev/noop-turbopack-hmr',
+      path.join(__dirname, 'dist/client/dev/noop-turbopack-hmr'),
   }
 }
 
@@ -62,29 +108,31 @@ const sharedExternals = [
   'styled-jsx',
   'styled-jsx/style',
   '@opentelemetry/api',
-  'next/dist/compiled/@ampproject/toolbox-optimizer',
-  'next/dist/compiled/edge-runtime',
-  'next/dist/compiled/@edge-runtime/ponyfill',
-  'next/dist/compiled/undici',
-  'next/dist/compiled/raw-body',
-  'next/dist/server/capsize-font-metrics.json',
+  path.join(compiledDir, '@ampproject/toolbox-optimizer'),
+  path.join(compiledDir, 'edge-runtime'),
+  path.join(compiledDir, '@edge-runtime/ponyfill'),
+  path.join(compiledDir, 'undici'),
+  path.join(compiledDir, 'raw-body'),
+  path.join(__dirname, 'dist/server/capsize-font-metrics.json'),
   'critters',
-  'next/dist/compiled/node-html-parser',
-  'next/dist/compiled/compression',
-  'next/dist/compiled/jsonwebtoken',
-  'next/dist/compiled/@opentelemetry/api',
-  'next/dist/compiled/@mswjs/interceptors/ClientRequest',
-  'next/dist/compiled/ws',
+  path.join(compiledDir, 'node-html-parser'),
+  path.join(compiledDir, 'compression'),
+  path.join(compiledDir, 'jsonwebtoken'),
+  path.join(compiledDir, '@opentelemetry/api'),
+  path.join(compiledDir, '@mswjs/interceptors/ClientRequest'),
+  path.join(compiledDir, 'ws'),
 ]
 
 const externalsMap = {
-  './web/sandbox': 'next/dist/server/web/sandbox',
-  'next/dist/compiled/next-devtools':
-    'commonjs next/dist/next-devtools/dev-overlay.shim.js',
+  './web/sandbox': path.join(__dirname, 'dist/server/web/sandbox'),
+  'next-hybrid/dist/compiled/next-devtools': `commonjs ${path.join(
+    __dirname,
+    'dist/next-devtools/dev-overlay.shim.js'
+  )}`,
 }
 
 const externalsRegexMap = {
-  '(.*)trace/tracer$': 'next/dist/server/lib/trace/tracer',
+  '(.*)trace/tracer$': path.join(__dirname, 'dist/server/lib/trace/tracer'),
 }
 
 const bundleTypes = {
@@ -263,16 +311,61 @@ module.exports = ({ dev, turbo, bundleType, experimental, ...rest }) => {
           resolve: {
             conditionNames: ['react-server', '...'],
             alias: {
-              react$: `next/dist/compiled/react${bundledReactChannel}/react.react-server`,
-              [`next/dist/compiled/react${bundledReactChannel}$`]: `next/dist/compiled/react${bundledReactChannel}/react.react-server`,
-              'react/jsx-runtime$': `next/dist/compiled/react${bundledReactChannel}/jsx-runtime.react-server`,
-              [`next/dist/compiled/react${bundledReactChannel}/jsx-runtime$`]: `next/dist/compiled/react${bundledReactChannel}/jsx-runtime.react-server`,
-              'react/jsx-dev-runtime$': `next/dist/compiled/react${bundledReactChannel}/jsx-dev-runtime.react-server`,
-              [`next/dist/compiled/react${bundledReactChannel}/jsx-dev-runtime$`]: `next/dist/compiled/react${bundledReactChannel}/jsx-dev-runtime.react-server`,
-              'react/compiler-runtime$': `next/dist/compiled/react${bundledReactChannel}/compiler-runtime`,
-              [`next/dist/compiled/react${bundledReactChannel}/compiler-runtime$`]: `next/dist/compiled/react${bundledReactChannel}/compiler-runtime`,
-              'react-dom$': `next/dist/compiled/react-dom${bundledReactChannel}/react-dom.react-server`,
-              [`next/dist/compiled/react-dom${bundledReactChannel}$`]: `next/dist/compiled/react-dom${bundledReactChannel}/react-dom.react-server`,
+              react$: path.join(
+                __dirname,
+                `dist/compiled/react${bundledReactChannel}/react.react-server`
+              ),
+              [`${path.join(
+                __dirname,
+                'dist/compiled'
+              )}/react${bundledReactChannel}$`]: path.join(
+                __dirname,
+                `dist/compiled/react${bundledReactChannel}/react.react-server`
+              ),
+              'react/jsx-runtime$': path.join(
+                __dirname,
+                `dist/compiled/react${bundledReactChannel}/jsx-runtime.react-server`
+              ),
+              [`${path.join(
+                __dirname,
+                'dist/compiled'
+              )}/react${bundledReactChannel}/jsx-runtime$`]: path.join(
+                __dirname,
+                `dist/compiled/react${bundledReactChannel}/jsx-runtime.react-server`
+              ),
+              'react/jsx-dev-runtime$': path.join(
+                __dirname,
+                `dist/compiled/react${bundledReactChannel}/jsx-dev-runtime.react-server`
+              ),
+              [`${path.join(
+                __dirname,
+                'dist/compiled'
+              )}/react${bundledReactChannel}/jsx-dev-runtime$`]: path.join(
+                __dirname,
+                `dist/compiled/react${bundledReactChannel}/jsx-dev-runtime.react-server`
+              ),
+              'react/compiler-runtime$': path.join(
+                __dirname,
+                `dist/compiled/react${bundledReactChannel}/compiler-runtime`
+              ),
+              [`${path.join(
+                __dirname,
+                'dist/compiled'
+              )}/react${bundledReactChannel}/compiler-runtime$`]: path.join(
+                __dirname,
+                `dist/compiled/react${bundledReactChannel}/compiler-runtime`
+              ),
+              'react-dom$': path.join(
+                __dirname,
+                `dist/compiled/react-dom${bundledReactChannel}/react-dom.react-server`
+              ),
+              [`${path.join(
+                __dirname,
+                'dist/compiled'
+              )}/react-dom${bundledReactChannel}$`]: path.join(
+                __dirname,
+                `dist/compiled/react-dom${bundledReactChannel}/react-dom.react-server`
+              ),
             },
           },
           layer: 'react-server',
@@ -282,10 +375,28 @@ module.exports = ({ dev, turbo, bundleType, experimental, ...rest }) => {
           resolve: {
             conditionNames: ['react-server', '...'],
             alias: {
-              react$: `next/dist/compiled/react${bundledReactChannel}/react.react-server`,
-              [`next/dist/compiled/react${bundledReactChannel}$`]: `next/dist/compiled/react${bundledReactChannel}/react.react-server`,
-              'react-dom$': `next/dist/compiled/react-dom${bundledReactChannel}/react-dom.react-server`,
-              [`next/dist/compiled/react-dom${bundledReactChannel}$`]: `next/dist/compiled/react-dom${bundledReactChannel}/react-dom.react-server`,
+              react$: path.join(
+                __dirname,
+                `dist/compiled/react${bundledReactChannel}/react.react-server`
+              ),
+              [`${path.join(
+                __dirname,
+                'dist/compiled'
+              )}/react${bundledReactChannel}$`]: path.join(
+                __dirname,
+                `dist/compiled/react${bundledReactChannel}/react.react-server`
+              ),
+              'react-dom$': path.join(
+                __dirname,
+                `dist/compiled/react-dom${bundledReactChannel}/react-dom.react-server`
+              ),
+              [`${path.join(
+                __dirname,
+                'dist/compiled'
+              )}/react-dom${bundledReactChannel}$`]: path.join(
+                __dirname,
+                `dist/compiled/react-dom${bundledReactChannel}/react-dom.react-server`
+              ),
             },
           },
         },

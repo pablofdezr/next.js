@@ -1,5 +1,5 @@
-import type ws from 'next/dist/compiled/ws'
-import type { webpack } from 'next/dist/compiled/webpack/webpack'
+import type ws from 'next-hybrid/dist/compiled/ws'
+import type { webpack } from 'next-hybrid/dist/compiled/webpack/webpack'
 import type { NextConfigComplete } from '../config-shared'
 import type {
   DynamicParamTypesShort,
@@ -9,7 +9,7 @@ import type {
 import type { CompilerNameValues } from '../../shared/lib/constants'
 import type { RouteDefinition } from '../route-definitions/route-definition'
 
-import createDebug from 'next/dist/compiled/debug'
+import createDebug from 'next-hybrid/dist/compiled/debug'
 import { EventEmitter } from 'events'
 import { findPageFile } from '../lib/find-page-file'
 import { runDependingOnPageType, isDeferredEntry } from '../../build/entries'
@@ -481,7 +481,7 @@ export async function findPagePathData(
       // If they're not presented, then fallback to global-not-found
       return {
         filename: require.resolve(
-          'next/dist/client/components/builtin/global-not-found'
+          'next-hybrid/dist/client/components/builtin/global-not-found'
         ),
         bundlePath: `app${UNDERSCORE_NOT_FOUND_ROUTE_ENTRY}`,
         page: UNDERSCORE_NOT_FOUND_ROUTE_ENTRY,
@@ -529,7 +529,7 @@ export async function findPagePathData(
 
   if (page === '/_error') {
     return {
-      filename: require.resolve('next/dist/pages/_error'),
+      filename: require.resolve('next-hybrid/dist/pages/_error'),
       bundlePath: page,
       page: normalizePathSep(page),
     }

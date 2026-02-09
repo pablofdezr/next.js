@@ -1055,5 +1055,7 @@
   "1054": "JSON format requested but not provided",
   "1055": "LLM format requested but not provided",
   "1056": "HTML format should not be rendered here",
-  "1057": "Unknown format: %s"
+  "1057": "Unknown format: %s",
+  "1058": "Segment names may not start or end with extra brackets ('%s%s').",
+  "1059": "I AM HERE IN BASE SERVER HANDLE REQUEST: %s"
 }

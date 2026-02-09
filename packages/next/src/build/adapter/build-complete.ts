@@ -17,7 +17,7 @@ import {
   convertRedirects,
   convertRewrites,
   convertHeaders,
-} from 'next/dist/compiled/@vercel/routing-utils'
+} from 'next-hybrid/dist/compiled/@vercel/routing-utils'
 
 import type {
   MiddlewareManifest,
@@ -47,7 +47,7 @@ import { getRedirectStatus, modifyRouteRegex } from '../../lib/redirect-status'
 import { getNamedRouteRegex } from '../../shared/lib/router/utils/route-regex'
 import { escapeStringRegexp } from '../../shared/lib/escape-regexp'
 import { sortSortableRoutes } from '../../shared/lib/router/utils/sortable-routes'
-import { nodeFileTrace } from 'next/dist/compiled/@vercel/nft'
+import { nodeFileTrace } from 'next-hybrid/dist/compiled/@vercel/nft'
 import { defaultOverrides } from '../../server/require-hook'
 import { makeIgnoreFn } from '../collect-build-traces'
 import { generateRoutesManifest } from '../generate-routes-manifest'
@@ -505,7 +505,7 @@ export async function handleBuildComplete({
         '**/next/dist/compiled/webpack/*',
         '**/node_modules/webpack5/**/*',
         '**/next/dist/server/lib/route-resolver*',
-        'next/dist/compiled/semver/semver/**/*.js',
+        'next-hybrid/dist/compiled/semver/semver/**/*.js',
         '**/node_modules/react{,-dom,-dom-server-turbopack}/**/*.development.js',
         '**/*.d.ts',
         '**/*.map',
@@ -532,14 +532,14 @@ export async function handleBuildComplete({
         'setup-node-env.js'
       )
       sharedNodeAssets[path.relative(tracingRoot, setupNodeStubPath)] =
-        require.resolve('next/dist/build/adapter/setup-node-env.external')
+        require.resolve('next-hybrid/dist/build/adapter/setup-node-env.external')
 
       const moduleTypes = ['app-page', 'pages'] as const
 
       for (const type of moduleTypes) {
         const currentDependencies: string[] = []
         const modulePath = require.resolve(
-          `next/dist/server/route-modules/${type}/module.compiled`
+          `next-hybrid/dist/server/route-modules/${type}/module.compiled`
         )
         currentDependencies.push(modulePath)
 
@@ -578,9 +578,9 @@ export async function handleBuildComplete({
       if (bundler !== Bundler.Turbopack) {
         // These are modules that are necessary for bootstrapping node env
         const necessaryNodeDependencies = [
-          require.resolve('next/dist/server/node-environment'),
-          require.resolve('next/dist/server/require-hook'),
-          require.resolve('next/dist/server/node-polyfill-crypto'),
+          require.resolve('next-hybrid/dist/server/node-environment'),
+          require.resolve('next-hybrid/dist/server/require-hook'),
+          require.resolve('next-hybrid/dist/server/node-polyfill-crypto'),
           ...Object.values(defaultOverrides).filter((item) =>
             path.extname(item)
           ),

@@ -37,10 +37,10 @@ const nextEdgeFunctionLoader: webpack.LoaderDefinitionFunction<EdgeFunctionLoade
     buildInfo.rootDir = rootDir
 
     return `
-        import 'next/dist/esm/server/web/globals'
-        import { adapter } from 'next/dist/esm/server/web/adapter'
-        import { IncrementalCache } from 'next/dist/esm/server/lib/incremental-cache'
-        import { wrapApiHandler } from 'next/dist/esm/server/api-utils'
+        import 'next-hybrid/dist/esm/server/web/globals'
+        import { adapter } from 'next-hybrid/dist/esm/server/web/adapter'
+        import { IncrementalCache } from 'next-hybrid/dist/esm/server/lib/incremental-cache'
+        import { wrapApiHandler } from 'next-hybrid/dist/esm/server/api-utils'
 
         import handler from ${stringifiedPagePath}
 

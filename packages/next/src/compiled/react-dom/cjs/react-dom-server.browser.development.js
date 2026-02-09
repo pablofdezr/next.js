@@ -9110,8 +9110,8 @@
               "\n  - react-dom:  19.3.0-canary-2dd9b7cf-20260208\nLearn more: https://react.dev/warnings/version-mismatch")
         );
     }
-    var React = require("next/dist/compiled/react"),
-      ReactDOM = require("next/dist/compiled/react-dom"),
+    var React = require("next-hybrid/dist/compiled/react"),
+      ReactDOM = require("next-hybrid/dist/compiled/react-dom"),
       REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"),
       REACT_PORTAL_TYPE = Symbol.for("react.portal"),
       REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"),

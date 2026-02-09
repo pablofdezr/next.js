@@ -353,7 +353,7 @@ export function getFormattedDiagnostic(
 
   if (!isLayoutOrPageError && diagnostic.file) {
     const { codeFrameColumns } =
-      require('next/dist/compiled/babel/code-frame') as typeof import('next/dist/compiled/babel/code-frame')
+      require('next-hybrid/dist/compiled/babel/code-frame') as typeof import('next-hybrid/dist/compiled/babel/code-frame')
     const pos = diagnostic.file.getLineAndCharacterOfPosition(diagnostic.start!)
     const line = pos.line + 1
     const character = pos.character + 1

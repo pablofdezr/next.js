@@ -11,7 +11,7 @@ import url from 'url'
 import path from 'path'
 import loadConfig, { type ConfiguredExperimentalFeature } from '../config'
 import { serveStatic } from '../serve-static'
-import setupDebug from 'next/dist/compiled/debug'
+import setupDebug from 'next-hybrid/dist/compiled/debug'
 import * as Log from '../../build/output/log'
 import { DecodeError } from '../../shared/lib/utils'
 import { findPagesDir } from '../../lib/find-pages-dir'
@@ -22,7 +22,7 @@ import { getResolveRoutes } from './router-utils/resolve-routes'
 import { addRequestMeta, getRequestMeta } from '../request-meta'
 import { pathHasPrefix } from '../../shared/lib/router/utils/path-has-prefix'
 import { removePathPrefix } from '../../shared/lib/router/utils/remove-path-prefix'
-import setupCompression from 'next/dist/compiled/compression'
+import setupCompression from 'next-hybrid/dist/compiled/compression'
 import { signalFromNodeResponse } from '../web/spec-extension/adapters/next-request'
 import { isPostpone } from './router-utils/is-postpone'
 import { parseUrl as parseUrlUtil } from '../../shared/lib/router/utils/parse-url'
@@ -708,7 +708,7 @@ export async function initialize(opts: {
     // Intercept fetch and other testmode apis.
     const { wrapRequestHandlerWorker, interceptTestApis } =
       // eslint-disable-next-line @next/internal/typechecked-require -- experimental/testmode is not built ins next/dist/esm
-      require('next/dist/experimental/testmode/server') as typeof import('../../experimental/testmode/server')
+      require('next-hybrid/dist/experimental/testmode/server') as typeof import('../../experimental/testmode/server')
     requestHandler = wrapRequestHandlerWorker(requestHandler)
     interceptTestApis()
     // We treat the intercepted fetch as "original" fetch that should be reset to during HMR.

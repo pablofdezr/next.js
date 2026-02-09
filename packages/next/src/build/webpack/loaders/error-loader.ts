@@ -1,6 +1,6 @@
 import { cyan } from '../../../lib/picocolors'
 import path from 'path'
-import type { webpack } from 'next/dist/compiled/webpack/webpack'
+import type { webpack } from 'next-hybrid/dist/compiled/webpack/webpack'
 
 const ErrorLoader: webpack.LoaderDefinitionFunction = function () {
   // @ts-ignore exists

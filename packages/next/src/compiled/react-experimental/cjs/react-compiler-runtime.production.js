@@ -10,7 +10,7 @@
 
 "use strict";
 var ReactSharedInternals =
-  require("next/dist/compiled/react-experimental").__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+  require("next-hybrid/dist/compiled/react-experimental").__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
 exports.c = function (size) {
   return ReactSharedInternals.H.useMemoCache(size);
 };

@@ -2,7 +2,7 @@ import {
   DEFAULT_SERIF_FONT,
   DEFAULT_SANS_SERIF_FONT,
 } from '../shared/lib/constants'
-const capsizeFontsMetrics = require('next/dist/server/capsize-font-metrics.json')
+const capsizeFontsMetrics = require('next-hybrid/dist/server/capsize-font-metrics.json')
 
 function formatName(str: string): string {
   return str

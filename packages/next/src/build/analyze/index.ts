@@ -18,7 +18,7 @@ import { normalizeAppPath } from '../../shared/lib/router/utils/app-paths'
 import http from 'node:http'
 
 // @ts-expect-error types are in @types/serve-handler
-import serveHandler from 'next/dist/compiled/serve-handler'
+import serveHandler from 'next-hybrid/dist/compiled/serve-handler'
 import { Telemetry } from '../../telemetry/storage'
 import { eventAnalyzeCompleted } from '../../telemetry/events'
 import { traceGlobals } from '../../trace/shared'

@@ -1,8 +1,8 @@
 import React from 'react'
-import ReactRefreshWebpackPlugin from 'next/dist/compiled/@next/react-refresh-utils/dist/ReactRefreshWebpackPlugin'
+import ReactRefreshWebpackPlugin from 'next-hybrid/dist/compiled/@next/react-refresh-utils/dist/ReactRefreshWebpackPlugin'
 import { yellow, bold } from '../lib/picocolors'
 import crypto from 'crypto'
-import { webpack } from 'next/dist/compiled/webpack/webpack'
+import { webpack } from 'next-hybrid/dist/compiled/webpack/webpack'
 import path from 'path'
 import fs from 'fs'
 
@@ -97,7 +97,7 @@ import type { NextBuildContext } from './build-context'
 import type { RootParamsLoaderOpts } from './webpack/loaders/next-root-params-loader'
 import type { InvalidImportLoaderOpts } from './webpack/loaders/next-invalid-import-error-loader'
 import { defaultOverrides } from '../server/require-hook'
-import JSON5 from 'next/dist/compiled/json5'
+import JSON5 from 'next-hybrid/dist/compiled/json5'
 
 type ExcludesFalse = <T>(x: T | false) => x is T
 type ClientEntries = {
@@ -176,7 +176,7 @@ const devtoolRevertWarning = execOnce(
 let loggedSwcDisabled = false
 let loggedIgnoredCompilerOptions = false
 const reactRefreshLoaderName =
-  'next/dist/compiled/@next/react-refresh-utils/dist/loader'
+  'next-hybrid/dist/compiled/@next/react-refresh-utils/dist/loader'
 
 function getReactRefreshLoader() {
   return process.env.NEXT_RSPACK
@@ -549,7 +549,7 @@ export default async function getBaseWebpackConfig(
             jsConfig?.compilerOptions?.emitDecoratorMetadata
           ),
           regeneratorRuntimePath: require.resolve(
-            'next/dist/compiled/regenerator-runtime'
+            'next-hybrid/dist/compiled/regenerator-runtime'
           ),
 
           ...extraOptions,
@@ -706,10 +706,10 @@ export default async function getBaseWebpackConfig(
 
   const reactRefreshEntry = isRspack
     ? require.resolve(
-        `next/dist/compiled/@next/react-refresh-utils/dist/rspack-runtime`
+        `next-hybrid/dist/compiled/@next/react-refresh-utils/dist/rspack-runtime`
       )
     : require.resolve(
-        `next/dist/compiled/@next/react-refresh-utils/dist/runtime`
+        `next-hybrid/dist/compiled/@next/react-refresh-utils/dist/runtime`
       )
 
   const clientEntries = isClient
@@ -854,8 +854,8 @@ export default async function getBaseWebpackConfig(
     'react-dom',
     ...(hasAppDir
       ? [
-          `next/dist/compiled/react${bundledReactChannel}`,
-          `next/dist/compiled/react-dom${bundledReactChannel}`,
+          `next-hybrid/dist/compiled/react${bundledReactChannel}`,
+          `next-hybrid/dist/compiled/react-dom${bundledReactChannel}`,
         ]
       : []),
   ]) {
@@ -985,7 +985,7 @@ export default async function getBaseWebpackConfig(
               ? [
                   {
                     '@builder.io/partytown': '{}',
-                    'next/dist/compiled/etag': '{}',
+                    'next-hybrid/dist/compiled/etag': '{}',
                   },
                   getEdgePolyfilledModules(),
                   handleWebpackExternalForEdgeRuntime,
@@ -1842,67 +1842,67 @@ export default async function getBaseWebpackConfig(
                           }
                         : {
                             assert: require.resolve(
-                              'next/dist/compiled/assert'
+                              'next-hybrid/dist/compiled/assert'
                             ),
                             buffer: require.resolve(
-                              'next/dist/compiled/buffer'
+                              'next-hybrid/dist/compiled/buffer'
                             ),
                             constants: require.resolve(
-                              'next/dist/compiled/constants-browserify'
+                              'next-hybrid/dist/compiled/constants-browserify'
                             ),
                             crypto: require.resolve(
-                              'next/dist/compiled/crypto-browserify'
+                              'next-hybrid/dist/compiled/crypto-browserify'
                             ),
                             domain: require.resolve(
-                              'next/dist/compiled/domain-browser'
+                              'next-hybrid/dist/compiled/domain-browser'
                             ),
                             http: require.resolve(
-                              'next/dist/compiled/stream-http'
+                              'next-hybrid/dist/compiled/stream-http'
                             ),
                             https: require.resolve(
-                              'next/dist/compiled/https-browserify'
+                              'next-hybrid/dist/compiled/https-browserify'
                             ),
                             os: require.resolve(
-                              'next/dist/compiled/os-browserify'
+                              'next-hybrid/dist/compiled/os-browserify'
                             ),
                             path: require.resolve(
-                              'next/dist/compiled/path-browserify'
+                              'next-hybrid/dist/compiled/path-browserify'
                             ),
                             punycode: require.resolve(
-                              'next/dist/compiled/punycode'
+                              'next-hybrid/dist/compiled/punycode'
                             ),
                             process: require.resolve('./polyfills/process'),
                             // Handled in separate alias
                             querystring: require.resolve(
-                              'next/dist/compiled/querystring-es3'
+                              'next-hybrid/dist/compiled/querystring-es3'
                             ),
                             stream: require.resolve(
-                              'next/dist/compiled/stream-browserify'
+                              'next-hybrid/dist/compiled/stream-browserify'
                             ),
                             string_decoder: require.resolve(
-                              'next/dist/compiled/string_decoder'
+                              'next-hybrid/dist/compiled/string_decoder'
                             ),
-                            sys: require.resolve('next/dist/compiled/util'),
+                            sys: require.resolve('next-hybrid/dist/compiled/util'),
                             timers: require.resolve(
-                              'next/dist/compiled/timers-browserify'
+                              'next-hybrid/dist/compiled/timers-browserify'
                             ),
                             tty: require.resolve(
-                              'next/dist/compiled/tty-browserify'
+                              'next-hybrid/dist/compiled/tty-browserify'
                             ),
                             // Handled in separate alias
                             // url: require.resolve('url'),
-                            util: require.resolve('next/dist/compiled/util'),
+                            util: require.resolve('next-hybrid/dist/compiled/util'),
                             vm: require.resolve(
-                              'next/dist/compiled/vm-browserify'
+                              'next-hybrid/dist/compiled/vm-browserify'
                             ),
                             zlib: require.resolve(
-                              'next/dist/compiled/browserify-zlib'
+                              'next-hybrid/dist/compiled/browserify-zlib'
                             ),
                             events: require.resolve(
-                              'next/dist/compiled/events'
+                              'next-hybrid/dist/compiled/events'
                             ),
                             setImmediate: require.resolve(
-                              'next/dist/compiled/setimmediate'
+                              'next-hybrid/dist/compiled/setimmediate'
                             ),
                           },
                   },
@@ -2007,7 +2007,7 @@ export default async function getBaseWebpackConfig(
               default:
                 runtime = 'pages'
             }
-            resource.request = `next/dist/server/route-modules/${runtime}/vendored/contexts/${moduleName}`
+            resource.request = `next-hybrid/dist/server/route-modules/${runtime}/vendored/contexts/${moduleName}`
           }
         ),
       dev && new MemoryWithGcCachePlugin({ maxGenerations: 5 }),
@@ -2015,7 +2015,7 @@ export default async function getBaseWebpackConfig(
         isClient &&
         (isRspack
           ? // eslint-disable-next-line
-            new (require('next/dist/compiled/@next/react-refresh-utils/dist/ReactRefreshRspackPlugin').default)()
+            new (require('next-hybrid/dist/compiled/@next/react-refresh-utils/dist/ReactRefreshRspackPlugin').default)()
           : new ReactRefreshWebpackPlugin(webpack)),
       // Makes sure `Buffer` and `process` are polyfilled in client and flight bundles (same behavior as webpack 4)
       (isClient || isEdgeServer) &&

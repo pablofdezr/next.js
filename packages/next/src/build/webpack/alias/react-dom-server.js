@@ -8,15 +8,15 @@ function error() {
 var b
 if (process.env.NEXT_RUNTIME === 'nodejs') {
   if (process.env.NODE_ENV === 'production') {
-    b = require('next/dist/compiled/react-dom/cjs/react-dom-server.node.production.js')
+    b = require('next-hybrid/dist/compiled/react-dom/cjs/react-dom-server.node.production.js')
   } else {
-    b = require('next/dist/compiled/react-dom/cjs/react-dom-server.node.development.js')
+    b = require('next-hybrid/dist/compiled/react-dom/cjs/react-dom-server.node.development.js')
   }
 } else {
   if (process.env.NODE_ENV === 'production') {
-    b = require('next/dist/compiled/react-dom/cjs/react-dom-server.edge.production.js')
+    b = require('next-hybrid/dist/compiled/react-dom/cjs/react-dom-server.edge.production.js')
   } else {
-    b = require('next/dist/compiled/react-dom/cjs/react-dom-server.edge.development.js')
+    b = require('next-hybrid/dist/compiled/react-dom/cjs/react-dom-server.edge.development.js')
   }
 }
 

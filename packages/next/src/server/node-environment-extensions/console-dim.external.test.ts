@@ -121,7 +121,7 @@ describe('console-exit patches', () => {
       async function testForWorker() {
         const {
           consoleAsyncStorage,
-        } = require('next/dist/server/app-render/console-async-storage.external')
+        } = require('next-hybrid/dist/server/app-render/console-async-storage.external')
 
         // First, replace console.log to track what storage context it runs in
         console.log = function (...args) {
@@ -141,7 +141,7 @@ describe('console-exit patches', () => {
         }
 
         // Install patches - this wraps the current console.log
-        require('next/dist/server/node-environment-extensions/console-dim.external')
+        require('next-hybrid/dist/server/node-environment-extensions/console-dim.external')
 
         // Test outside storage context
         console.log('outside')
@@ -166,10 +166,10 @@ describe('console-exit patches', () => {
       async function testForWorker() {
         const {
           consoleAsyncStorage,
-        } = require('next/dist/server/app-render/console-async-storage.external')
+        } = require('next-hybrid/dist/server/app-render/console-async-storage.external')
 
         // Install patches first
-        require('next/dist/server/node-environment-extensions/console-dim.external')
+        require('next-hybrid/dist/server/node-environment-extensions/console-dim.external')
 
         // Assign a new console.log after patching - this will NOT be wrapped
         console.log = function (...args) {
@@ -221,7 +221,7 @@ describe('console-exit patches', () => {
         })
 
         // install patch
-        require('next/dist/server/node-environment-extensions/console-dim.external')
+        require('next-hybrid/dist/server/node-environment-extensions/console-dim.external')
 
         // Test that patched methods preserve name and other properties
         reportResult({
@@ -249,7 +249,7 @@ describe('console-exit patches', () => {
       async function testForWorker() {
         const {
           workUnitAsyncStorage,
-        } = require('next/dist/server/app-render/work-unit-async-storage.external')
+        } = require('next-hybrid/dist/server/app-render/work-unit-async-storage.external')
 
         // First, replace console.log to track what storage context it runs in
         console.log = function (...args) {
@@ -269,7 +269,7 @@ describe('console-exit patches', () => {
         }
 
         // Install patches - this wraps the current console.log
-        require('next/dist/server/node-environment-extensions/console-dim.external')
+        require('next-hybrid/dist/server/node-environment-extensions/console-dim.external')
 
         // Test outside storage context
         console.log('outside')
@@ -321,12 +321,12 @@ describe('console-exit patches', () => {
         }
 
         // Install patches - this wraps the current console.log
-        require('next/dist/server/node-environment-extensions/console-dim.external')
+        require('next-hybrid/dist/server/node-environment-extensions/console-dim.external')
 
         const {
           registerServerReact,
           registerClientReact,
-        } = require('next/dist/server/runtime-reacts.external')
+        } = require('next-hybrid/dist/server/runtime-reacts.external')
 
         registerServerReact({
           cacheSignal() {

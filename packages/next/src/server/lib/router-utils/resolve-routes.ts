@@ -9,7 +9,7 @@ import type { UnwrapPromise } from '../../../lib/coalesced-function'
 import type { NextUrlWithParsedQuery } from '../../request-meta'
 
 import path from 'node:path'
-import setupDebug from 'next/dist/compiled/debug'
+import setupDebug from 'next-hybrid/dist/compiled/debug'
 import { getCloneableBody } from '../../body-streams'
 import { filterReqHeaders, ipcForbiddenHeaders } from '../server-ipc/utils'
 import { stringifyQuery } from '../../server-route-utils'

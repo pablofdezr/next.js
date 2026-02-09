@@ -1,4 +1,4 @@
-import type { McpServer } from 'next/dist/compiled/@modelcontextprotocol/sdk/server/mcp'
+import type { McpServer } from 'next-hybrid/dist/compiled/@modelcontextprotocol/sdk/server/mcp'
 import { mcpTelemetryTracker } from '../mcp-telemetry-tracker'
 
 export function registerGetProjectMetadataTool(

@@ -1,4 +1,4 @@
-import ipaddr from 'next/dist/compiled/ipaddr.js'
+import ipaddr from 'next-hybrid/dist/compiled/ipaddr.js'
 
 export function isPrivateIp(ip: string): boolean {
   if (ip.startsWith('[') && ip.endsWith(']')) {

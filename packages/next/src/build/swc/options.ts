@@ -19,7 +19,7 @@ const nextDistPath = new RegExp(
 const nodeModulesPath = /[\\/]node_modules[\\/]/
 
 const regeneratorRuntimePath = require.resolve(
-  'next/dist/compiled/regenerator-runtime'
+  'next-hybrid/dist/compiled/regenerator-runtime'
 )
 
 function isTypeScriptFile(filename: string) {
@@ -451,11 +451,11 @@ export function getLoaderSWCOptions({
     packages: {
       'next/server': {
         transforms: {
-          NextRequest: 'next/dist/server/web/spec-extension/request',
-          NextResponse: 'next/dist/server/web/spec-extension/response',
-          ImageResponse: 'next/dist/server/web/spec-extension/image-response',
-          userAgentFromString: 'next/dist/server/web/spec-extension/user-agent',
-          userAgent: 'next/dist/server/web/spec-extension/user-agent',
+          NextRequest: 'next-hybrid/dist/server/web/spec-extension/request',
+          NextResponse: 'next-hybrid/dist/server/web/spec-extension/response',
+          ImageResponse: 'next-hybrid/dist/server/web/spec-extension/image-response',
+          userAgentFromString: 'next-hybrid/dist/server/web/spec-extension/user-agent',
+          userAgent: 'next-hybrid/dist/server/web/spec-extension/user-agent',
         },
       },
     },

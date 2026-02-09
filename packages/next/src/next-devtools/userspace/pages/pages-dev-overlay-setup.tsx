@@ -1,6 +1,6 @@
 import React from 'react'
-import { renderPagesDevOverlay } from 'next/dist/compiled/next-devtools'
-import { dispatcher } from 'next/dist/compiled/next-devtools'
+import { renderPagesDevOverlay } from 'next-hybrid/dist/compiled/next-devtools'
+import { dispatcher } from 'next-hybrid/dist/compiled/next-devtools'
 import {
   attachHydrationErrorState,
   storeHydrationErrorStateFromConsoleArgs,

@@ -91,11 +91,11 @@ function getDefaultPlugins(
   disablePostcssPresetEnv: boolean
 ): any[] {
   return [
-    require.resolve('next/dist/compiled/postcss-flexbugs-fixes'),
+    require.resolve('next-hybrid/dist/compiled/postcss-flexbugs-fixes'),
     disablePostcssPresetEnv
       ? false
       : [
-          require.resolve('next/dist/compiled/postcss-preset-env'),
+          require.resolve('next-hybrid/dist/compiled/postcss-preset-env'),
           {
             browsers: supportedBrowsers ?? ['defaults'],
             autoprefixer: {

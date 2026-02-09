@@ -1,4 +1,4 @@
-import retry from 'next/dist/compiled/async-retry'
+import retry from 'next-hybrid/dist/compiled/async-retry'
 
 interface Payload {
   meta: { [key: string]: unknown }

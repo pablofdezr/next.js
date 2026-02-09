@@ -1,4 +1,4 @@
-import type { TransformOptions } from 'next/dist/compiled/babel/core'
+import type { TransformOptions } from 'next-hybrid/dist/compiled/babel/core'
 
 export function consumeIterator(iter: Iterator<any>) {
   while (true) {

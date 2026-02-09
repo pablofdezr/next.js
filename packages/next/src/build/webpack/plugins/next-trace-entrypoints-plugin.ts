@@ -1,20 +1,20 @@
 import nodePath from 'path'
 import type { Span } from '../../../trace'
 import isError from '../../../lib/is-error'
-import { nodeFileTrace } from 'next/dist/compiled/@vercel/nft'
-import type { NodeFileTraceReasons } from 'next/dist/compiled/@vercel/nft'
+import { nodeFileTrace } from 'next-hybrid/dist/compiled/@vercel/nft'
+import type { NodeFileTraceReasons } from 'next-hybrid/dist/compiled/@vercel/nft'
 import {
   CLIENT_REFERENCE_MANIFEST,
   TRACE_OUTPUT_VERSION,
   type CompilerNameValues,
 } from '../../../shared/lib/constants'
-import { webpack, sources } from 'next/dist/compiled/webpack/webpack'
+import { webpack, sources } from 'next-hybrid/dist/compiled/webpack/webpack'
 import {
   NODE_ESM_RESOLVE_OPTIONS,
   NODE_RESOLVE_OPTIONS,
 } from '../../webpack-config'
 import type { NextConfigComplete } from '../../../server/config-shared'
-import picomatch from 'next/dist/compiled/picomatch'
+import picomatch from 'next-hybrid/dist/compiled/picomatch'
 import { getModuleBuildInfo } from '../loaders/get-module-build-info'
 import { getPageFilePath } from '../../entries'
 import { resolveExternal } from '../../handle-externals'

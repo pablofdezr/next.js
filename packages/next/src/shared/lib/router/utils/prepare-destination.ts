@@ -1,5 +1,5 @@
 import type { IncomingMessage } from 'http'
-import type { Key } from 'next/dist/compiled/path-to-regexp'
+import type { Key } from 'next-hybrid/dist/compiled/path-to-regexp'
 import type { NextParsedUrlQuery } from '../../../../server/request-meta'
 import type { RouteHas } from '../../../../lib/load-custom-routes'
 import type { BaseNextRequest } from '../../../../server/base-http'

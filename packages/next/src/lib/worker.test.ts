@@ -2,7 +2,7 @@ import { PassThrough } from 'stream'
 
 let latestForkEnv: NodeJS.ProcessEnv | undefined
 
-jest.mock('next/dist/compiled/jest-worker', () => {
+jest.mock('next-hybrid/dist/compiled/jest-worker', () => {
   const WorkerMock = jest.fn().mockImplementation((_path, options) => {
     latestForkEnv = options?.forkOptions?.env
     return {

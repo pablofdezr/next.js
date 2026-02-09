@@ -1,10 +1,10 @@
-import { types as BabelTypes } from 'next/dist/compiled/babel/core'
+import { types as BabelTypes } from 'next-hybrid/dist/compiled/babel/core'
 import type {
   PluginObj,
   PluginPass,
   Visitor,
   NodePath,
-} from 'next/dist/compiled/babel/core'
+} from 'next-hybrid/dist/compiled/babel/core'
 
 const CONFIG_KEY = 'config'
 

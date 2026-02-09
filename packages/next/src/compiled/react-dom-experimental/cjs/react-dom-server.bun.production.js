@@ -9,8 +9,8 @@
  */
 
 "use strict";
-var React = require("next/dist/compiled/react-experimental"),
-  ReactDOM = require("next/dist/compiled/react-dom-experimental"),
+var React = require("next-hybrid/dist/compiled/react-experimental"),
+  ReactDOM = require("next-hybrid/dist/compiled/react-dom-experimental"),
   util = require("util");
 require("crypto");
 var stream = require("stream"),

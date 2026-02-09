@@ -9,7 +9,7 @@
  */
 
 "use strict";
-var React = require("next/dist/compiled/react-experimental"),
+var React = require("next-hybrid/dist/compiled/react-experimental"),
   REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"),
   REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"),
   REACT_OPTIMISTIC_KEY = Symbol.for("react.optimistic_key");

@@ -16,7 +16,7 @@ export function getCookieParser(headers: {
     }
 
     const { parse: parseCookieFn } =
-      require('next/dist/compiled/cookie') as typeof import('next/dist/compiled/cookie')
+      require('next-hybrid/dist/compiled/cookie') as typeof import('next-hybrid/dist/compiled/cookie')
     return parseCookieFn(Array.isArray(cookie) ? cookie.join('; ') : cookie)
   }
 }

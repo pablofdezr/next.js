@@ -2,7 +2,7 @@ import { findSourceMap as nativeFindSourceMap } from 'module'
 import * as path from 'path'
 import * as url from 'url'
 import type * as util from 'util'
-import { SourceMapConsumer as SyncSourceMapConsumer } from 'next/dist/compiled/source-map'
+import { SourceMapConsumer as SyncSourceMapConsumer } from 'next-hybrid/dist/compiled/source-map'
 import {
   type ModernSourceMapPayload,
   findApplicableSourceMapPayload,

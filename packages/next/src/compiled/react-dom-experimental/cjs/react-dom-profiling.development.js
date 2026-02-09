@@ -28588,9 +28588,9 @@
       "function" ===
         typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart &&
       __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-    var Scheduler = require("next/dist/compiled/scheduler-experimental"),
-      React = require("next/dist/compiled/react-experimental"),
-      ReactDOM = require("next/dist/compiled/react-dom-experimental"),
+    var Scheduler = require("next-hybrid/dist/compiled/scheduler-experimental"),
+      React = require("next-hybrid/dist/compiled/react-experimental"),
+      ReactDOM = require("next-hybrid/dist/compiled/react-dom-experimental"),
       searchTarget = null,
       searchBoundary = null,
       assign = Object.assign,

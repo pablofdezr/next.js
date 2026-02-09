@@ -4,7 +4,7 @@
  * This tool returns the path to the {nextConfig.distDir}/logs/next-development.log file
  * that contains browser console logs and other development information.
  */
-import type { McpServer } from 'next/dist/compiled/@modelcontextprotocol/sdk/server/mcp'
+import type { McpServer } from 'next-hybrid/dist/compiled/@modelcontextprotocol/sdk/server/mcp'
 import { stat } from 'fs/promises'
 import { join } from 'path'
 import { mcpTelemetryTracker } from '../mcp-telemetry-tracker'

@@ -23,7 +23,7 @@ import {
   getEntryKey,
   splitEntryKey,
 } from '../../shared/lib/turbopack/entry-key'
-import type ws from 'next/dist/compiled/ws'
+import type ws from 'next-hybrid/dist/compiled/ws'
 import { isMetadataRoute } from '../../lib/metadata/is-metadata-route'
 import type { CustomRoutes } from '../../lib/load-custom-routes'
 import {

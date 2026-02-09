@@ -1,4 +1,4 @@
-import createStore from 'next/dist/compiled/unistore'
+import createStore from 'next-hybrid/dist/compiled/unistore'
 import { type Span, flushAllTraces, trace } from '../../trace'
 import { teardownTraceSubscriber } from '../swc'
 import * as Log from './log'

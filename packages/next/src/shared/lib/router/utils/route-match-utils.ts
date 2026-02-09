@@ -8,12 +8,12 @@ import type {
   TokensToRegexpOptions,
   ParseOptions,
   TokensToFunctionOptions,
-} from 'next/dist/compiled/path-to-regexp'
+} from 'next-hybrid/dist/compiled/path-to-regexp'
 import {
   pathToRegexp,
   compile,
   regexpToFunction,
-} from 'next/dist/compiled/path-to-regexp'
+} from 'next-hybrid/dist/compiled/path-to-regexp'
 import {
   hasAdjacentParameterIssues,
   normalizeAdjacentParameters,

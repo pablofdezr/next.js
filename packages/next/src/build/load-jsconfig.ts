@@ -11,7 +11,7 @@ let TSCONFIG_WARNED = false
 
 export function parseJsonFile(filePath: string) {
   const JSON5 =
-    require('next/dist/compiled/json5') as typeof import('next/dist/compiled/json5')
+    require('next-hybrid/dist/compiled/json5') as typeof import('next-hybrid/dist/compiled/json5')
   const contents = readFileSync(filePath, 'utf8')
 
   // Special case an empty file
@@ -24,7 +24,7 @@ export function parseJsonFile(filePath: string) {
   } catch (err) {
     if (!isError(err)) throw err
     const { codeFrameColumns } =
-      require('next/dist/compiled/babel/code-frame') as typeof import('next/dist/compiled/babel/code-frame')
+      require('next-hybrid/dist/compiled/babel/code-frame') as typeof import('next-hybrid/dist/compiled/babel/code-frame')
     const codeFrame = codeFrameColumns(
       String(contents),
       {

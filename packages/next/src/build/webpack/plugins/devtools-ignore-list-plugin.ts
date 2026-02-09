@@ -1,6 +1,6 @@
 // Source: https://github.com/mondaychen/devtools-ignore-webpack-plugin/blob/e35ce41d9606a92a455ef247f509a1c2ccab5778/src/index.ts
 
-import { webpack } from 'next/dist/compiled/webpack/webpack'
+import { webpack } from 'next-hybrid/dist/compiled/webpack/webpack'
 
 // Following the naming conventions from
 // https://tc39.es/source-map/#source-map-format

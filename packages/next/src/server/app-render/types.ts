@@ -11,7 +11,7 @@ import type { DeepReadonly } from '../../shared/lib/deep-readonly'
 import type { ImageConfigComplete } from '../../shared/lib/image-config'
 import type { __ApiPreviewProps } from '../api-utils'
 
-import s from 'next/dist/compiled/superstruct'
+import s from 'next-hybrid/dist/compiled/superstruct'
 import type { RequestLifecycleOpts } from '../base-server'
 import type { InstrumentationOnRequestError } from '../instrumentation/types'
 import type { NextRequestHint } from '../web/adapter'

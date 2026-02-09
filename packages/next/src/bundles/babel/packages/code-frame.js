@@ -1,1 +1,1 @@
-module.exports = require('next/dist/compiled/babel-code-frame')
+module.exports = require('next-hybrid/dist/compiled/babel-code-frame')

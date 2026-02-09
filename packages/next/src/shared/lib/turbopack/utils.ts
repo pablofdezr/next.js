@@ -135,7 +135,7 @@ export function formatIssue(issue: Issue) {
   ) {
     const { start, end } = source.range
     const { codeFrameColumns } =
-      require('next/dist/compiled/babel/code-frame') as typeof import('next/dist/compiled/babel/code-frame')
+      require('next-hybrid/dist/compiled/babel/code-frame') as typeof import('next-hybrid/dist/compiled/babel/code-frame')
 
     message +=
       codeFrameColumns(

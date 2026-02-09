@@ -10,7 +10,7 @@ import {
   useCallback,
 } from 'react'
 import { useLayoutEffect } from 'react'
-import { dispatcher } from 'next/dist/compiled/next-devtools'
+import { dispatcher } from 'next-hybrid/dist/compiled/next-devtools'
 import { notFound } from '../../../client/components/not-found'
 
 export type SegmentBoundaryType =

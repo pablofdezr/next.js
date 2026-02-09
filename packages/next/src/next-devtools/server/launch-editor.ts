@@ -28,7 +28,7 @@ import fsp from 'fs/promises'
 import os from 'os'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import shellQuote from 'next/dist/compiled/shell-quote'
+import shellQuote from 'next-hybrid/dist/compiled/shell-quote'
 
 function isTerminalEditor(editor: string) {
   switch (editor) {

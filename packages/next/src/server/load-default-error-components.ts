@@ -22,9 +22,9 @@ async function loadDefaultErrorComponentsImpl(
   distDir: string
 ): Promise<LoadComponentsReturnType<ErrorModule>> {
   // eslint-disable-next-line @next/internal/typechecked-require -- Why not relative imports?
-  const Document = interopDefault(require('next/dist/pages/_document'))
+  const Document = interopDefault(require('next-hybrid/dist/pages/_document'))
   // eslint-disable-next-line @next/internal/typechecked-require -- Why not relative imports?
-  const AppMod = require('next/dist/pages/_app')
+  const AppMod = require('next-hybrid/dist/pages/_app')
   const App = interopDefault(AppMod)
 
   // Load the compiled route module for this builtin error.

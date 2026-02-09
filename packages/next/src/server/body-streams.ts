@@ -1,7 +1,7 @@
 import type { IncomingMessage } from 'http'
 import type { Readable } from 'stream'
 import { PassThrough } from 'stream'
-import bytes from 'next/dist/compiled/bytes'
+import bytes from 'next-hybrid/dist/compiled/bytes'
 
 const DEFAULT_BODY_CLONE_SIZE_LIMIT = 10 * 1024 * 1024 // 10MB
 

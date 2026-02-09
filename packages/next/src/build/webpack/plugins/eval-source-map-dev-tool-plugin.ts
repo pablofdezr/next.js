@@ -13,8 +13,8 @@ import {
   NormalModule,
   RuntimeGlobals,
   SourceMapDevToolModuleOptionsPlugin,
-} from 'next/dist/compiled/webpack/webpack'
-import type { RawSourceMap } from 'next/dist/compiled/source-map'
+} from 'next-hybrid/dist/compiled/webpack/webpack'
+import type { RawSourceMap } from 'next-hybrid/dist/compiled/source-map'
 
 const cache = new WeakMap<webpack.sources.Source, webpack.sources.Source>()
 

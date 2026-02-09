@@ -23,7 +23,7 @@ export function getScssError(
     if (fileContent) {
       try {
         const { codeFrameColumns } =
-          require('next/dist/compiled/babel/code-frame') as typeof import('next/dist/compiled/babel/code-frame')
+          require('next-hybrid/dist/compiled/babel/code-frame') as typeof import('next-hybrid/dist/compiled/babel/code-frame')
         frame = codeFrameColumns(
           fileContent,
           { start: { line: lineNumber, column } },

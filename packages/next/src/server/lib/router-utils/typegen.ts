@@ -298,9 +298,9 @@ declare module 'next' {
 }
 
 declare module 'next/link' {
-  export { useLinkStatus } from 'next/dist/client/link.js'
+  export { useLinkStatus } from 'next-hybrid/dist/client/link.js'
 
-  import type { LinkProps as OriginalLinkProps } from 'next/dist/client/link.js'
+  import type { LinkProps as OriginalLinkProps } from 'next-hybrid/dist/client/link.js'
   import type { AnchorHTMLAttributes, DetailedHTMLProps } from 'react'
   import type { UrlObject } from 'url'
 
@@ -328,10 +328,10 @@ declare module 'next/link' {
 }
 
 declare module 'next/navigation' {
-  export * from 'next/dist/client/components/navigation.js'
+  export * from 'next-hybrid/dist/client/components/navigation.js'
 
-  import type { NavigateOptions, AppRouterInstance as OriginalAppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime.js'
-  import type { RedirectType } from 'next/dist/client/components/redirect-error.js'
+  import type { NavigateOptions, AppRouterInstance as OriginalAppRouterInstance } from 'next-hybrid/dist/shared/lib/app-router-context.shared-runtime.js'
+  import type { RedirectType } from 'next-hybrid/dist/client/components/redirect-error.js'
   
   interface AppRouterInstance extends OriginalAppRouterInstance {
     /**
@@ -389,7 +389,7 @@ declare module 'next/navigation' {
 }
 
 declare module 'next/form' {
-  import type { FormProps as OriginalFormProps } from 'next/dist/client/form.js'
+  import type { FormProps as OriginalFormProps } from 'next-hybrid/dist/client/form.js'
 
   type FormRestProps = Omit<OriginalFormProps, 'action'>
 

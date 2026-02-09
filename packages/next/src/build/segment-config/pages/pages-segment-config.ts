@@ -1,4 +1,4 @@
-import { z } from 'next/dist/compiled/zod'
+import { z } from 'next-hybrid/dist/compiled/zod'
 import { formatZodError } from '../../../shared/lib/zod'
 
 /**

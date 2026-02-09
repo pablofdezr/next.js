@@ -4,7 +4,7 @@ import type { CacheControl } from './lib/cache-control'
 
 import { isResSent } from '../shared/lib/utils'
 import { generateETag } from './lib/etag'
-import fresh from 'next/dist/compiled/fresh'
+import fresh from 'next-hybrid/dist/compiled/fresh'
 import { getCacheControlHeader } from './lib/cache-control'
 import { HTML_CONTENT_TYPE_HEADER } from '../lib/constants'
 

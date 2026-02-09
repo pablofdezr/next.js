@@ -2169,7 +2169,7 @@ export default class Router implements BaseRouter {
 
       if (process.env.NODE_ENV !== 'production') {
         const { isValidElementType } =
-          require('next/dist/compiled/react-is') as typeof import('next/dist/compiled/react-is')
+          require('next-hybrid/dist/compiled/react-is') as typeof import('next-hybrid/dist/compiled/react-is')
         if (!isValidElementType(routeInfo.Component)) {
           throw new Error(
             `The default export is not a React Component in page: "${pathname}"`

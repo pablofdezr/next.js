@@ -1,8 +1,8 @@
 // This file must be bundled in the app's client layer, it shouldn't be directly
 // imported by the server.
 
-export { callServer } from 'next/dist/client/app-call-server'
-export { findSourceMapURL } from 'next/dist/client/app-find-source-map-url'
+export { callServer } from 'next-hybrid/dist/client/app-call-server'
+export { findSourceMapURL } from 'next-hybrid/dist/client/app-find-source-map-url'
 
 // A noop wrapper to let the Flight client create the server reference.
 // See also: https://github.com/facebook/react/pull/26632

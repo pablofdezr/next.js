@@ -1,5 +1,5 @@
 import type { ErrorInfo } from 'react'
-import stringHash from 'next/dist/compiled/string-hash'
+import stringHash from 'next-hybrid/dist/compiled/string-hash'
 
 import { formatServerError } from '../../lib/format-server-error'
 import { SpanStatusCode, getTracer } from '../lib/trace/tracer'

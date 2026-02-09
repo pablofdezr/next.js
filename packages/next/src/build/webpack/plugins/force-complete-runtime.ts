@@ -1,4 +1,4 @@
-import { webpack } from 'next/dist/compiled/webpack/webpack'
+import { webpack } from 'next-hybrid/dist/compiled/webpack/webpack'
 
 export default class ForceCompleteRuntimePlugin {
   allSharedRuntimeGlobals = new Set([

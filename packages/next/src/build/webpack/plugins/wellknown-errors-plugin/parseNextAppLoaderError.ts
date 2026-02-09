@@ -1,4 +1,4 @@
-import type { webpack } from 'next/dist/compiled/webpack/webpack'
+import type { webpack } from 'next-hybrid/dist/compiled/webpack/webpack'
 import { relative } from 'path'
 import { SimpleWebpackError } from './simpleWebpackError'
 import { getAppLoader } from '../../../entries'

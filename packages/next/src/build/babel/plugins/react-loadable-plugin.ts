@@ -30,8 +30,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWAR
 import type {
   NodePath,
   types as BabelTypes,
-} from 'next/dist/compiled/babel/core'
-import type { PluginObj } from 'next/dist/compiled/babel/core'
+} from 'next-hybrid/dist/compiled/babel/core'
+import type { PluginObj } from 'next-hybrid/dist/compiled/babel/core'
 
 import { relative as relativePath } from 'path'
 

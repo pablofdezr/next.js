@@ -1,4 +1,4 @@
-import type { webpack } from 'next/dist/compiled/webpack/webpack'
+import type { webpack } from 'next-hybrid/dist/compiled/webpack/webpack'
 import * as path from 'node:path'
 import * as fs from 'node:fs/promises'
 import { normalizeAppPath } from '../../../shared/lib/router/utils/app-paths'
@@ -32,7 +32,7 @@ const rootParamsLoader: webpack.LoaderDefinitionFunction<RootParamsLoaderOpts> =
     // Generate a getter for each root param we found.
     const sortedRootParamNames = Array.from(allRootParams).sort()
     const content = [
-      `import { getRootParam } from 'next/dist/server/request/root-params';`,
+      `import { getRootParam } from 'next-hybrid/dist/server/request/root-params';`,
       ...sortedRootParamNames.map((paramName) => {
         return `export function ${paramName}() { return getRootParam('${paramName}'); }`
       }),

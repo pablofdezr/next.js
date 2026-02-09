@@ -1,8 +1,8 @@
 // @ts-ignore
-import { ModuleFilenameHelpers } from 'next/dist/compiled/webpack/webpack'
-import { webpack } from 'next/dist/compiled/webpack/webpack'
+import { ModuleFilenameHelpers } from 'next-hybrid/dist/compiled/webpack/webpack'
+import { webpack } from 'next-hybrid/dist/compiled/webpack/webpack'
 // @ts-ignore
-import { RawSource, SourceMapSource } from 'next/dist/compiled/webpack-sources3'
+import { RawSource, SourceMapSource } from 'next-hybrid/dist/compiled/webpack-sources3'
 import { ECacheKey } from './interface'
 import type { Compilation, Compiler } from 'webpack'
 import { getTargets } from './utils'

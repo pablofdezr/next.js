@@ -275,7 +275,7 @@ export async function handler(
       const actionBodySizeLimitBytes =
         actionBodySizeLimit !== defaultActionBodySizeLimit
           ? (
-              require('next/dist/compiled/bytes') as typeof import('next/dist/compiled/bytes')
+              require('next-hybrid/dist/compiled/bytes') as typeof import('next-hybrid/dist/compiled/bytes')
             ).parse(actionBodySizeLimit)
           : 1024 * 1024 // 1 MB
       const maxTotalBodySize = stateLength + actionBodySizeLimitBytes

@@ -414,7 +414,7 @@ function createNotFoundLoaderTree(loaderTree: LoaderTree): LoaderTree {
   const notFoundTreeComponents: LoaderTree[2] = hasGlobalNotFound
     ? {
         layout: components['global-not-found']!,
-        page: [() => null, 'next/dist/client/components/builtin/empty-stub'],
+        page: [() => null, 'next-hybrid/dist/client/components/builtin/empty-stub'],
       }
     : {
         page: components['not-found'],
@@ -2054,7 +2054,7 @@ async function renderToHTMLOrFlightImpl(
       requestId = crypto.randomUUID()
     } else {
       requestId = (
-        require('next/dist/compiled/nanoid') as typeof import('next/dist/compiled/nanoid')
+        require('next-hybrid/dist/compiled/nanoid') as typeof import('next-hybrid/dist/compiled/nanoid')
       ).nanoid()
     }
   }

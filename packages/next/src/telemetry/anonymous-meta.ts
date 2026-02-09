@@ -1,5 +1,5 @@
-import isDockerFunction from 'next/dist/compiled/is-docker'
-import isWslBoolean from 'next/dist/compiled/is-wsl'
+import isDockerFunction from 'next-hybrid/dist/compiled/is-docker'
+import isWslBoolean from 'next-hybrid/dist/compiled/is-wsl'
 import os from 'os'
 
 import * as ciEnvironment from '../server/ci-info'

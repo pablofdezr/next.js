@@ -1,6 +1,6 @@
 import { getNamedRouteRegex } from './route-regex'
 import { parseParameter } from './get-dynamic-param'
-import { pathToRegexp } from 'next/dist/compiled/path-to-regexp'
+import { pathToRegexp } from 'next-hybrid/dist/compiled/path-to-regexp'
 
 /**
  * Helper function to compile a pathToRegexpPattern from a route and test it against paths

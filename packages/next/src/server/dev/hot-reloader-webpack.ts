@@ -6,7 +6,7 @@ import type { IncomingMessage, ServerResponse } from 'http'
 import type { UrlObject } from 'url'
 import type { RouteDefinition } from '../route-definitions/route-definition'
 
-import { type webpack, StringXor } from 'next/dist/compiled/webpack/webpack'
+import { type webpack, StringXor } from 'next-hybrid/dist/compiled/webpack/webpack'
 import {
   getOverlayMiddleware,
   getSourceMapMiddleware,
@@ -63,7 +63,7 @@ import {
 import { DecodeError } from '../../shared/lib/utils'
 import { type Span, trace } from '../../trace'
 import { getProperError } from '../../lib/is-error'
-import ws from 'next/dist/compiled/ws'
+import ws from 'next-hybrid/dist/compiled/ws'
 import { existsSync, promises as fs } from 'fs'
 import type { UnwrapPromise } from '../../lib/coalesced-function'
 import type { VersionInfo } from './parse-version-info'
@@ -832,8 +832,8 @@ export default class HotReloaderWebpack implements NextJsHotReloaderInterface {
           envFiles: [],
           isDev: true,
           pages: {
-            '/_app': 'next/dist/pages/_app',
-            '/_error': 'next/dist/pages/_error',
+            '/_app': 'next-hybrid/dist/pages/_app',
+            '/_error': 'next-hybrid/dist/pages/_error',
           },
           pagesDir: this.pagesDir,
           previewMode: this.previewProps,

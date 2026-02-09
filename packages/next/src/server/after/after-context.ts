@@ -1,4 +1,4 @@
-import PromiseQueue from 'next/dist/compiled/p-queue'
+import PromiseQueue from 'next-hybrid/dist/compiled/p-queue'
 import type { RequestLifecycleOpts } from '../base-server'
 import type { AfterCallback, AfterTask } from './after'
 import { InvariantError } from '../../shared/lib/invariant-error'

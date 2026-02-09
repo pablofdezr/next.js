@@ -1,5 +1,5 @@
-import type { Token } from 'next/dist/compiled/path-to-regexp'
-import { parse, tokensToRegexp } from 'next/dist/compiled/path-to-regexp'
+import type { Token } from 'next-hybrid/dist/compiled/path-to-regexp'
+import { parse, tokensToRegexp } from 'next-hybrid/dist/compiled/path-to-regexp'
 import isError from './is-error'
 import { normalizeTokensForRegexp } from './route-pattern-normalizer'
 

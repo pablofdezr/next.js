@@ -9,7 +9,7 @@
  */
 
 "use strict";
-var React = require("next/dist/compiled/react-experimental");
+var React = require("next-hybrid/dist/compiled/react-experimental");
 function noop() {}
 var Internals = {
   d: {

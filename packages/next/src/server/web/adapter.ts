@@ -29,7 +29,7 @@ import { createWorkStore } from '../async-storage/work-store'
 import { workAsyncStorage } from '../app-render/work-async-storage.external'
 import { NEXT_ROUTER_PREFETCH_HEADER } from '../../client/components/app-router-headers'
 import { getTracer } from '../lib/trace/tracer'
-import type { TextMapGetter } from 'next/dist/compiled/@opentelemetry/api'
+import type { TextMapGetter } from 'next-hybrid/dist/compiled/@opentelemetry/api'
 import { MiddlewareSpan } from '../lib/trace/constants'
 import { CloseController } from './web-on-close'
 import { getEdgePreviewProps } from './get-edge-preview-props'
@@ -99,7 +99,7 @@ function ensureTestApisIntercepted() {
     if (process.env.NEXT_PRIVATE_TEST_PROXY === 'true') {
       const { interceptTestApis, wrapRequestHandler } =
         // eslint-disable-next-line @next/internal/typechecked-require -- experimental/testmode is not built ins next/dist/esm
-        require('next/dist/experimental/testmode/server-edge') as typeof import('../../experimental/testmode/server-edge')
+        require('next-hybrid/dist/experimental/testmode/server-edge') as typeof import('../../experimental/testmode/server-edge')
       interceptTestApis()
       propagator = wrapRequestHandler(propagator)
     }

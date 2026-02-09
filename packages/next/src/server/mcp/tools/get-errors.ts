@@ -13,7 +13,7 @@
  *   browser queries error overlay state → HMR response back → server performs source mapping →
  *   combined with global errors → formatted output.
  */
-import type { McpServer } from 'next/dist/compiled/@modelcontextprotocol/sdk/server/mcp'
+import type { McpServer } from 'next-hybrid/dist/compiled/@modelcontextprotocol/sdk/server/mcp'
 import type { OverlayState } from '../../../next-devtools/dev-overlay/shared'
 import {
   HMR_MESSAGE_SENT_TO_BROWSER,

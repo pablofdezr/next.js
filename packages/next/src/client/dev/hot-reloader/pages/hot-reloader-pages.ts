@@ -35,9 +35,9 @@ import {
   dispatcher,
   getSerializedOverlayState,
   getSegmentTrieData,
-} from 'next/dist/compiled/next-devtools'
+} from 'next-hybrid/dist/compiled/next-devtools'
 import { register } from '../../../../next-devtools/userspace/pages/pages-dev-overlay-setup'
-import stripAnsi from 'next/dist/compiled/strip-ansi'
+import stripAnsi from 'next-hybrid/dist/compiled/strip-ansi'
 import { addMessageListener, sendMessage } from './websocket'
 import formatWebpackMessages from '../../../../shared/lib/format-webpack-messages'
 import type { McpPageMetadataResponse } from '../../../../shared/lib/mcp-page-metadata-types'

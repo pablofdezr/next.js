@@ -1,6 +1,6 @@
-import { webpack } from 'next/dist/compiled/webpack/webpack'
+import { webpack } from 'next-hybrid/dist/compiled/webpack/webpack'
 import type { NextConfigComplete } from '../../../server/config-shared'
-import createDebug from 'next/dist/compiled/debug'
+import createDebug from 'next-hybrid/dist/compiled/debug'
 
 const debug = createDebug('next:deferred-entries-plugin')
 const PLUGIN_NAME = 'DeferredEntriesPlugin'

@@ -1,6 +1,6 @@
-import type { ZodError } from 'next/dist/compiled/zod'
-import { ZodParsedType, util, type ZodIssue } from 'next/dist/compiled/zod'
-import { fromZodError } from 'next/dist/compiled/zod-validation-error'
+import type { ZodError } from 'next-hybrid/dist/compiled/zod'
+import { ZodParsedType, util, type ZodIssue } from 'next-hybrid/dist/compiled/zod'
+import { fromZodError } from 'next-hybrid/dist/compiled/zod-validation-error'
 import * as Log from '../../build/output/log'
 
 function processZodErrorMessage(issue: ZodIssue) {

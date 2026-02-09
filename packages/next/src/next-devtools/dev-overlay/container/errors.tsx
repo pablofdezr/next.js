@@ -20,7 +20,7 @@ import type { ErrorBaseProps } from '../components/errors/error-overlay/error-ov
 import type { HydrationErrorState } from '../../shared/hydration-error'
 import { useActiveRuntimeError } from '../hooks/use-active-runtime-error'
 import { formatCodeFrame } from '../components/code-frame/parse-code-frame'
-import stripAnsi from 'next/dist/compiled/strip-ansi'
+import stripAnsi from 'next-hybrid/dist/compiled/strip-ansi'
 
 interface ErrorsProps extends ErrorBaseProps {
   getSquashedHydrationErrorDetails: (error: Error) => HydrationErrorState | null

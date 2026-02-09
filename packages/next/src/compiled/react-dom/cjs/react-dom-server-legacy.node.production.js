@@ -33,8 +33,8 @@
  SOFTWARE.
 */
 "use strict";
-var React = require("next/dist/compiled/react"),
-  ReactDOM = require("next/dist/compiled/react-dom"),
+var React = require("next-hybrid/dist/compiled/react"),
+  ReactDOM = require("next-hybrid/dist/compiled/react-dom"),
   REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"),
   REACT_PORTAL_TYPE = Symbol.for("react.portal"),
   REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"),

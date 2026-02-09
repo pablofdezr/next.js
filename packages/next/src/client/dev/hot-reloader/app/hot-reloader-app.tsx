@@ -2,7 +2,7 @@
 
 import type { ReactNode } from 'react'
 import { useEffect, startTransition } from 'react'
-import stripAnsi from 'next/dist/compiled/strip-ansi'
+import stripAnsi from 'next-hybrid/dist/compiled/strip-ansi'
 import formatWebpackMessages from '../../../../shared/lib/format-webpack-messages'
 import {
   REACT_REFRESH_FULL_RELOAD,
@@ -12,7 +12,7 @@ import {
   dispatcher,
   getSerializedOverlayState,
   getSegmentTrieData,
-} from 'next/dist/compiled/next-devtools'
+} from 'next-hybrid/dist/compiled/next-devtools'
 import { ReplaySsrOnlyErrors } from '../../../../next-devtools/userspace/app/errors/replay-ssr-only-errors'
 import { AppDevOverlayErrorBoundary } from '../../../../next-devtools/userspace/app/app-dev-overlay-error-boundary'
 import { useErrorHandler } from '../../../../next-devtools/userspace/app/errors/use-error-handler'

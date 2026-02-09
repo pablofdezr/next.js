@@ -14,7 +14,7 @@ import { HMR_MESSAGE_SENT_TO_BROWSER } from '../server/dev/hot-reloader-types'
 import { RuntimeErrorHandler } from './dev/runtime-error-handler'
 import { REACT_REFRESH_FULL_RELOAD_FROM_ERROR } from './dev/hot-reloader/shared'
 import { performFullReload } from './dev/hot-reloader/pages/hot-reloader-pages'
-import { dispatcher } from 'next/dist/compiled/next-devtools'
+import { dispatcher } from 'next-hybrid/dist/compiled/next-devtools'
 
 export function pageBootstrap(assetPrefix: string) {
   connectHMR({ assetPrefix, path: '/_next/webpack-hmr' })

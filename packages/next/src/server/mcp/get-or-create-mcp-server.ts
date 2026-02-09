@@ -1,4 +1,4 @@
-import { McpServer } from 'next/dist/compiled/@modelcontextprotocol/sdk/server/mcp'
+import { McpServer } from 'next-hybrid/dist/compiled/@modelcontextprotocol/sdk/server/mcp'
 import { registerGetProjectMetadataTool } from './tools/get-project-metadata'
 import { registerGetErrorsTool } from './tools/get-errors'
 import { registerGetPageMetadataTool } from './tools/get-page-metadata'

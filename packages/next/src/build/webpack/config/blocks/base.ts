@@ -1,5 +1,5 @@
-import curry from 'next/dist/compiled/lodash.curry'
-import type { webpack } from 'next/dist/compiled/webpack/webpack'
+import curry from 'next-hybrid/dist/compiled/lodash.curry'
+import type { webpack } from 'next-hybrid/dist/compiled/webpack/webpack'
 import { COMPILER_NAMES } from '../../../../shared/lib/constants'
 import type { ConfigurationContext } from '../utils'
 import DevToolsIgnorePlugin from '../../plugins/devtools-ignore-list-plugin'
@@ -12,7 +12,7 @@ function shouldIgnorePath(modulePath: string): boolean {
     modulePath.endsWith('__nextjs-internal-proxy.cjs') ||
     modulePath.endsWith('__nextjs-internal-proxy.mjs') ||
     // Only relevant for when Next.js is symlinked e.g. in the Next.js monorepo
-    modulePath.includes('next/dist')
+    modulePath.includes('next-hybrid/dist')
   )
 }
 

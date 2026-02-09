@@ -5,7 +5,7 @@
 import type { Rewrite, Redirect } from '../../../../lib/load-custom-routes'
 
 import fs from 'fs/promises'
-import { webpack, sources } from 'next/dist/compiled/webpack/webpack'
+import { webpack, sources } from 'next-hybrid/dist/compiled/webpack/webpack'
 import path from 'path'
 
 import { WEBPACK_LAYERS } from '../../../../lib/constants'
@@ -51,10 +51,10 @@ import * as entry from '${relativePath}.js'
 ${
   options.type === 'route'
     ? `import type { NextRequest } from 'next/server.js'`
-    : `import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'`
+    : `import type { ResolvingMetadata, ResolvingViewport } from 'next-hybrid/dist/lib/metadata/types/metadata-interface.js'`
 }
 
-import type { InstantConfigForTypeCheckInternal } from 'next/dist/build/segment-config/app/app-segment-config.js'
+import type { InstantConfigForTypeCheckInternal } from 'next-hybrid/dist/build/segment-config/app/app-segment-config.js'
 
 type TEntry = typeof import('${relativePath}.js')
 
@@ -356,17 +356,17 @@ function createServerDefinitions() {
     declare global {
       var AsyncLocalStorage: typeof NodeAsyncLocalStorage
     }
-    export { NextFetchEvent } from 'next/dist/server/web/spec-extension/fetch-event'
-    export { NextRequest } from 'next/dist/server/web/spec-extension/request'
-    export { NextResponse } from 'next/dist/server/web/spec-extension/response'
-    export { NextMiddleware, MiddlewareConfig, NextProxy, ProxyConfig } from 'next/dist/server/web/types'
-    export { userAgentFromString } from 'next/dist/server/web/spec-extension/user-agent'
-    export { userAgent } from 'next/dist/server/web/spec-extension/user-agent'
-    export { URLPattern } from 'next/dist/compiled/@edge-runtime/primitives/url'
-    export { ImageResponse } from 'next/dist/server/web/spec-extension/image-response'
-    export type { ImageResponseOptions } from 'next/dist/compiled/@vercel/og/types'
-    export { after } from 'next/dist/server/after'
-    export { connection } from 'next/dist/server/request/connection'
+    export { NextFetchEvent } from 'next-hybrid/dist/server/web/spec-extension/fetch-event'
+    export { NextRequest } from 'next-hybrid/dist/server/web/spec-extension/request'
+    export { NextResponse } from 'next-hybrid/dist/server/web/spec-extension/response'
+    export { NextMiddleware, MiddlewareConfig, NextProxy, ProxyConfig } from 'next-hybrid/dist/server/web/types'
+    export { userAgentFromString } from 'next-hybrid/dist/server/web/spec-extension/user-agent'
+    export { userAgent } from 'next-hybrid/dist/server/web/spec-extension/user-agent'
+    export { URLPattern } from 'next-hybrid/dist/compiled/@edge-runtime/primitives/url'
+    export { ImageResponse } from 'next-hybrid/dist/server/web/spec-extension/image-response'
+    export type { ImageResponseOptions } from 'next-hybrid/dist/compiled/@vercel/og/types'
+    export { after } from 'next-hybrid/dist/server/after'
+    export { connection } from 'next-hybrid/dist/server/request/connection'
   }
   `
 }

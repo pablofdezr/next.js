@@ -1,6 +1,6 @@
 import type { IncomingHttpHeaders } from 'node:http'
 import { parse, type UrlWithParsedQuery } from 'node:url'
-import { match } from 'next/dist/compiled/path-to-regexp'
+import { match } from 'next-hybrid/dist/compiled/path-to-regexp'
 import {
   matchHas,
   prepareDestination,

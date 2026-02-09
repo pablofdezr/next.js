@@ -289,7 +289,7 @@
         object.$$typeof === REACT_ELEMENT_TYPE
       );
     }
-    var React = require("next/dist/compiled/react-experimental"),
+    var React = require("next-hybrid/dist/compiled/react-experimental"),
       REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"),
       REACT_PORTAL_TYPE = Symbol.for("react.portal"),
       REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"),

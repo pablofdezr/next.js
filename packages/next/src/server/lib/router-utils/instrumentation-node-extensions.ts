@@ -27,7 +27,7 @@ export function afterRegistration(): void {
 // When cacheComponents is disabled this extension should be a no-op so we enable it universally.
 // Additionally, soon, cacheComponents will be enabled always so this just pulls the extension forward in time
 function extendTracerProviderForCacheComponents(): void {
-  let api: typeof import('next/dist/compiled/@opentelemetry/api')
+  let api: typeof import('next-hybrid/dist/compiled/@opentelemetry/api')
 
   // we want to allow users to use their own version of @opentelemetry/api if they
   // want to, so we try to require it first, and if it fails we fall back to the
@@ -40,7 +40,7 @@ function extendTracerProviderForCacheComponents(): void {
     api = require('@opentelemetry/api') as typeof import('@opentelemetry/api')
   } catch (err) {
     api =
-      require('next/dist/compiled/@opentelemetry/api') as typeof import('next/dist/compiled/@opentelemetry/api')
+      require('next-hybrid/dist/compiled/@opentelemetry/api') as typeof import('next-hybrid/dist/compiled/@opentelemetry/api')
   }
 
   const provider = api.trace.getTracerProvider()

@@ -39,7 +39,7 @@ export async function copy_styled_jsx_assets(task, opts) {
   const typeFiles = glob.sync('*.d.ts', { cwd: styledJsxPath })
   const outputDir = join(__dirname, 'dist/styled-jsx')
   // Separate type files into different folders to avoid conflicts between
-  // dev dep `styled-jsx` and `next/dist/styled-jsx` for duplicated declare modules
+  // dev dep `styled-jsx` and `next-hybrid/dist/styled-jsx` for duplicated declare modules
   const typesDir = join(outputDir, 'types')
   await fs.mkdir(typesDir, { recursive: true })
 
@@ -59,7 +59,7 @@ const externals = {
 
   postcss: 'postcss',
   // Ensure latest version is used
-  'postcss-safe-parser': 'next/dist/compiled/postcss-safe-parser',
+  'postcss-safe-parser': 'next-hybrid/dist/compiled/postcss-safe-parser',
 
   // sass-loader
   // (also responsible for these dependencies in package.json)
@@ -71,12 +71,12 @@ const externals = {
   'jest-worker': 'jest-worker',
 
   'terser-webpack-plugin':
-    'next/dist/build/webpack/plugins/terser-webpack-plugin/src',
+    'next-hybrid/dist/build/webpack/plugins/terser-webpack-plugin/src',
 
   punycode: 'punycode/',
   // TODO: Add @swc/helpers to externals once @vercel/ncc switch to swc-loader
 }
-externals['node-html-parser'] = 'next/dist/compiled/node-html-parser'
+externals['node-html-parser'] = 'next-hybrid/dist/compiled/node-html-parser'
 export async function ncc_node_html_parser(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('node-html-parser')))
@@ -88,7 +88,7 @@ export async function ncc_node_html_parser(task, opts) {
     .target('src/compiled/node-html-parser')
 }
 
-externals['@vercel/routing-utils'] = 'next/dist/compiled/@vercel/routing-utils'
+externals['@vercel/routing-utils'] = 'next-hybrid/dist/compiled/@vercel/routing-utils'
 export async function ncc_vercel_routing_utils(task, opts) {
   await task
     .source(
@@ -105,7 +105,7 @@ export async function ncc_vercel_routing_utils(task, opts) {
     .target('src/compiled/@vercel/routing-utils')
 }
 
-externals['busboy'] = 'next/dist/compiled/busboy'
+externals['busboy'] = 'next-hybrid/dist/compiled/busboy'
 export async function ncc_busboy(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('busboy')))
@@ -118,7 +118,7 @@ export async function ncc_busboy(task, opts) {
 }
 
 externals['@mswjs/interceptors/ClientRequest'] =
-  'next/dist/compiled/@mswjs/interceptors/ClientRequest'
+  'next-hybrid/dist/compiled/@mswjs/interceptors/ClientRequest'
 export async function ncc_mswjs_interceptors(task, opts) {
   await task
     .source(
@@ -144,7 +144,7 @@ export async function capsize_metrics() {
   await writeJson(outputPathDist, entireMetricsCollection, { spaces: 2 })
 }
 
-externals['@babel/runtime'] = 'next/dist/compiled/@babel/runtime'
+externals['@babel/runtime'] = 'next-hybrid/dist/compiled/@babel/runtime'
 export async function copy_babel_runtime(task, opts) {
   const runtimeDir = dirname(require.resolve('@babel/runtime/package.json'))
   const outputDir = join(__dirname, 'src/compiled/@babel/runtime')
@@ -166,9 +166,9 @@ export async function copy_babel_runtime(task, opts) {
       contents = contents
         .replace(
           'regenerator-runtime',
-          'next/dist/compiled/regenerator-runtime'
+          'next-hybrid/dist/compiled/regenerator-runtime'
         )
-        .replace('@babel/runtime', 'next/dist/compiled/@babel/runtime')
+        .replace('@babel/runtime', 'next-hybrid/dist/compiled/@babel/runtime')
     }
 
     if (inputPath.endsWith('package.json')) {
@@ -183,7 +183,7 @@ export async function copy_babel_runtime(task, opts) {
   }
 }
 
-externals['@vercel/og'] = 'next/dist/compiled/@vercel/og'
+externals['@vercel/og'] = 'next-hybrid/dist/compiled/@vercel/og'
 export async function copy_vercel_og(task, opts) {
   function copy_og_asset(globPattern) {
     return task
@@ -235,7 +235,7 @@ export async function copy_vercel_og(task, opts) {
       const source = file.data.toString()
       // Refers to copied satori types
       file.data = source
-        .replace(/['"]satori['"]/g, '"next/dist/compiled/@vercel/og/satori"')
+        .replace(/['"]satori['"]/g, '"next-hybrid/dist/compiled/@vercel/og/satori"')
         .replace("typeof import('@resvg/resvg-wasm')", 'any')
     })
     .target('src/compiled/@vercel/og')
@@ -269,8 +269,8 @@ export async function copy_bundle_analyzer_ui(task, opts) {
     .target('dist/bundle-analyzer')
 }
 
-externals['anser'] = 'next/dist/compiled/anser'
-externals['next/dist/compiled/anser'] = 'next/dist/compiled/anser'
+externals['anser'] = 'next-hybrid/dist/compiled/anser'
+externals['next-hybrid/dist/compiled/anser'] = 'next-hybrid/dist/compiled/anser'
 export async function ncc_node_anser(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('anser')))
@@ -278,9 +278,9 @@ export async function ncc_node_anser(task, opts) {
     .target('src/compiled/anser')
 }
 
-externals['stacktrace-parser'] = 'next/dist/compiled/stacktrace-parser'
-externals['next/dist/compiled/stacktrace-parser'] =
-  'next/dist/compiled/stacktrace-parser'
+externals['stacktrace-parser'] = 'next-hybrid/dist/compiled/stacktrace-parser'
+externals['next-hybrid/dist/compiled/stacktrace-parser'] =
+  'next-hybrid/dist/compiled/stacktrace-parser'
 export async function ncc_node_stacktrace_parser(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('stacktrace-parser')))
@@ -288,9 +288,9 @@ export async function ncc_node_stacktrace_parser(task, opts) {
     .target('src/compiled/stacktrace-parser')
 }
 
-externals['data-uri-to-buffer'] = 'next/dist/compiled/data-uri-to-buffer'
-externals['next/dist/compiled/data-uri-to-buffer'] =
-  'next/dist/compiled/data-uri-to-buffer'
+externals['data-uri-to-buffer'] = 'next-hybrid/dist/compiled/data-uri-to-buffer'
+externals['next-hybrid/dist/compiled/data-uri-to-buffer'] =
+  'next-hybrid/dist/compiled/data-uri-to-buffer'
 export async function ncc_node_data_uri_to_buffer(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('data-uri-to-buffer')))
@@ -298,8 +298,8 @@ export async function ncc_node_data_uri_to_buffer(task, opts) {
     .target('src/compiled/data-uri-to-buffer')
 }
 
-externals['css.escape'] = 'next/dist/compiled/css.escape'
-externals['next/dist/compiled/css.escape'] = 'next/dist/compiled/css.escape'
+externals['css.escape'] = 'next-hybrid/dist/compiled/css.escape'
+externals['next-hybrid/dist/compiled/css.escape'] = 'next-hybrid/dist/compiled/css.escape'
 export async function ncc_node_cssescape(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('css.escape')))
@@ -307,8 +307,8 @@ export async function ncc_node_cssescape(task, opts) {
     .target('src/compiled/css.escape')
 }
 
-externals['shell-quote'] = 'next/dist/compiled/shell-quote'
-externals['next/dist/compiled/shell-quote'] = 'next/dist/compiled/shell-quote'
+externals['shell-quote'] = 'next-hybrid/dist/compiled/shell-quote'
+externals['next-hybrid/dist/compiled/shell-quote'] = 'next-hybrid/dist/compiled/shell-quote'
 export async function ncc_node_shell_quote(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('shell-quote')))
@@ -316,7 +316,7 @@ export async function ncc_node_shell_quote(task, opts) {
     .target('src/compiled/shell-quote')
 }
 
-externals['acorn'] = 'next/dist/compiled/acorn'
+externals['acorn'] = 'next-hybrid/dist/compiled/acorn'
 export async function ncc_acorn(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('acorn')))
@@ -324,7 +324,7 @@ export async function ncc_acorn(task, opts) {
     .target('src/compiled/acorn')
 }
 
-externals['@edge-runtime/cookies'] = 'next/dist/compiled/@edge-runtime/cookies'
+externals['@edge-runtime/cookies'] = 'next-hybrid/dist/compiled/@edge-runtime/cookies'
 
 export async function ncc_edge_runtime_cookies() {
   // `@edge-runtime/cookies` is precompiled and pre-bundled
@@ -354,7 +354,7 @@ export async function ncc_edge_runtime_cookies() {
 }
 
 externals['@edge-runtime/primitives'] =
-  'next/dist/compiled/@edge-runtime/primitives'
+  'next-hybrid/dist/compiled/@edge-runtime/primitives'
 
 export async function ncc_edge_runtime_primitives() {
   // `@edge-runtime/primitives` is precompiled and pre-bundled
@@ -394,7 +394,7 @@ export async function ncc_edge_runtime_primitives() {
 }
 
 externals['@edge-runtime/ponyfill'] =
-  'next/dist/compiled/@edge-runtime/ponyfill'
+  'next-hybrid/dist/compiled/@edge-runtime/ponyfill'
 export async function ncc_edge_runtime_ponyfill(task, opts) {
   const indexFile = await fs.readFile(
     require.resolve('@edge-runtime/ponyfill/src/index.js'),
@@ -427,7 +427,7 @@ export async function ncc_edge_runtime_ponyfill(task, opts) {
   })
 }
 
-externals['edge-runtime'] = 'next/dist/compiled/edge-runtime'
+externals['edge-runtime'] = 'next-hybrid/dist/compiled/edge-runtime'
 export async function ncc_edge_runtime(task, opts) {
   const vmPath = resolveFrom(
     dirname(require.resolve('edge-runtime')),
@@ -442,7 +442,7 @@ export async function ncc_edge_runtime(task, opts) {
     vmPath,
     content.replace(
       /require\.resolve\('@edge-runtime\/primitives/g,
-      `__non_webpack_require__.resolve('next/dist/compiled/@edge-runtime/primitives`
+      `__non_webpack_require__.resolve('next-hybrid/dist/compiled/@edge-runtime/primitives`
     )
   )
 
@@ -488,7 +488,7 @@ export async function ncc_next_font(task, opts) {
   })
 }
 
-externals['watchpack'] = 'next/dist/compiled/watchpack'
+externals['watchpack'] = 'next-hybrid/dist/compiled/watchpack'
 export async function ncc_watchpack(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('watchpack')))
@@ -496,7 +496,7 @@ export async function ncc_watchpack(task, opts) {
     .target('src/compiled/watchpack')
 }
 
-externals['jest-worker'] = 'next/dist/compiled/jest-worker'
+externals['jest-worker'] = 'next-hybrid/dist/compiled/jest-worker'
 export async function ncc_jest_worker(task, opts) {
   await rmrf(join(__dirname, 'src/compiled/jest-worker'))
   await fs.mkdir(join(__dirname, 'src/compiled/jest-worker/workers'), {
@@ -582,13 +582,13 @@ export async function ncc_react_refresh_utils(task, opts) {
       outputFile,
       content.replace(
         /react-refresh\/runtime/g,
-        'next/dist/compiled/react-refresh/runtime'
+        'next-hybrid/dist/compiled/react-refresh/runtime'
       )
     )
   }
 }
 
-externals['browserslist'] = 'next/dist/compiled/browserslist'
+externals['browserslist'] = 'next-hybrid/dist/compiled/browserslist'
 export async function ncc_browserslist(task, opts) {
   const browserslistModule = require.resolve('browserslist')
   const nodeFile = join(dirname(browserslistModule), 'node.js')
@@ -621,7 +621,7 @@ export async function ncc_browserslist(task, opts) {
   await fs.writeFile(nodeFile, content)
 }
 
-externals['@napi-rs/triples'] = 'next/dist/compiled/@napi-rs/triples'
+externals['@napi-rs/triples'] = 'next-hybrid/dist/compiled/@napi-rs/triples'
 export async function ncc_napirs_triples(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('@napi-rs/triples')))
@@ -629,7 +629,7 @@ export async function ncc_napirs_triples(task, opts) {
     .target('src/compiled/@napi-rs/triples')
 }
 
-externals['p-limit'] = 'next/dist/compiled/p-limit'
+externals['p-limit'] = 'next-hybrid/dist/compiled/p-limit'
 export async function ncc_p_limit(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('p-limit')))
@@ -637,7 +637,7 @@ export async function ncc_p_limit(task, opts) {
     .target('src/compiled/p-limit')
 }
 
-externals['p-queue'] = 'next/dist/compiled/p-queue'
+externals['p-queue'] = 'next-hybrid/dist/compiled/p-queue'
 export async function ncc_p_queue(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('p-queue')))
@@ -645,7 +645,7 @@ export async function ncc_p_queue(task, opts) {
     .target('src/compiled/p-queue')
 }
 
-externals['raw-body'] = 'next/dist/compiled/raw-body'
+externals['raw-body'] = 'next-hybrid/dist/compiled/raw-body'
 export async function ncc_raw_body(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('raw-body')))
@@ -653,7 +653,7 @@ export async function ncc_raw_body(task, opts) {
     .target('src/compiled/raw-body')
 }
 
-externals['image-size'] = 'next/dist/compiled/image-size'
+externals['image-size'] = 'next-hybrid/dist/compiled/image-size'
 export async function ncc_image_size(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('image-size')))
@@ -661,7 +661,7 @@ export async function ncc_image_size(task, opts) {
     .target('src/compiled/image-size')
 }
 
-externals['image-detector'] = 'next/dist/compiled/image-detector'
+externals['image-detector'] = 'next-hybrid/dist/compiled/image-detector'
 export async function ncc_image_detector(task, opts) {
   // NOTE: remove this special compile step if the upstream PR lands
   // https://github.com/image-size/image-size/pull/451
@@ -671,7 +671,7 @@ export async function ncc_image_detector(task, opts) {
     .target('src/compiled/image-detector')
 }
 
-externals['@hapi/accept'] = 'next/dist/compiled/@hapi/accept'
+externals['@hapi/accept'] = 'next-hybrid/dist/compiled/@hapi/accept'
 export async function ncc_hapi_accept(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('@hapi/accept')))
@@ -922,7 +922,7 @@ export async function ncc_timers_browserify(task, opts) {
       packageName: 'timers-browserify',
       externals: {
         ...externals,
-        setimmediate: 'next/dist/compiled/setimmediate',
+        setimmediate: 'next-hybrid/dist/compiled/setimmediate',
       },
       mainFields: ['browser', 'main'],
       target: 'es5',
@@ -954,7 +954,7 @@ export async function ncc_vm_browserify(task, opts) {
     .target('src/compiled/vm-browserify')
 }
 
-externals['async-retry'] = 'next/dist/compiled/async-retry'
+externals['async-retry'] = 'next-hybrid/dist/compiled/async-retry'
 export async function ncc_async_retry(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('async-retry')))
@@ -964,7 +964,7 @@ export async function ncc_async_retry(task, opts) {
     })
     .target('src/compiled/async-retry')
 }
-externals['async-sema'] = 'next/dist/compiled/async-sema'
+externals['async-sema'] = 'next-hybrid/dist/compiled/async-sema'
 export async function ncc_async_sema(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('async-sema')))
@@ -973,7 +973,7 @@ export async function ncc_async_sema(task, opts) {
 }
 
 externals['postcss-plugin-stub-for-cssnano-simple'] =
-  'next/dist/compiled/postcss-plugin-stub-for-cssnano-simple'
+  'next-hybrid/dist/compiled/postcss-plugin-stub-for-cssnano-simple'
 export async function ncc_postcss_plugin_stub_for_cssnano_simple(task, opts) {
   await task
     .source('src/bundles/postcss-plugin-stub/index.js')
@@ -984,34 +984,34 @@ export async function ncc_postcss_plugin_stub_for_cssnano_simple(task, opts) {
 }
 
 const babelCorePackages = {
-  'code-frame': 'next/dist/compiled/babel/code-frame',
-  '@babel/generator': 'next/dist/compiled/babel/generator',
-  '@babel/traverse': 'next/dist/compiled/babel/traverse',
-  '@babel/types': 'next/dist/compiled/babel/types',
-  '@babel/core': 'next/dist/compiled/babel/core',
-  '@babel/parser': 'next/dist/compiled/babel/parser',
-  '@babel/core/lib/config': 'next/dist/compiled/babel/core-lib-config',
+  'code-frame': 'next-hybrid/dist/compiled/babel/code-frame',
+  '@babel/generator': 'next-hybrid/dist/compiled/babel/generator',
+  '@babel/traverse': 'next-hybrid/dist/compiled/babel/traverse',
+  '@babel/types': 'next-hybrid/dist/compiled/babel/types',
+  '@babel/core': 'next-hybrid/dist/compiled/babel/core',
+  '@babel/parser': 'next-hybrid/dist/compiled/babel/parser',
+  '@babel/core/lib/config': 'next-hybrid/dist/compiled/babel/core-lib-config',
   '@babel/core/lib/transformation/normalize-file':
-    'next/dist/compiled/babel/core-lib-normalize-config',
+    'next-hybrid/dist/compiled/babel/core-lib-normalize-config',
   '@babel/core/lib/transformation/normalize-opts':
-    'next/dist/compiled/babel/core-lib-normalize-opts',
+    'next-hybrid/dist/compiled/babel/core-lib-normalize-opts',
   '@babel/core/lib/transformation/block-hoist-plugin':
-    'next/dist/compiled/babel/core-lib-block-hoisting-plugin',
+    'next-hybrid/dist/compiled/babel/core-lib-block-hoisting-plugin',
   '@babel/core/lib/transformation/plugin-pass':
-    'next/dist/compiled/babel/core-lib-plugin-pass',
+    'next-hybrid/dist/compiled/babel/core-lib-plugin-pass',
 }
-externals['next/dist/compiled/babel/code-frame'] =
-  'next/dist/compiled/babel/code-frame'
+externals['next-hybrid/dist/compiled/babel/code-frame'] =
+  'next-hybrid/dist/compiled/babel/code-frame'
 
-externals['next/dist/compiled/babel-code-frame'] =
-  'next/dist/compiled/babel-code-frame'
+externals['next-hybrid/dist/compiled/babel-code-frame'] =
+  'next-hybrid/dist/compiled/babel-code-frame'
 
 Object.assign(externals, babelCorePackages)
 
 export async function ncc_babel_bundle(task, opts) {
   const bundleExternals = {
     ...externals,
-    'next/dist/compiled/babel-packages': 'next/dist/compiled/babel-packages',
+    'next-hybrid/dist/compiled/babel-packages': 'next-hybrid/dist/compiled/babel-packages',
   }
   for (const pkg of Object.keys(babelCorePackages)) {
     delete bundleExternals[pkg]
@@ -1029,7 +1029,7 @@ export async function ncc_babel_bundle(task, opts) {
 export async function ncc_babel_code_frame(task, opts) {
   const bundleExternals = {
     ...externals,
-    'next/dist/compiled/babel-packages': 'next/dist/compiled/babel-packages',
+    'next-hybrid/dist/compiled/babel-packages': 'next-hybrid/dist/compiled/babel-packages',
   }
   await task
     .source('src/bundles/babel-code-frame/index.js')
@@ -1071,11 +1071,11 @@ export async function ncc_babel_bundle_packages(task, opts) {
   await task.source('src/bundles/babel/packages/*').target('src/compiled/babel')
 }
 
-externals['cssnano-simple'] = 'next/dist/compiled/cssnano-simple'
+externals['cssnano-simple'] = 'next-hybrid/dist/compiled/cssnano-simple'
 export async function ncc_cssnano_simple_bundle(task, opts) {
   const bundleExternals = {
     ...externals,
-    'postcss-svgo': 'next/dist/compiled/postcss-plugin-stub-for-cssnano-simple',
+    'postcss-svgo': 'next-hybrid/dist/compiled/postcss-plugin-stub-for-cssnano-simple',
   }
 
   await task
@@ -1086,91 +1086,91 @@ export async function ncc_cssnano_simple_bundle(task, opts) {
     .target('src/compiled/cssnano-simple')
 }
 
-externals['bytes'] = 'next/dist/compiled/bytes'
+externals['bytes'] = 'next-hybrid/dist/compiled/bytes'
 export async function ncc_bytes(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('bytes')))
     .ncc({ packageName: 'bytes', externals })
     .target('src/compiled/bytes')
 }
-externals['ci-info'] = 'next/dist/compiled/ci-info'
+externals['ci-info'] = 'next-hybrid/dist/compiled/ci-info'
 export async function ncc_ci_info(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('ci-info')))
     .ncc({ packageName: 'ci-info', externals })
     .target('src/compiled/ci-info')
 }
-externals['cli-select'] = 'next/dist/compiled/cli-select'
+externals['cli-select'] = 'next-hybrid/dist/compiled/cli-select'
 export async function ncc_cli_select(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('cli-select')))
     .ncc({ packageName: 'cli-select', externals })
     .target('src/compiled/cli-select')
 }
-externals['commander'] = 'next/dist/compiled/commander'
+externals['commander'] = 'next-hybrid/dist/compiled/commander'
 export async function ncc_commander(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('commander')))
     .ncc({ packageName: 'commander', externals })
     .target('src/compiled/commander')
 }
-externals['comment-json'] = 'next/dist/compiled/comment-json'
+externals['comment-json'] = 'next-hybrid/dist/compiled/comment-json'
 export async function ncc_comment_json(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('comment-json')))
     .ncc({ packageName: 'comment-json', externals })
     .target('src/compiled/comment-json')
 }
-externals['compression'] = 'next/dist/compiled/compression'
+externals['compression'] = 'next-hybrid/dist/compiled/compression'
 export async function ncc_compression(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('compression')))
     .ncc({ packageName: 'compression', externals })
     .target('src/compiled/compression')
 }
-externals['conf'] = 'next/dist/compiled/conf'
+externals['conf'] = 'next-hybrid/dist/compiled/conf'
 export async function ncc_conf(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('conf')))
     .ncc({ packageName: 'conf', externals })
     .target('src/compiled/conf')
 }
-externals['content-disposition'] = 'next/dist/compiled/content-disposition'
+externals['content-disposition'] = 'next-hybrid/dist/compiled/content-disposition'
 export async function ncc_content_disposition(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('content-disposition')))
     .ncc({ packageName: 'content-disposition', externals })
     .target('src/compiled/content-disposition')
 }
-externals['content-type'] = 'next/dist/compiled/content-type'
+externals['content-type'] = 'next-hybrid/dist/compiled/content-type'
 export async function ncc_content_type(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('content-type')))
     .ncc({ packageName: 'content-type', externals })
     .target('src/compiled/content-type')
 }
-externals['cookie'] = 'next/dist/compiled/cookie'
+externals['cookie'] = 'next-hybrid/dist/compiled/cookie'
 export async function ncc_cookie(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('cookie')))
     .ncc({ packageName: 'cookie', externals })
     .target('src/compiled/cookie')
 }
-externals['cross-spawn'] = 'next/dist/compiled/cross-spawn'
+externals['cross-spawn'] = 'next-hybrid/dist/compiled/cross-spawn'
 export async function ncc_cross_spawn(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('cross-spawn')))
     .ncc({ packageName: 'cross-spawn', externals })
     .target('src/compiled/cross-spawn')
 }
-externals['debug'] = 'next/dist/compiled/debug'
+externals['debug'] = 'next-hybrid/dist/compiled/debug'
 export async function ncc_debug(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('debug')))
     .ncc({ packageName: 'debug', externals })
     .target('src/compiled/debug')
 }
-externals['devalue'] = 'next/dist/compiled/devalue'
+externals['devalue'] = 'next-hybrid/dist/compiled/devalue'
 export async function ncc_devalue(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('devalue')))
@@ -1178,84 +1178,84 @@ export async function ncc_devalue(task, opts) {
     .target('src/compiled/devalue')
 }
 
-externals['find-up'] = 'next/dist/compiled/find-up'
+externals['find-up'] = 'next-hybrid/dist/compiled/find-up'
 export async function ncc_find_up(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('find-up')))
     .ncc({ packageName: 'find-up', externals })
     .target('src/compiled/find-up')
 }
-externals['fresh'] = 'next/dist/compiled/fresh'
+externals['fresh'] = 'next-hybrid/dist/compiled/fresh'
 export async function ncc_fresh(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('fresh')))
     .ncc({ packageName: 'fresh', externals })
     .target('src/compiled/fresh')
 }
-externals['glob'] = 'next/dist/compiled/glob'
+externals['glob'] = 'next-hybrid/dist/compiled/glob'
 export async function ncc_glob(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('glob')))
     .ncc({ packageName: 'glob', externals })
     .target('src/compiled/glob')
 }
-externals['gzip-size'] = 'next/dist/compiled/gzip-size'
+externals['gzip-size'] = 'next-hybrid/dist/compiled/gzip-size'
 export async function ncc_gzip_size(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('gzip-size')))
     .ncc({ packageName: 'gzip-size', externals })
     .target('src/compiled/gzip-size')
 }
-externals['http-proxy'] = 'next/dist/compiled/http-proxy'
+externals['http-proxy'] = 'next-hybrid/dist/compiled/http-proxy'
 export async function ncc_http_proxy(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('http-proxy')))
     .ncc({ packageName: 'http-proxy', externals })
     .target('src/compiled/http-proxy')
 }
-externals['ignore-loader'] = 'next/dist/compiled/ignore-loader'
+externals['ignore-loader'] = 'next-hybrid/dist/compiled/ignore-loader'
 export async function ncc_ignore_loader(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('ignore-loader')))
     .ncc({ packageName: 'ignore-loader', externals })
     .target('src/compiled/ignore-loader')
 }
-externals['is-animated'] = 'next/dist/compiled/is-animated'
+externals['is-animated'] = 'next-hybrid/dist/compiled/is-animated'
 export async function ncc_is_animated(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('is-animated')))
     .ncc({ packageName: 'is-animated', externals })
     .target('src/compiled/is-animated')
 }
-externals['ipaddr.js'] = 'next/dist/compiled/ipaddr.js'
+externals['ipaddr.js'] = 'next-hybrid/dist/compiled/ipaddr.js'
 export async function ncc_ipaddr_js(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('ipaddr.js')))
     .ncc({ packageName: 'ipaddr.js', externals })
     .target('src/compiled/ipaddr.js')
 }
-externals['is-docker'] = 'next/dist/compiled/is-docker'
+externals['is-docker'] = 'next-hybrid/dist/compiled/is-docker'
 export async function ncc_is_docker(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('is-docker')))
     .ncc({ packageName: 'is-docker', externals })
     .target('src/compiled/is-docker')
 }
-externals['is-wsl'] = 'next/dist/compiled/is-wsl'
+externals['is-wsl'] = 'next-hybrid/dist/compiled/is-wsl'
 export async function ncc_is_wsl(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('is-wsl')))
     .ncc({ packageName: 'is-wsl', externals })
     .target('src/compiled/is-wsl')
 }
-externals['json5'] = 'next/dist/compiled/json5'
+externals['json5'] = 'next-hybrid/dist/compiled/json5'
 export async function ncc_json5(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('json5')))
     .ncc({ packageName: 'json5', externals })
     .target('src/compiled/json5')
 }
-externals['jsonwebtoken'] = 'next/dist/compiled/jsonwebtoken'
+externals['jsonwebtoken'] = 'next-hybrid/dist/compiled/jsonwebtoken'
 export async function ncc_jsonwebtoken(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('jsonwebtoken')))
@@ -1263,12 +1263,12 @@ export async function ncc_jsonwebtoken(task, opts) {
       packageName: 'jsonwebtoken',
       externals: {
         ...externals,
-        semver: 'next/dist/lib/semver-noop',
+        semver: 'next-hybrid/dist/lib/semver-noop',
       },
     })
     .target('src/compiled/jsonwebtoken')
 }
-externals['loader-runner'] = 'next/dist/compiled/loader-runner'
+externals['loader-runner'] = 'next-hybrid/dist/compiled/loader-runner'
 export async function ncc_loader_runner(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('loader-runner')))
@@ -1276,42 +1276,42 @@ export async function ncc_loader_runner(task, opts) {
     .target('src/compiled/loader-runner')
 }
 externals['loader-utils'] = 'error loader-utils version not specified'
-externals['loader-utils2'] = 'next/dist/compiled/loader-utils2'
+externals['loader-utils2'] = 'next-hybrid/dist/compiled/loader-utils2'
 export async function ncc_loader_utils2(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('loader-utils2')))
     .ncc({ packageName: 'loader-utils2', externals })
     .target('src/compiled/loader-utils2')
 }
-externals['loader-utils3'] = 'next/dist/compiled/loader-utils3'
+externals['loader-utils3'] = 'next-hybrid/dist/compiled/loader-utils3'
 export async function ncc_loader_utils3(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('loader-utils3')))
     .ncc({ packageName: 'loader-utils3', externals })
     .target('src/compiled/loader-utils3')
 }
-externals['lodash.curry'] = 'next/dist/compiled/lodash.curry'
+externals['lodash.curry'] = 'next-hybrid/dist/compiled/lodash.curry'
 export async function ncc_lodash_curry(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('lodash.curry')))
     .ncc({ packageName: 'lodash.curry', externals })
     .target('src/compiled/lodash.curry')
 }
-externals['lru-cache'] = 'next/dist/compiled/lru-cache'
+externals['lru-cache'] = 'next-hybrid/dist/compiled/lru-cache'
 export async function ncc_lru_cache(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('lru-cache')))
     .ncc({ packageName: 'lru-cache', externals })
     .target('src/compiled/lru-cache')
 }
-externals['nanoid'] = 'next/dist/compiled/nanoid'
+externals['nanoid'] = 'next-hybrid/dist/compiled/nanoid'
 export async function ncc_nanoid(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('nanoid')))
     .ncc({ packageName: 'nanoid', externals })
     .target('src/compiled/nanoid')
 }
-externals['native-url'] = 'next/dist/compiled/native-url'
+externals['native-url'] = 'next-hybrid/dist/compiled/native-url'
 export async function ncc_native_url(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('native-url')))
@@ -1319,13 +1319,13 @@ export async function ncc_native_url(task, opts) {
       packageName: 'native-url',
       externals: {
         ...externals,
-        querystring: 'next/dist/compiled/querystring-es3',
+        querystring: 'next-hybrid/dist/compiled/querystring-es3',
       },
       target: 'es5',
     })
     .target('src/compiled/native-url')
 }
-externals['neo-async'] = 'next/dist/compiled/neo-async'
+externals['neo-async'] = 'next-hybrid/dist/compiled/neo-async'
 export async function ncc_neo_async(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('neo-async')))
@@ -1333,7 +1333,7 @@ export async function ncc_neo_async(task, opts) {
     .target('src/compiled/neo-async')
 }
 
-externals['ora'] = 'next/dist/compiled/ora'
+externals['ora'] = 'next-hybrid/dist/compiled/ora'
 export async function ncc_ora(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('ora')))
@@ -1341,7 +1341,7 @@ export async function ncc_ora(task, opts) {
     .target('src/compiled/ora')
 }
 externals['postcss-flexbugs-fixes'] =
-  'next/dist/compiled/postcss-flexbugs-fixes'
+  'next-hybrid/dist/compiled/postcss-flexbugs-fixes'
 export async function ncc_postcss_flexbugs_fixes(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('postcss-flexbugs-fixes')))
@@ -1354,14 +1354,14 @@ export async function ncc_postcss_safe_parser(task, opts) {
     .ncc({ packageName: 'postcss-safe-parser', externals })
     .target('src/compiled/postcss-safe-parser')
 }
-externals['postcss-preset-env'] = 'next/dist/compiled/postcss-preset-env'
+externals['postcss-preset-env'] = 'next-hybrid/dist/compiled/postcss-preset-env'
 export async function ncc_postcss_preset_env(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('postcss-preset-env')))
     .ncc({ packageName: 'postcss-preset-env', externals })
     .target('src/compiled/postcss-preset-env')
 }
-externals['postcss-scss'] = 'next/dist/compiled/postcss-scss'
+externals['postcss-scss'] = 'next-hybrid/dist/compiled/postcss-scss'
 export async function ncc_postcss_scss(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('postcss-scss')))
@@ -1375,7 +1375,7 @@ export async function ncc_postcss_scss(task, opts) {
     .target('src/compiled/postcss-scss')
 }
 externals['postcss-modules-extract-imports'] =
-  'next/dist/compiled/postcss-modules-extract-imports'
+  'next-hybrid/dist/compiled/postcss-modules-extract-imports'
 export async function ncc_postcss_modules_extract_imports(task, opts) {
   await task
     .source(
@@ -1391,7 +1391,7 @@ export async function ncc_postcss_modules_extract_imports(task, opts) {
     .target('src/compiled/postcss-modules-extract-imports')
 }
 externals['postcss-modules-local-by-default'] =
-  'next/dist/compiled/postcss-modules-local-by-default'
+  'next-hybrid/dist/compiled/postcss-modules-local-by-default'
 export async function ncc_postcss_modules_local_by_default(task, opts) {
   await task
     .source(
@@ -1406,7 +1406,7 @@ export async function ncc_postcss_modules_local_by_default(task, opts) {
     })
     .target('src/compiled/postcss-modules-local-by-default')
 }
-externals['postcss-modules-scope'] = 'next/dist/compiled/postcss-modules-scope'
+externals['postcss-modules-scope'] = 'next-hybrid/dist/compiled/postcss-modules-scope'
 export async function ncc_postcss_modules_scope(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('postcss-modules-scope')))
@@ -1420,7 +1420,7 @@ export async function ncc_postcss_modules_scope(task, opts) {
     .target('src/compiled/postcss-modules-scope')
 }
 externals['postcss-modules-values'] =
-  'next/dist/compiled/postcss-modules-values'
+  'next-hybrid/dist/compiled/postcss-modules-values'
 export async function ncc_postcss_modules_values(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('postcss-modules-values')))
@@ -1433,7 +1433,7 @@ export async function ncc_postcss_modules_values(task, opts) {
     })
     .target('src/compiled/postcss-modules-values')
 }
-externals['postcss-value-parser'] = 'next/dist/compiled/postcss-value-parser'
+externals['postcss-value-parser'] = 'next-hybrid/dist/compiled/postcss-value-parser'
 export async function ncc_postcss_value_parser(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('postcss-value-parser')))
@@ -1446,7 +1446,7 @@ export async function ncc_postcss_value_parser(task, opts) {
     })
     .target('src/compiled/postcss-value-parser')
 }
-externals['icss-utils'] = 'next/dist/compiled/icss-utils'
+externals['icss-utils'] = 'next-hybrid/dist/compiled/icss-utils'
 export async function ncc_icss_utils(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('icss-utils')))
@@ -1460,8 +1460,8 @@ export async function ncc_icss_utils(task, opts) {
     .target('src/compiled/icss-utils')
 }
 
-externals['scheduler'] = 'next/dist/compiled/scheduler-experimental'
-externals['scheduler'] = 'next/dist/compiled/scheduler'
+externals['scheduler'] = 'next-hybrid/dist/compiled/scheduler-experimental'
+externals['scheduler'] = 'next-hybrid/dist/compiled/scheduler'
 export async function copy_vendor_react(task_) {
   function* copy_vendor_react_impl(task, opts) {
     const channel = opts.experimental ? `experimental-builtin` : `builtin`
@@ -1491,15 +1491,15 @@ export async function copy_vendor_react(task_) {
       return source
         .replace(
           /require\(["']react["']\)/g,
-          `require("next/dist/compiled/react${packageSuffix}")`
+          `require("next-hybrid/dist/compiled/react${packageSuffix}")`
         )
         .replace(
           /require\(["']react-dom["']\)/g,
-          `require("next/dist/compiled/react-dom${packageSuffix}")`
+          `require("next-hybrid/dist/compiled/react-dom${packageSuffix}")`
         )
         .replace(
           /require\(["']scheduler["']\)/g,
-          `require("next/dist/compiled/scheduler${packageSuffix}")`
+          `require("next-hybrid/dist/compiled/scheduler${packageSuffix}")`
         )
     }
 
@@ -1573,7 +1573,7 @@ export async function copy_vendor_react(task_) {
 
         file.data = newSource
 
-        // Note that we don't replace `react-dom` with `next/dist/compiled/react-dom`
+        // Note that we don't replace `react-dom` with `next-hybrid/dist/compiled/react-dom`
         // as it mighe be aliased to the server rendering stub.
       })
       .target(`src/compiled/react-dom${packageSuffix}/cjs`)
@@ -1783,7 +1783,7 @@ export async function ncc_rsc_poison_packages(task, opts) {
     .target('src/compiled/client-only')
 }
 
-externals['sass-loader'] = 'next/dist/compiled/sass-loader'
+externals['sass-loader'] = 'next-hybrid/dist/compiled/sass-loader'
 export async function ncc_sass_loader(task, opts) {
   const sassLoaderPath = require.resolve('sass-loader')
   const utilsPath = join(dirname(sassLoaderPath), 'utils.js')
@@ -1811,7 +1811,7 @@ export async function ncc_sass_loader(task, opts) {
     .target('src/compiled/sass-loader')
 }
 externals['schema-utils'] = 'MISSING_VERSION schema-utils version not specified'
-externals['schema-utils2'] = 'next/dist/compiled/schema-utils2'
+externals['schema-utils2'] = 'next-hybrid/dist/compiled/schema-utils2'
 export async function ncc_schema_utils2(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('schema-utils2')))
@@ -1822,7 +1822,7 @@ export async function ncc_schema_utils2(task, opts) {
     })
     .target('src/compiled/schema-utils2')
 }
-externals['schema-utils3'] = 'next/dist/compiled/schema-utils3'
+externals['schema-utils3'] = 'next-hybrid/dist/compiled/schema-utils3'
 export async function ncc_schema_utils3(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('schema-utils3')))
@@ -1833,14 +1833,14 @@ export async function ncc_schema_utils3(task, opts) {
     })
     .target('src/compiled/schema-utils3')
 }
-externals['semver'] = 'next/dist/compiled/semver'
+externals['semver'] = 'next-hybrid/dist/compiled/semver'
 export async function ncc_semver(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('semver')))
     .ncc({ packageName: 'semver', externals })
     .target('src/compiled/semver')
 }
-externals['send'] = 'next/dist/compiled/send'
+externals['send'] = 'next-hybrid/dist/compiled/send'
 export async function ncc_send(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('send')))
@@ -1849,7 +1849,7 @@ export async function ncc_send(task, opts) {
 }
 // NB: Used by other dependencies, but Vercel version is a duplicate
 // version so can be inlined anyway (although may change in future)
-externals['source-map'] = 'next/dist/compiled/source-map'
+externals['source-map'] = 'next-hybrid/dist/compiled/source-map'
 export async function ncc_source_map(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('source-map')))
@@ -1858,8 +1858,8 @@ export async function ncc_source_map(task, opts) {
 }
 // NB: Used by other dependencies, but Vercel version is a duplicate
 // version so can be inlined anyway (although may change in future)
-externals['source-map08'] = 'next/dist/compiled/source-map08'
-externals['next/dist/compiled/source-map08'] = 'next/dist/compiled/source-map08'
+externals['source-map08'] = 'next-hybrid/dist/compiled/source-map08'
+externals['next-hybrid/dist/compiled/source-map08'] = 'next-hybrid/dist/compiled/source-map08'
 export async function ncc_source_map08(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('source-map08')))
@@ -1871,29 +1871,29 @@ export async function ncc_source_map08(task, opts) {
     })
     .target('src/compiled/source-map08')
 }
-externals['serve-handler'] = 'next/dist/compiled/serve-handler'
+externals['serve-handler'] = 'next-hybrid/dist/compiled/serve-handler'
 export async function ncc_serve_handler(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('serve-handler')))
     .ncc({ packageName: 'serve-handler', externals })
     .target('src/compiled/serve-handler')
 }
-externals['string-hash'] = 'next/dist/compiled/string-hash'
+externals['string-hash'] = 'next-hybrid/dist/compiled/string-hash'
 export async function ncc_string_hash(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('string-hash')))
     .ncc({ packageName: 'string-hash', externals })
     .target('src/compiled/string-hash')
 }
-externals['strip-ansi'] = 'next/dist/compiled/strip-ansi'
-externals['next/dist/compiled/strip-ansi'] = 'next/dist/compiled/strip-ansi'
+externals['strip-ansi'] = 'next-hybrid/dist/compiled/strip-ansi'
+externals['next-hybrid/dist/compiled/strip-ansi'] = 'next-hybrid/dist/compiled/strip-ansi'
 export async function ncc_strip_ansi(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('strip-ansi')))
     .ncc({ packageName: 'strip-ansi', externals })
     .target('src/compiled/strip-ansi')
 }
-externals['@vercel/nft'] = 'next/dist/compiled/@vercel/nft'
+externals['@vercel/nft'] = 'next-hybrid/dist/compiled/@vercel/nft'
 export async function ncc_nft(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('@vercel/nft')))
@@ -1901,7 +1901,7 @@ export async function ncc_nft(task, opts) {
     .target('src/compiled/@vercel/nft')
 }
 
-externals['tar'] = 'next/dist/compiled/tar'
+externals['tar'] = 'next-hybrid/dist/compiled/tar'
 export async function ncc_tar(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('tar')))
@@ -1909,21 +1909,21 @@ export async function ncc_tar(task, opts) {
     .target('src/compiled/tar')
 }
 
-externals['terser'] = 'next/dist/compiled/terser'
+externals['terser'] = 'next-hybrid/dist/compiled/terser'
 export async function ncc_terser(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('terser')))
     .ncc({ packageName: 'terser', externals })
     .target('src/compiled/terser')
 }
-externals['text-table'] = 'next/dist/compiled/text-table'
+externals['text-table'] = 'next-hybrid/dist/compiled/text-table'
 export async function ncc_text_table(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('text-table')))
     .ncc({ packageName: 'text-table', externals })
     .target('src/compiled/text-table')
 }
-externals['unistore'] = 'next/dist/compiled/unistore'
+externals['unistore'] = 'next-hybrid/dist/compiled/unistore'
 export async function ncc_unistore(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('unistore')))
@@ -1931,7 +1931,7 @@ export async function ncc_unistore(task, opts) {
     .target('src/compiled/unistore')
 }
 
-externals['superstruct'] = 'next/dist/compiled/superstruct'
+externals['superstruct'] = 'next-hybrid/dist/compiled/superstruct'
 export async function ncc_superstruct(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('superstruct')))
@@ -1939,7 +1939,7 @@ export async function ncc_superstruct(task, opts) {
     .target('src/compiled/superstruct')
 }
 
-externals['zod'] = 'next/dist/compiled/zod'
+externals['zod'] = 'next-hybrid/dist/compiled/zod'
 export async function ncc_zod(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('zod')))
@@ -1947,7 +1947,7 @@ export async function ncc_zod(task, opts) {
     .target('src/compiled/zod')
 }
 
-externals['zod-validation-error'] = 'next/dist/compiled/zod-validation-error'
+externals['zod-validation-error'] = 'next-hybrid/dist/compiled/zod-validation-error'
 export async function ncc_zod_validation_error(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('zod-validation-error')))
@@ -1955,7 +1955,7 @@ export async function ncc_zod_validation_error(task, opts) {
     .target('src/compiled/zod-validation-error')
 }
 
-externals['web-vitals'] = 'next/dist/compiled/web-vitals'
+externals['web-vitals'] = 'next-hybrid/dist/compiled/web-vitals'
 export async function ncc_web_vitals(task, opts) {
   await task
     .source(
@@ -1969,7 +1969,7 @@ export async function ncc_web_vitals(task, opts) {
     .target('src/compiled/web-vitals')
 }
 externals['web-vitals-attribution'] =
-  'next/dist/compiled/web-vitals-attribution'
+  'next-hybrid/dist/compiled/web-vitals-attribution'
 export async function ncc_web_vitals_attribution(task, opts) {
   await task
     .source(
@@ -1988,14 +1988,14 @@ export async function ncc_web_vitals_attribution(task, opts) {
     .target('src/compiled/web-vitals-attribution')
 }
 externals['webpack-sources'] = 'error webpack-sources version not specified'
-externals['webpack-sources1'] = 'next/dist/compiled/webpack-sources1'
+externals['webpack-sources1'] = 'next-hybrid/dist/compiled/webpack-sources1'
 export async function ncc_webpack_sources1(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('webpack-sources1')))
     .ncc({ packageName: 'webpack-sources1', externals, target: 'es5' })
     .target('src/compiled/webpack-sources1')
 }
-externals['webpack-sources3'] = 'next/dist/compiled/webpack-sources3'
+externals['webpack-sources3'] = 'next-hybrid/dist/compiled/webpack-sources3'
 export async function ncc_webpack_sources3(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('webpack-sources3')))
@@ -2003,7 +2003,7 @@ export async function ncc_webpack_sources3(task, opts) {
     .target('src/compiled/webpack-sources3')
 }
 
-externals['picomatch'] = 'next/dist/compiled/picomatch'
+externals['picomatch'] = 'next-hybrid/dist/compiled/picomatch'
 export async function ncc_minimatch(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('picomatch')))
@@ -2012,7 +2012,7 @@ export async function ncc_minimatch(task, opts) {
 }
 
 externals['mini-css-extract-plugin'] =
-  'next/dist/compiled/mini-css-extract-plugin'
+  'next-hybrid/dist/compiled/mini-css-extract-plugin'
 
 export async function ncc_mini_css_extract_plugin(task, opts) {
   await task
@@ -2045,7 +2045,7 @@ export async function ncc_mini_css_extract_plugin(task, opts) {
       externals: {
         ...externals,
         './hmr': './hmr',
-        'schema-utils': 'next/dist/compiled/schema-utils3',
+        'schema-utils': 'next-hybrid/dist/compiled/schema-utils3',
       },
     })
     .target('src/compiled/mini-css-extract-plugin/hmr')
@@ -2062,7 +2062,7 @@ export async function ncc_mini_css_extract_plugin(task, opts) {
     .target('src/compiled/mini-css-extract-plugin')
 }
 
-externals['ua-parser-js'] = 'next/dist/compiled/ua-parser-js'
+externals['ua-parser-js'] = 'next-hybrid/dist/compiled/ua-parser-js'
 export async function ncc_ua_parser_js(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('ua-parser-js')))
@@ -2093,10 +2093,10 @@ export async function ncc_webpack_bundle5(task, opts) {
 }
 
 const webpackBundlePackages = {
-  webpack: 'next/dist/compiled/webpack/webpack-lib',
-  'webpack/lib/NormalModule': 'next/dist/compiled/webpack/NormalModule',
+  webpack: 'next-hybrid/dist/compiled/webpack/webpack-lib',
+  'webpack/lib/NormalModule': 'next-hybrid/dist/compiled/webpack/NormalModule',
   'webpack/lib/node/NodeTargetPlugin':
-    'next/dist/compiled/webpack/NodeTargetPlugin',
+    'next-hybrid/dist/compiled/webpack/NodeTargetPlugin',
 }
 
 Object.assign(externals, webpackBundlePackages)
@@ -2107,7 +2107,7 @@ export async function ncc_webpack_bundle_packages(task, opts) {
     .target('src/compiled/webpack/')
 }
 
-externals['ws'] = 'next/dist/compiled/ws'
+externals['ws'] = 'next-hybrid/dist/compiled/ws'
 export async function ncc_ws(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('ws')))
@@ -2140,7 +2140,7 @@ export async function ncc_modelcontextprotocol_sdk(task, opts) {
     .target('src/compiled/@modelcontextprotocol/sdk/server')
 }
 
-externals['path-to-regexp'] = 'next/dist/compiled/path-to-regexp'
+externals['path-to-regexp'] = 'next-hybrid/dist/compiled/path-to-regexp'
 export async function ncc_path_to_regexp(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('path-to-regexp')))
@@ -2148,7 +2148,7 @@ export async function ncc_path_to_regexp(task, opts) {
     .target('src/compiled/path-to-regexp')
 }
 
-externals['@opentelemetry/api'] = 'next/dist/compiled/@opentelemetry/api'
+externals['@opentelemetry/api'] = 'next-hybrid/dist/compiled/@opentelemetry/api'
 export async function ncc_opentelemetry_api(task, opts) {
   await task
     .source(
@@ -2158,7 +2158,7 @@ export async function ncc_opentelemetry_api(task, opts) {
     .target('src/compiled/@opentelemetry/api')
 }
 
-externals['http-proxy-agent'] = 'next/dist/compiled/http-proxy-agent'
+externals['http-proxy-agent'] = 'next-hybrid/dist/compiled/http-proxy-agent'
 export async function ncc_http_proxy_agent(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('http-proxy-agent')))
@@ -2166,7 +2166,7 @@ export async function ncc_http_proxy_agent(task, opts) {
     .target('src/compiled/http-proxy-agent')
 }
 
-externals['https-proxy-agent'] = 'next/dist/compiled/https-proxy-agent'
+externals['https-proxy-agent'] = 'next-hybrid/dist/compiled/https-proxy-agent'
 export async function ncc_https_proxy_agent(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('https-proxy-agent')))
@@ -2174,7 +2174,7 @@ export async function ncc_https_proxy_agent(task, opts) {
     .target('src/compiled/https-proxy-agent')
 }
 
-externals['safe-stable-stringify'] = 'next/dist/compiled/safe-stable-stringify'
+externals['safe-stable-stringify'] = 'next-hybrid/dist/compiled/safe-stable-stringify'
 export async function ncc_safe_stable_stringify(task, opts) {
   await task
     .source(relative(__dirname, require.resolve('safe-stable-stringify')))
@@ -2710,7 +2710,11 @@ export async function generate_types(task, opts) {
   // In watch-mode the process never completes i.e. the Promise never resolve.
   // But taskr needs to know that it can start watching the files for the task it has to manually restart.
   if (!watchmode) {
-    await typesPromise
+    try {
+      await typesPromise
+    } catch (err) {
+      console.warn('Warning: generate_types failed, continuing build anyway.')
+    }
   }
 }
 

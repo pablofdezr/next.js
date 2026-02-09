@@ -1,8 +1,8 @@
-import cssnanoSimple from 'next/dist/compiled/cssnano-simple'
-import postcssScss from 'next/dist/compiled/postcss-scss'
+import cssnanoSimple from 'next-hybrid/dist/compiled/cssnano-simple'
+import postcssScss from 'next-hybrid/dist/compiled/postcss-scss'
 import postcss from 'postcss'
 import type { Parser } from 'postcss'
-import { webpack, sources } from 'next/dist/compiled/webpack/webpack'
+import { webpack, sources } from 'next-hybrid/dist/compiled/webpack/webpack'
 import { getCompilationSpan } from '../utils'
 
 // https://github.com/NMFR/optimize-css-assets-webpack-plugin/blob/0a410a9bf28c7b0e81a3470a13748e68ca2f50aa/src/index.js#L20

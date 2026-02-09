@@ -1,5 +1,5 @@
 import { promisify } from 'util'
-import globOriginal from 'next/dist/compiled/glob'
+import globOriginal from 'next-hybrid/dist/compiled/glob'
 import * as Log from '../build/output/log'
 import path from 'path'
 import fs from 'fs'

@@ -119,7 +119,7 @@ describe('console-exit patches', () => {
       async function testForWorker() {
         const {
           workUnitAsyncStorage,
-        } = require('next/dist/server/app-render/work-unit-async-storage.external')
+        } = require('next-hybrid/dist/server/app-render/work-unit-async-storage.external')
 
         // First, replace console.log to track what storage context it runs in
         console.log = function (...args) {
@@ -132,7 +132,7 @@ describe('console-exit patches', () => {
         }
 
         // Install patches - this wraps the current console.log
-        require('next/dist/server/node-environment-extensions/console-exit')
+        require('next-hybrid/dist/server/node-environment-extensions/console-exit')
 
         // Test outside storage context
         console.log('outside')
@@ -157,10 +157,10 @@ describe('console-exit patches', () => {
       async function testForWorker() {
         const {
           workUnitAsyncStorage,
-        } = require('next/dist/server/app-render/work-unit-async-storage.external')
+        } = require('next-hybrid/dist/server/app-render/work-unit-async-storage.external')
 
         // Install patches first
-        require('next/dist/server/node-environment-extensions/console-exit')
+        require('next-hybrid/dist/server/node-environment-extensions/console-exit')
 
         // Assign a new console.log after patching - this will NOT be wrapped
         console.log = function (...args) {
@@ -206,7 +206,7 @@ describe('console-exit patches', () => {
         })
 
         // install patch
-        require('next/dist/server/node-environment-extensions/console-exit')
+        require('next-hybrid/dist/server/node-environment-extensions/console-exit')
 
         // Test that patched methods preserve name and other properties
         reportResult({
@@ -236,7 +236,7 @@ describe('console-exit patches', () => {
       async function testForWorker() {
         const {
           workUnitAsyncStorage,
-        } = require('next/dist/server/app-render/work-unit-async-storage.external')
+        } = require('next-hybrid/dist/server/app-render/work-unit-async-storage.external')
 
         console.log = function (...args: Array<any>) {
           const store = workUnitAsyncStorage.getStore()
@@ -247,7 +247,7 @@ describe('console-exit patches', () => {
           })
         }
 
-        require('next/dist/server/node-environment-extensions/console-exit')
+        require('next-hybrid/dist/server/node-environment-extensions/console-exit')
 
         workUnitAsyncStorage.run({ type: 'request' } as WorkUnitStore, () => {
           console.log('inside')
@@ -268,7 +268,7 @@ describe('console-exit patches', () => {
       async function testForWorker() {
         const {
           workUnitAsyncStorage,
-        } = require('next/dist/server/app-render/work-unit-async-storage.external')
+        } = require('next-hybrid/dist/server/app-render/work-unit-async-storage.external')
 
         console.error = function (...args: Array<any>) {
           const store = workUnitAsyncStorage.getStore()
@@ -279,7 +279,7 @@ describe('console-exit patches', () => {
           })
         }
 
-        require('next/dist/server/node-environment-extensions/console-exit')
+        require('next-hybrid/dist/server/node-environment-extensions/console-exit')
 
         workUnitAsyncStorage.run({ type: 'request' } as WorkUnitStore, () => {
           console.error('inside')
@@ -300,7 +300,7 @@ describe('console-exit patches', () => {
       async function testForWorker() {
         const {
           workUnitAsyncStorage,
-        } = require('next/dist/server/app-render/work-unit-async-storage.external')
+        } = require('next-hybrid/dist/server/app-render/work-unit-async-storage.external')
 
         console.warn = function (...args: Array<any>) {
           const store = workUnitAsyncStorage.getStore()
@@ -311,7 +311,7 @@ describe('console-exit patches', () => {
           })
         }
 
-        require('next/dist/server/node-environment-extensions/console-exit')
+        require('next-hybrid/dist/server/node-environment-extensions/console-exit')
 
         workUnitAsyncStorage.run({ type: 'request' } as WorkUnitStore, () => {
           console.warn('inside')
@@ -332,7 +332,7 @@ describe('console-exit patches', () => {
       async function testForWorker() {
         const {
           workUnitAsyncStorage,
-        } = require('next/dist/server/app-render/work-unit-async-storage.external')
+        } = require('next-hybrid/dist/server/app-render/work-unit-async-storage.external')
 
         console.info = function (...args: Array<any>) {
           const store = workUnitAsyncStorage.getStore()
@@ -343,7 +343,7 @@ describe('console-exit patches', () => {
           })
         }
 
-        require('next/dist/server/node-environment-extensions/console-exit')
+        require('next-hybrid/dist/server/node-environment-extensions/console-exit')
 
         workUnitAsyncStorage.run({ type: 'request' } as WorkUnitStore, () => {
           console.info('inside')
@@ -364,7 +364,7 @@ describe('console-exit patches', () => {
       async function testForWorker() {
         const {
           workUnitAsyncStorage,
-        } = require('next/dist/server/app-render/work-unit-async-storage.external')
+        } = require('next-hybrid/dist/server/app-render/work-unit-async-storage.external')
 
         console.debug = function (...args: Array<any>) {
           const store = workUnitAsyncStorage.getStore()
@@ -375,7 +375,7 @@ describe('console-exit patches', () => {
           })
         }
 
-        require('next/dist/server/node-environment-extensions/console-exit')
+        require('next-hybrid/dist/server/node-environment-extensions/console-exit')
 
         workUnitAsyncStorage.run({ type: 'request' } as WorkUnitStore, () => {
           console.debug('inside')
@@ -396,7 +396,7 @@ describe('console-exit patches', () => {
       async function testForWorker() {
         const {
           workUnitAsyncStorage,
-        } = require('next/dist/server/app-render/work-unit-async-storage.external')
+        } = require('next-hybrid/dist/server/app-render/work-unit-async-storage.external')
 
         console.trace = function (...args: Array<any>) {
           const store = workUnitAsyncStorage.getStore()
@@ -407,7 +407,7 @@ describe('console-exit patches', () => {
           })
         }
 
-        require('next/dist/server/node-environment-extensions/console-exit')
+        require('next-hybrid/dist/server/node-environment-extensions/console-exit')
 
         workUnitAsyncStorage.run({ type: 'request' } as WorkUnitStore, () => {
           console.trace('inside')
@@ -428,7 +428,7 @@ describe('console-exit patches', () => {
       async function testForWorker() {
         const {
           workUnitAsyncStorage,
-        } = require('next/dist/server/app-render/work-unit-async-storage.external')
+        } = require('next-hybrid/dist/server/app-render/work-unit-async-storage.external')
 
         console.dir = function (...args: Array<any>) {
           const store = workUnitAsyncStorage.getStore()
@@ -439,7 +439,7 @@ describe('console-exit patches', () => {
           })
         }
 
-        require('next/dist/server/node-environment-extensions/console-exit')
+        require('next-hybrid/dist/server/node-environment-extensions/console-exit')
 
         workUnitAsyncStorage.run({ type: 'request' } as WorkUnitStore, () => {
           console.dir('inside')
@@ -460,7 +460,7 @@ describe('console-exit patches', () => {
       async function testForWorker() {
         const {
           workUnitAsyncStorage,
-        } = require('next/dist/server/app-render/work-unit-async-storage.external')
+        } = require('next-hybrid/dist/server/app-render/work-unit-async-storage.external')
 
         console.dirxml = function (...args: Array<any>) {
           const store = workUnitAsyncStorage.getStore()
@@ -471,7 +471,7 @@ describe('console-exit patches', () => {
           })
         }
 
-        require('next/dist/server/node-environment-extensions/console-exit')
+        require('next-hybrid/dist/server/node-environment-extensions/console-exit')
 
         workUnitAsyncStorage.run({ type: 'request' } as WorkUnitStore, () => {
           console.dirxml('inside')
@@ -492,7 +492,7 @@ describe('console-exit patches', () => {
       async function testForWorker() {
         const {
           workUnitAsyncStorage,
-        } = require('next/dist/server/app-render/work-unit-async-storage.external')
+        } = require('next-hybrid/dist/server/app-render/work-unit-async-storage.external')
 
         console.table = function (...args: Array<any>) {
           const store = workUnitAsyncStorage.getStore()
@@ -503,7 +503,7 @@ describe('console-exit patches', () => {
           })
         }
 
-        require('next/dist/server/node-environment-extensions/console-exit')
+        require('next-hybrid/dist/server/node-environment-extensions/console-exit')
 
         workUnitAsyncStorage.run({ type: 'request' } as WorkUnitStore, () => {
           console.table('inside')
@@ -524,7 +524,7 @@ describe('console-exit patches', () => {
       async function testForWorker() {
         const {
           workUnitAsyncStorage,
-        } = require('next/dist/server/app-render/work-unit-async-storage.external')
+        } = require('next-hybrid/dist/server/app-render/work-unit-async-storage.external')
 
         console.assert = function (...args: Array<any>) {
           const store = workUnitAsyncStorage.getStore()
@@ -535,7 +535,7 @@ describe('console-exit patches', () => {
           })
         }
 
-        require('next/dist/server/node-environment-extensions/console-exit')
+        require('next-hybrid/dist/server/node-environment-extensions/console-exit')
 
         workUnitAsyncStorage.run({ type: 'request' } as WorkUnitStore, () => {
           console.assert('inside')
@@ -556,7 +556,7 @@ describe('console-exit patches', () => {
       async function testForWorker() {
         const {
           workUnitAsyncStorage,
-        } = require('next/dist/server/app-render/work-unit-async-storage.external')
+        } = require('next-hybrid/dist/server/app-render/work-unit-async-storage.external')
 
         console.group = function (...args: Array<any>) {
           const store = workUnitAsyncStorage.getStore()
@@ -567,7 +567,7 @@ describe('console-exit patches', () => {
           })
         }
 
-        require('next/dist/server/node-environment-extensions/console-exit')
+        require('next-hybrid/dist/server/node-environment-extensions/console-exit')
 
         workUnitAsyncStorage.run({ type: 'request' } as WorkUnitStore, () => {
           console.group('inside')
@@ -588,7 +588,7 @@ describe('console-exit patches', () => {
       async function testForWorker() {
         const {
           workUnitAsyncStorage,
-        } = require('next/dist/server/app-render/work-unit-async-storage.external')
+        } = require('next-hybrid/dist/server/app-render/work-unit-async-storage.external')
 
         console.groupCollapsed = function (...args: Array<any>) {
           const store = workUnitAsyncStorage.getStore()
@@ -599,7 +599,7 @@ describe('console-exit patches', () => {
           })
         }
 
-        require('next/dist/server/node-environment-extensions/console-exit')
+        require('next-hybrid/dist/server/node-environment-extensions/console-exit')
 
         workUnitAsyncStorage.run({ type: 'request' } as WorkUnitStore, () => {
           console.groupCollapsed('inside')
@@ -620,7 +620,7 @@ describe('console-exit patches', () => {
       async function testForWorker() {
         const {
           workUnitAsyncStorage,
-        } = require('next/dist/server/app-render/work-unit-async-storage.external')
+        } = require('next-hybrid/dist/server/app-render/work-unit-async-storage.external')
 
         console.groupEnd = function () {
           const store = workUnitAsyncStorage.getStore()
@@ -631,7 +631,7 @@ describe('console-exit patches', () => {
           })
         }
 
-        require('next/dist/server/node-environment-extensions/console-exit')
+        require('next-hybrid/dist/server/node-environment-extensions/console-exit')
 
         workUnitAsyncStorage.run({ type: 'request' } as WorkUnitStore, () => {
           console.groupEnd()
@@ -652,7 +652,7 @@ describe('console-exit patches', () => {
       async function testForWorker() {
         const {
           workUnitAsyncStorage,
-        } = require('next/dist/server/app-render/work-unit-async-storage.external')
+        } = require('next-hybrid/dist/server/app-render/work-unit-async-storage.external')
 
         // Assign an arbitrary function property that shouldn't be wrapped
         // @ts-expect-error - intentionally assigning a custom property
@@ -665,7 +665,7 @@ describe('console-exit patches', () => {
           })
         }
 
-        require('next/dist/server/node-environment-extensions/console-exit')
+        require('next-hybrid/dist/server/node-environment-extensions/console-exit')
 
         workUnitAsyncStorage.run({ type: 'request' } as WorkUnitStore, () => {
           // @ts-expect-error - calling our custom property

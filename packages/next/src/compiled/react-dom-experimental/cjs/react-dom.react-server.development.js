@@ -39,7 +39,7 @@
                 ? "`" + thing + "`"
                 : 'something with type "' + typeof thing + '"';
     }
-    var React = require("next/dist/compiled/react-experimental"),
+    var React = require("next-hybrid/dist/compiled/react-experimental"),
       Internals = {
         d: {
           f: noop,

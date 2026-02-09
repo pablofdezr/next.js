@@ -285,7 +285,7 @@
         object.$$typeof === REACT_ELEMENT_TYPE
       );
     }
-    var React = require("next/dist/compiled/react"),
+    var React = require("next-hybrid/dist/compiled/react"),
       REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"),
       REACT_PORTAL_TYPE = Symbol.for("react.portal"),
       REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"),

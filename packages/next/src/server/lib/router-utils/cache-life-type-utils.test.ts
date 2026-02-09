@@ -21,14 +21,14 @@ describe('cache-life-type-utils', () => {
      "// Type definitions for Next.js cacheLife configs
 
      declare module 'next/cache' {
-       export { unstable_cache } from 'next/dist/server/web/spec-extension/unstable-cache'
+       export { unstable_cache } from 'next-hybrid/dist/server/web/spec-extension/unstable-cache'
        export {
          updateTag,
          revalidateTag,
          revalidatePath,
          refresh,
-       } from 'next/dist/server/web/spec-extension/revalidate'
-       export { unstable_noStore } from 'next/dist/server/web/spec-extension/unstable-no-store'
+       } from 'next-hybrid/dist/server/web/spec-extension/revalidate'
+       export { unstable_noStore } from 'next-hybrid/dist/server/web/spec-extension/unstable-no-store'
 
        
          /**
@@ -87,7 +87,7 @@ describe('cache-life-type-utils', () => {
          }): void
        
 
-       import { cacheTag } from 'next/dist/server/use-cache/cache-tag'
+       import { cacheTag } from 'next-hybrid/dist/server/use-cache/cache-tag'
        export { cacheTag }
 
        export const unstable_cacheTag: typeof cacheTag
@@ -178,14 +178,14 @@ describe('cache-life-type-utils', () => {
      "// Type definitions for Next.js cacheLife configs
 
      declare module 'next/cache' {
-       export { unstable_cache } from 'next/dist/server/web/spec-extension/unstable-cache'
+       export { unstable_cache } from 'next-hybrid/dist/server/web/spec-extension/unstable-cache'
        export {
          updateTag,
          revalidateTag,
          revalidatePath,
          refresh,
-       } from 'next/dist/server/web/spec-extension/revalidate'
-       export { unstable_noStore } from 'next/dist/server/web/spec-extension/unstable-no-store'
+       } from 'next-hybrid/dist/server/web/spec-extension/revalidate'
+       export { unstable_noStore } from 'next-hybrid/dist/server/web/spec-extension/unstable-no-store'
 
        
          /**
@@ -230,7 +230,7 @@ describe('cache-life-type-utils', () => {
          }): void
        
 
-       import { cacheTag } from 'next/dist/server/use-cache/cache-tag'
+       import { cacheTag } from 'next-hybrid/dist/server/use-cache/cache-tag'
        export { cacheTag }
 
        export const unstable_cacheTag: typeof cacheTag
@@ -255,14 +255,14 @@ describe('cache-life-type-utils', () => {
      "// Type definitions for Next.js cacheLife configs
 
      declare module 'next/cache' {
-       export { unstable_cache } from 'next/dist/server/web/spec-extension/unstable-cache'
+       export { unstable_cache } from 'next-hybrid/dist/server/web/spec-extension/unstable-cache'
        export {
          updateTag,
          revalidateTag,
          revalidatePath,
          refresh,
-       } from 'next/dist/server/web/spec-extension/revalidate'
-       export { unstable_noStore } from 'next/dist/server/web/spec-extension/unstable-no-store'
+       } from 'next-hybrid/dist/server/web/spec-extension/revalidate'
+       export { unstable_noStore } from 'next-hybrid/dist/server/web/spec-extension/unstable-no-store'
 
        
          /**
@@ -306,7 +306,7 @@ describe('cache-life-type-utils', () => {
          }): void
        
 
-       import { cacheTag } from 'next/dist/server/use-cache/cache-tag'
+       import { cacheTag } from 'next-hybrid/dist/server/use-cache/cache-tag'
        export { cacheTag }
 
        export const unstable_cacheTag: typeof cacheTag
@@ -331,14 +331,14 @@ describe('cache-life-type-utils', () => {
      "// Type definitions for Next.js cacheLife configs
 
      declare module 'next/cache' {
-       export { unstable_cache } from 'next/dist/server/web/spec-extension/unstable-cache'
+       export { unstable_cache } from 'next-hybrid/dist/server/web/spec-extension/unstable-cache'
        export {
          updateTag,
          revalidateTag,
          revalidatePath,
          refresh,
-       } from 'next/dist/server/web/spec-extension/revalidate'
-       export { unstable_noStore } from 'next/dist/server/web/spec-extension/unstable-no-store'
+       } from 'next-hybrid/dist/server/web/spec-extension/revalidate'
+       export { unstable_noStore } from 'next-hybrid/dist/server/web/spec-extension/unstable-no-store'
 
        
          /**
@@ -383,7 +383,7 @@ describe('cache-life-type-utils', () => {
          }): void
        
 
-       import { cacheTag } from 'next/dist/server/use-cache/cache-tag'
+       import { cacheTag } from 'next-hybrid/dist/server/use-cache/cache-tag'
        export { cacheTag }
 
        export const unstable_cacheTag: typeof cacheTag
@@ -408,14 +408,14 @@ describe('cache-life-type-utils', () => {
      "// Type definitions for Next.js cacheLife configs
 
      declare module 'next/cache' {
-       export { unstable_cache } from 'next/dist/server/web/spec-extension/unstable-cache'
+       export { unstable_cache } from 'next-hybrid/dist/server/web/spec-extension/unstable-cache'
        export {
          updateTag,
          revalidateTag,
          revalidatePath,
          refresh,
-       } from 'next/dist/server/web/spec-extension/revalidate'
-       export { unstable_noStore } from 'next/dist/server/web/spec-extension/unstable-no-store'
+       } from 'next-hybrid/dist/server/web/spec-extension/revalidate'
+       export { unstable_noStore } from 'next-hybrid/dist/server/web/spec-extension/unstable-no-store'
 
        
          /**
@@ -460,7 +460,7 @@ describe('cache-life-type-utils', () => {
          }): void
        
 
-       import { cacheTag } from 'next/dist/server/use-cache/cache-tag'
+       import { cacheTag } from 'next-hybrid/dist/server/use-cache/cache-tag'
        export { cacheTag }
 
        export const unstable_cacheTag: typeof cacheTag
@@ -489,14 +489,14 @@ describe('cache-life-type-utils', () => {
      "// Type definitions for Next.js cacheLife configs
 
      declare module 'next/cache' {
-       export { unstable_cache } from 'next/dist/server/web/spec-extension/unstable-cache'
+       export { unstable_cache } from 'next-hybrid/dist/server/web/spec-extension/unstable-cache'
        export {
          updateTag,
          revalidateTag,
          revalidatePath,
          refresh,
-       } from 'next/dist/server/web/spec-extension/revalidate'
-       export { unstable_noStore } from 'next/dist/server/web/spec-extension/unstable-no-store'
+       } from 'next-hybrid/dist/server/web/spec-extension/revalidate'
+       export { unstable_noStore } from 'next-hybrid/dist/server/web/spec-extension/unstable-no-store'
 
        
          /**
@@ -541,7 +541,7 @@ describe('cache-life-type-utils', () => {
          }): void
        
 
-       import { cacheTag } from 'next/dist/server/use-cache/cache-tag'
+       import { cacheTag } from 'next-hybrid/dist/server/use-cache/cache-tag'
        export { cacheTag }
 
        export const unstable_cacheTag: typeof cacheTag

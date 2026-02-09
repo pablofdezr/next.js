@@ -9,7 +9,7 @@
 
 Modules in `dev-overlay/` are isolated from the rest of the source. Any stateful module will not share state with e.g. `userspace/`. Stateful modules in `shared/` cannot be used to pass data from `dev-overlay/` to `userspace/` or vice versa.
 
-`userspace/` code can send messages to `dev-overlay/` via the `dispatcher` imported from `next/dist/compiled/next-devtools`.
+`userspace/` code can send messages to `dev-overlay/` via the `dispatcher` imported from `next-hybrid/dist/compiled/next-devtools`.
 
 Keep processing in `userspace/` to a minimum and prefer deriving data in `dev-overlay/`.
 

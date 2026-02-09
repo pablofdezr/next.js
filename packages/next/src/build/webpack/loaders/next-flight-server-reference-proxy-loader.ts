@@ -1,4 +1,4 @@
-import type { webpack } from 'next/dist/compiled/webpack/webpack'
+import type { webpack } from 'next-hybrid/dist/compiled/webpack/webpack'
 
 // This is a virtual proxy loader that takes a Server Reference ID and a name,
 // creates a module that just re-exports the reference as that name.

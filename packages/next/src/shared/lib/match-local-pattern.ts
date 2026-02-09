@@ -1,5 +1,5 @@
 import type { LocalPattern } from './image-config'
-import { makeRe } from 'next/dist/compiled/picomatch'
+import { makeRe } from 'next-hybrid/dist/compiled/picomatch'
 
 // Modifying this function should also modify writeImagesManifest()
 export function matchLocalPattern(pattern: LocalPattern, url: URL): boolean {

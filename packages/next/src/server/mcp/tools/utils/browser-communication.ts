@@ -4,7 +4,7 @@
  * communication between MCP endpoints and browser sessions via HMR.
  */
 
-import { nanoid } from 'next/dist/compiled/nanoid'
+import { nanoid } from 'next-hybrid/dist/compiled/nanoid'
 import type {
   HMR_MESSAGE_SENT_TO_BROWSER,
   HmrMessageSentToBrowser,

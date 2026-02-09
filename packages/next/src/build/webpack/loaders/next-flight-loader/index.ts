@@ -4,7 +4,7 @@ import {
   type LoaderContext,
   type NormalModule,
   type webpack,
-} from 'next/dist/compiled/webpack/webpack'
+} from 'next-hybrid/dist/compiled/webpack/webpack'
 import { RSC_MOD_REF_PROXY_ALIAS } from '../../../../lib/constants'
 import {
   BARREL_OPTIMIZATION_PREFIX,
@@ -17,10 +17,10 @@ import { getModuleBuildInfo } from '../get-module-build-info'
 
 type SourceType = javascript.JavascriptParser['sourceType'] | 'commonjs'
 
-const noopHeadPath = require.resolve('next/dist/client/components/noop-head')
+const noopHeadPath = require.resolve('next-hybrid/dist/client/components/noop-head')
 // For edge runtime it will be aliased to esm version by webpack
 const MODULE_PROXY_PATH =
-  'next/dist/build/webpack/loaders/next-flight-loader/module-proxy'
+  'next-hybrid/dist/build/webpack/loaders/next-flight-loader/module-proxy'
 
 export function getAssumedSourceType(
   mod: webpack.Module,

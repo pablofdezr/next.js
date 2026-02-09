@@ -4,7 +4,7 @@ export const DEFAULT_MAX_POSTPONED_STATE_SIZE: SizeLimit = '100 MB'
 
 function parseSizeLimit(size: SizeLimit): number | undefined {
   const bytes = (
-    require('next/dist/compiled/bytes') as typeof import('next/dist/compiled/bytes')
+    require('next-hybrid/dist/compiled/bytes') as typeof import('next-hybrid/dist/compiled/bytes')
   ).parse(size)
   if (bytes === null || isNaN(bytes) || bytes < 1) {
     return undefined

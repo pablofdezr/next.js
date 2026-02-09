@@ -1,7 +1,7 @@
 // Import cpu-profile first to start profiling early if enabled
 import { saveCpuProfile } from '../../server/lib/cpu-profile'
-import type { webpack } from 'next/dist/compiled/webpack/webpack'
-import { stringBufferUtils } from 'next/dist/compiled/webpack-sources3'
+import type { webpack } from 'next-hybrid/dist/compiled/webpack/webpack'
+import { stringBufferUtils } from 'next-hybrid/dist/compiled/webpack-sources3'
 import { red } from '../../lib/picocolors'
 import formatWebpackMessages from '../../shared/lib/format-webpack-messages'
 import { nonNullable } from '../../lib/non-nullable'
@@ -40,7 +40,7 @@ import { TraceEntryPointsPlugin } from '../webpack/plugins/next-trace-entrypoint
 import type { BuildTraceContext } from '../webpack/plugins/next-trace-entrypoints-plugin'
 import type { UnwrapPromise } from '../../lib/coalesced-function'
 
-import origDebug from 'next/dist/compiled/debug'
+import origDebug from 'next-hybrid/dist/compiled/debug'
 import { Telemetry } from '../../telemetry/storage'
 import { durationToString, hrtimeToSeconds } from '../duration-to-string'
 import { installBindings } from '../swc/install-bindings'

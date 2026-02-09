@@ -14,7 +14,7 @@ import { openFileInEditor } from '../../next-devtools/server/launch-editor'
 import {
   SourceMapConsumer,
   type NullableMappedPosition,
-} from 'next/dist/compiled/source-map08'
+} from 'next-hybrid/dist/compiled/source-map08'
 import type { Project, TurbopackStackFrame } from '../../build/swc/types'
 import {
   type ModernSourceMapPayload,
@@ -29,7 +29,7 @@ function shouldIgnorePath(modulePath: string): boolean {
   return (
     modulePath.includes('node_modules') ||
     // Only relevant for when Next.js is symlinked e.g. in the Next.js monorepo
-    modulePath.includes('next/dist') ||
+    modulePath.includes('next-hybrid/dist') ||
     modulePath.startsWith('node:')
   )
 }

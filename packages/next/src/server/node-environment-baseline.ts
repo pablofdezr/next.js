@@ -13,7 +13,7 @@ if (typeof (globalThis as any).WebSocket !== 'function') {
     configurable: true,
     get() {
       return (
-        require('next/dist/compiled/ws') as typeof import('next/dist/compiled/ws')
+        require('next-hybrid/dist/compiled/ws') as typeof import('next-hybrid/dist/compiled/ws')
       ).WebSocket
     },
     set(value) {

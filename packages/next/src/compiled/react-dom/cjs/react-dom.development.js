@@ -86,7 +86,7 @@
       "function" ===
         typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart &&
       __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-    var React = require("next/dist/compiled/react"),
+    var React = require("next-hybrid/dist/compiled/react"),
       Internals = {
         d: {
           f: noop,

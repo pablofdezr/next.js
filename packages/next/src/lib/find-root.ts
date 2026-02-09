@@ -1,5 +1,5 @@
 import { dirname } from 'path'
-import findUp from 'next/dist/compiled/find-up'
+import findUp from 'next-hybrid/dist/compiled/find-up'
 import * as Log from '../build/output/log'
 
 function findWorkRoot(cwd: string) {

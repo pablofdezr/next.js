@@ -1,4 +1,4 @@
-import type { Token } from 'next/dist/compiled/path-to-regexp'
+import type { Token } from 'next-hybrid/dist/compiled/path-to-regexp'
 
 /**
  * Route pattern normalization utilities for path-to-regexp compatibility.

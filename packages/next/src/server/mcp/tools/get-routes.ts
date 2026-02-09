@@ -12,11 +12,11 @@
  * does NOT expand getStaticParams - it only shows the route patterns as defined in
  * the filesystem.
  */
-import type { McpServer } from 'next/dist/compiled/@modelcontextprotocol/sdk/server/mcp'
+import type { McpServer } from 'next-hybrid/dist/compiled/@modelcontextprotocol/sdk/server/mcp'
 import { mcpTelemetryTracker } from '../mcp-telemetry-tracker'
 import { discoverRoutes } from '../../../build/route-discovery'
 import type { NextConfigComplete } from '../../../server/config-shared'
-import z from 'next/dist/compiled/zod'
+import z from 'next-hybrid/dist/compiled/zod'
 
 export function registerGetRoutesTool(
   server: McpServer,

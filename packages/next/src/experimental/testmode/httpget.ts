@@ -1,4 +1,4 @@
-import { ClientRequestInterceptor } from 'next/dist/compiled/@mswjs/interceptors/ClientRequest'
+import { ClientRequestInterceptor } from 'next-hybrid/dist/compiled/@mswjs/interceptors/ClientRequest'
 import { handleFetch } from './fetch'
 
 type Fetch = typeof fetch

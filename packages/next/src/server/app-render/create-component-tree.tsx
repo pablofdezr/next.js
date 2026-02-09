@@ -376,7 +376,7 @@ async function createComponentTreeInternal(
 
   if (process.env.NODE_ENV === 'development' || isStaticGeneration) {
     const { isValidElementType } =
-      require('next/dist/compiled/react-is') as typeof import('next/dist/compiled/react-is')
+      require('next-hybrid/dist/compiled/react-is') as typeof import('next-hybrid/dist/compiled/react-is')
     if (
       typeof MaybeComponent !== 'undefined' &&
       !isValidElementType(MaybeComponent)

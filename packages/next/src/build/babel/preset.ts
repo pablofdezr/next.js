@@ -1,4 +1,4 @@
-import type { PluginItem } from 'next/dist/compiled/babel/core'
+import type { PluginItem } from 'next-hybrid/dist/compiled/babel/core'
 import { dirname } from 'path'
 
 const isLoadIntentTest = process.env.NODE_ENV === 'test'
@@ -92,7 +92,7 @@ function presetTypescriptSyntaxOnly(_api: unknown, options: any) {
   function getPlugins(isTSX: boolean, disallowAmbiguousJSXLike: boolean) {
     return [
       [
-        require('next/dist/compiled/babel/plugin-syntax-typescript') as typeof import('next/dist/compiled/babel/plugin-syntax-typescript'),
+        require('next-hybrid/dist/compiled/babel/plugin-syntax-typescript') as typeof import('next-hybrid/dist/compiled/babel/plugin-syntax-typescript'),
         {
           isTSX,
           disallowAmbiguousJSXLike,
@@ -151,15 +151,15 @@ export default (
 
   // syntax plugins that are used in both standalone and default modes
   const sharedSyntaxPlugins = [
-    require('next/dist/compiled/babel/plugin-syntax-dynamic-import') as typeof import('next/dist/compiled/babel/plugin-syntax-dynamic-import'),
+    require('next-hybrid/dist/compiled/babel/plugin-syntax-dynamic-import') as typeof import('next-hybrid/dist/compiled/babel/plugin-syntax-dynamic-import'),
     [
-      require('next/dist/compiled/babel/plugin-syntax-import-attributes') as typeof import('next/dist/compiled/babel/plugin-syntax-import-attributes'),
+      require('next-hybrid/dist/compiled/babel/plugin-syntax-import-attributes') as typeof import('next-hybrid/dist/compiled/babel/plugin-syntax-import-attributes'),
       {
         deprecatedAssertSyntax: true,
       },
     ],
     (isStandalone || isServer) &&
-      (require('next/dist/compiled/babel/plugin-syntax-bigint') as typeof import('next/dist/compiled/babel/plugin-syntax-bigint')),
+      (require('next-hybrid/dist/compiled/babel/plugin-syntax-bigint') as typeof import('next-hybrid/dist/compiled/babel/plugin-syntax-bigint')),
   ].filter(Boolean)
 
   if (isStandalone) {
@@ -174,7 +174,7 @@ export default (
         ],
       ],
       plugins: [
-        require('next/dist/compiled/babel/plugin-syntax-jsx') as typeof import('next/dist/compiled/babel/plugin-syntax-jsx'),
+        require('next-hybrid/dist/compiled/babel/plugin-syntax-jsx') as typeof import('next-hybrid/dist/compiled/babel/plugin-syntax-jsx'),
         ...sharedSyntaxPlugins,
       ],
     }
@@ -233,17 +233,17 @@ export default (
   }
 
   const runtimeModuleName = isBabelLoader
-    ? 'next/dist/compiled/@babel/runtime'
+    ? 'next-hybrid/dist/compiled/@babel/runtime'
     : null
   return {
     sourceType: 'unambiguous',
     presets: [
       [
-        require('next/dist/compiled/babel/preset-env') as typeof import('next/dist/compiled/babel/preset-env'),
+        require('next-hybrid/dist/compiled/babel/preset-env') as typeof import('next-hybrid/dist/compiled/babel/preset-env'),
         presetEnvConfig,
       ],
       [
-        require('next/dist/compiled/babel/preset-react') as typeof import('next/dist/compiled/babel/preset-react'),
+        require('next-hybrid/dist/compiled/babel/preset-react') as typeof import('next-hybrid/dist/compiled/babel/preset-react'),
         {
           // This adds @babel/plugin-transform-react-jsx-source and
           // @babel/plugin-transform-react-jsx-self automatically in development
@@ -253,7 +253,7 @@ export default (
         },
       ],
       [
-        require('next/dist/compiled/babel/preset-typescript') as typeof import('next/dist/compiled/babel/preset-typescript'),
+        require('next-hybrid/dist/compiled/babel/preset-typescript') as typeof import('next-hybrid/dist/compiled/babel/preset-typescript'),
         {
           allowNamespaces: true,
           ...(options['preset-typescript'] || options['syntax-typescript']),
@@ -286,17 +286,17 @@ export default (
       // otherwise we will only enable it if their browserslist triggers
       // preset-env to pull it in
       options['class-properties'] && [
-        require('next/dist/compiled/babel/plugin-proposal-class-properties') as typeof import('next/dist/compiled/babel/plugin-proposal-class-properties'),
+        require('next-hybrid/dist/compiled/babel/plugin-proposal-class-properties') as typeof import('next-hybrid/dist/compiled/babel/plugin-proposal-class-properties'),
         options['class-properties'] || {},
       ],
       [
-        require('next/dist/compiled/babel/plugin-proposal-object-rest-spread') as typeof import('next/dist/compiled/babel/plugin-proposal-object-rest-spread'),
+        require('next-hybrid/dist/compiled/babel/plugin-proposal-object-rest-spread') as typeof import('next-hybrid/dist/compiled/babel/plugin-proposal-object-rest-spread'),
         {
           useBuiltIns: true,
         },
       ],
       !isServer && [
-        require('next/dist/compiled/babel/plugin-transform-runtime') as typeof import('next/dist/compiled/babel/plugin-transform-runtime'),
+        require('next-hybrid/dist/compiled/babel/plugin-transform-runtime') as typeof import('next-hybrid/dist/compiled/babel/plugin-transform-runtime'),
         {
           corejs: false,
           helpers: true,
@@ -319,15 +319,15 @@ export default (
         styledJsxOptions(options['styled-jsx']),
       ],
       isProduction && [
-        require('next/dist/compiled/babel/plugin-transform-react-remove-prop-types') as typeof import('next/dist/compiled/babel/plugin-transform-react-remove-prop-types'),
+        require('next-hybrid/dist/compiled/babel/plugin-transform-react-remove-prop-types') as typeof import('next-hybrid/dist/compiled/babel/plugin-transform-react-remove-prop-types'),
         {
           removeImport: true,
         },
       ],
       // Always compile numeric separator because the resulting number is
       // smaller.
-      require('next/dist/compiled/babel/plugin-proposal-numeric-separator') as typeof import('next/dist/compiled/babel/plugin-proposal-numeric-separator'),
-      require('next/dist/compiled/babel/plugin-proposal-export-namespace-from') as typeof import('next/dist/compiled/babel/plugin-proposal-export-namespace-from'),
+      require('next-hybrid/dist/compiled/babel/plugin-proposal-numeric-separator') as typeof import('next-hybrid/dist/compiled/babel/plugin-proposal-numeric-separator'),
+      require('next-hybrid/dist/compiled/babel/plugin-proposal-export-namespace-from') as typeof import('next-hybrid/dist/compiled/babel/plugin-proposal-export-namespace-from'),
     ].filter(Boolean),
   }
 }

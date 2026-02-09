@@ -1,9 +1,9 @@
 import { readFileSync } from 'node:fs'
 import { inspect } from 'node:util'
-import JSON5 from 'next/dist/compiled/json5'
+import JSON5 from 'next-hybrid/dist/compiled/json5'
 
-import { createConfigItem, loadOptions } from 'next/dist/compiled/babel/core'
-import loadFullConfig from 'next/dist/compiled/babel/core-lib-config'
+import { createConfigItem, loadOptions } from 'next-hybrid/dist/compiled/babel/core'
+import loadFullConfig from 'next-hybrid/dist/compiled/babel/core-lib-config'
 
 import type {
   NextBabelLoaderOptionDefaultPresets,
@@ -172,7 +172,7 @@ function getPlugins(
   const reactRefreshItem = hasReactRefresh
     ? createConfigItem(
         [
-          require('next/dist/compiled/react-refresh/babel') as typeof import('next/dist/compiled/react-refresh/babel'),
+          require('next-hybrid/dist/compiled/react-refresh/babel') as typeof import('next-hybrid/dist/compiled/react-refresh/babel'),
           { skipEnvCheck: true },
         ],
         { type: 'plugin' }
@@ -200,7 +200,7 @@ function getPlugins(
       : null
   const transformDefineItem = createConfigItem(
     [
-      require.resolve('next/dist/compiled/babel/plugin-transform-define'),
+      require.resolve('next-hybrid/dist/compiled/babel/plugin-transform-define'),
       {
         'process.env.NODE_ENV': development ? 'development' : 'production',
         'typeof window': isServer ? 'undefined' : 'object',
@@ -218,7 +218,7 @@ function getPlugins(
       : null
   const commonJsItem = isNextDist
     ? createConfigItem(
-        require('next/dist/compiled/babel/plugin-transform-modules-commonjs') as typeof import('next/dist/compiled/babel/plugin-transform-modules-commonjs'),
+        require('next-hybrid/dist/compiled/babel/plugin-transform-modules-commonjs') as typeof import('next-hybrid/dist/compiled/babel/plugin-transform-modules-commonjs'),
         { type: 'plugin' }
       )
     : null

@@ -3,10 +3,10 @@ import type {
   ClientComponentImports,
 } from '../loaders/next-flight-client-entry-loader'
 
-import { webpack } from 'next/dist/compiled/webpack/webpack'
+import { webpack } from 'next-hybrid/dist/compiled/webpack/webpack'
 import { parse, stringify } from 'querystring'
 import path from 'path'
-import { sources } from 'next/dist/compiled/webpack/webpack'
+import { sources } from 'next-hybrid/dist/compiled/webpack/webpack'
 import {
   getInvalidator,
   getEntries,

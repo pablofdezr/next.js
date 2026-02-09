@@ -26,7 +26,7 @@ import type {
   ReactLoadableManifest,
 } from '../../../server/load-components'
 import path from 'path'
-import { webpack, sources } from 'next/dist/compiled/webpack/webpack'
+import { webpack, sources } from 'next-hybrid/dist/compiled/webpack/webpack'
 import { DYNAMIC_CSS_MANIFEST } from '../../../shared/lib/constants'
 
 function getModuleId(compilation: any, module: any): string | number {

@@ -1,5 +1,5 @@
-import Anser, { type AnserJsonEntry } from 'next/dist/compiled/anser'
-import stripAnsi from 'next/dist/compiled/strip-ansi'
+import Anser, { type AnserJsonEntry } from 'next-hybrid/dist/compiled/anser'
+import stripAnsi from 'next-hybrid/dist/compiled/strip-ansi'
 import type { StackFrame } from '../../../shared/stack-frame'
 
 // Strip leading spaces out of the code frame

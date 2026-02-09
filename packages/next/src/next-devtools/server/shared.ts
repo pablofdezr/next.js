@@ -1,4 +1,4 @@
-import { codeFrameColumns } from 'next/dist/compiled/babel/code-frame'
+import { codeFrameColumns } from 'next-hybrid/dist/compiled/babel/code-frame'
 import isInternal from '../../shared/lib/is-internal'
 import type { StackFrame } from '../../server/lib/parse-stack'
 import { ignoreListAnonymousStackFramesIfSandwiched as ignoreListAnonymousStackFramesIfSandwichedGeneric } from '../../server/lib/source-maps'

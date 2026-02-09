@@ -6,7 +6,7 @@ import type {
   MissingDependency,
   NecessaryDependencies,
 } from './has-necessary-dependencies'
-import semver from 'next/dist/compiled/semver'
+import semver from 'next-hybrid/dist/compiled/semver'
 import { CompileError } from './compile-error'
 import * as log from '../build/output/log'
 

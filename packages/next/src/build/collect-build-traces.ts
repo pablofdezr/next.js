@@ -13,10 +13,10 @@ import path from 'path'
 import fs from 'fs/promises'
 import { nonNullable } from '../lib/non-nullable'
 import * as ciEnvironment from '../server/ci-info'
-import debugOriginal from 'next/dist/compiled/debug'
-import picomatch from 'next/dist/compiled/picomatch'
+import debugOriginal from 'next-hybrid/dist/compiled/debug'
+import picomatch from 'next-hybrid/dist/compiled/picomatch'
 import { defaultOverrides } from '../server/require-hook'
-import { nodeFileTrace } from 'next/dist/compiled/@vercel/nft'
+import { nodeFileTrace } from 'next-hybrid/dist/compiled/@vercel/nft'
 import { normalizePagePath } from '../shared/lib/page-path/normalize-page-path'
 import { normalizeAppPath } from '../shared/lib/router/utils/app-paths'
 import isError from '../lib/is-error'
@@ -138,7 +138,7 @@ export async function collectBuildTraces({
       const isStandalone = config.output === 'standalone'
       const sharedEntriesSet = Object.keys(defaultOverrides).map((value) =>
         require.resolve(value, {
-          paths: [require.resolve('next/dist/server/require-hook')],
+          paths: [require.resolve('next-hybrid/dist/server/require-hook')],
         })
       )
 
@@ -193,17 +193,17 @@ export async function collectBuildTraces({
         ...sharedEntriesSet,
         ...(isStandalone
           ? [
-              require.resolve('next/dist/server/lib/start-server'),
-              require.resolve('next/dist/server/next'),
-              require.resolve('next/dist/server/require-hook'),
+              require.resolve('next-hybrid/dist/server/lib/start-server'),
+              require.resolve('next-hybrid/dist/server/next'),
+              require.resolve('next-hybrid/dist/server/require-hook'),
             ]
           : []),
-        require.resolve('next/dist/server/next-server'),
+        require.resolve('next-hybrid/dist/server/next-server'),
       ].filter(Boolean) as string[]
 
       const minimalServerEntries = [
         ...sharedEntriesSet,
-        require.resolve('next/dist/compiled/next-server/server.runtime.prod'),
+        require.resolve('next-hybrid/dist/compiled/next-server/server.runtime.prod'),
       ].filter(Boolean)
 
       const additionalIgnores = new Set<string>()
@@ -222,7 +222,7 @@ export async function collectBuildTraces({
         '**/next/dist/compiled/webpack/*',
         '**/node_modules/webpack5/**/*',
         '**/next/dist/server/lib/route-resolver*',
-        'next/dist/compiled/semver/semver/**/*.js',
+        'next-hybrid/dist/compiled/semver/semver/**/*.js',
 
         ...(ciEnvironment.hasNextSupport
           ? [
@@ -281,12 +281,12 @@ export async function collectBuildTraces({
       if (isStandalone) {
         addToTracedFiles(
           '',
-          require.resolve('next/dist/compiled/jest-worker/processChild'),
+          require.resolve('next-hybrid/dist/compiled/jest-worker/processChild'),
           serverTracedFiles
         )
         addToTracedFiles(
           '',
-          require.resolve('next/dist/compiled/jest-worker/threadChild'),
+          require.resolve('next-hybrid/dist/compiled/jest-worker/threadChild'),
           serverTracedFiles
         )
       }
@@ -491,7 +491,7 @@ export async function collectBuildTraces({
 
       for (const type of moduleTypes) {
         const modulePath = require.resolve(
-          `next/dist/server/route-modules/${type}/module.compiled`
+          `next-hybrid/dist/server/route-modules/${type}/module.compiled`
         )
         const relativeModulePath = path.relative(root, modulePath)
 
@@ -547,7 +547,7 @@ export async function collectBuildTraces({
   const includeExcludeSpan = nextBuildSpan.traceChild('apply-include-excludes')
   await includeExcludeSpan.traceAsyncFn(async () => {
     const globOrig =
-      require('next/dist/compiled/glob') as typeof import('next/dist/compiled/glob')
+      require('next-hybrid/dist/compiled/glob') as typeof import('next-hybrid/dist/compiled/glob')
     const glob = (pattern: string): Promise<string[]> => {
       return new Promise((resolve, reject) => {
         globOrig(

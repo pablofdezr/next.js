@@ -1,4 +1,4 @@
-import * as semver from 'next/dist/compiled/semver'
+import * as semver from 'next-hybrid/dist/compiled/semver'
 
 export interface VersionInfo {
   installed: string

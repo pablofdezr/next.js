@@ -39,12 +39,12 @@ import '../server/node-polyfill-crypto'
 import '../server/node-environment'
 
 import { bold, cyan, green, red, underline, yellow } from '../lib/picocolors'
-import textTable from 'next/dist/compiled/text-table'
+import textTable from 'next-hybrid/dist/compiled/text-table'
 import path from 'path'
 import { promises as fs } from 'fs'
-import { isValidElementType } from 'next/dist/compiled/react-is'
-import stripAnsi from 'next/dist/compiled/strip-ansi'
-import browserslist from 'next/dist/compiled/browserslist'
+import { isValidElementType } from 'next-hybrid/dist/compiled/react-is'
+import stripAnsi from 'next-hybrid/dist/compiled/strip-ansi'
+import browserslist from 'next-hybrid/dist/compiled/browserslist'
 import {
   MODERN_BROWSERSLIST_TARGET,
   UNDERSCORE_GLOBAL_ERROR_ROUTE,
@@ -59,7 +59,7 @@ import type { LoadComponentsReturnType } from '../server/load-components'
 import { loadComponents } from '../server/load-components'
 import { trace } from '../trace'
 import { setHttpClientAndAgentOptions } from '../server/setup-http-agent-env'
-import { Sema } from 'next/dist/compiled/async-sema'
+import { Sema } from 'next-hybrid/dist/compiled/async-sema'
 import { normalizePagePath } from '../shared/lib/page-path/normalize-page-path'
 import { getRuntimeContext } from '../server/web/sandbox'
 import { RouteKind } from '../server/route-kind'
@@ -1472,7 +1472,7 @@ const nextConfig = ${JSON.stringify(nextConfig)}
 process.env.__NEXT_PRIVATE_STANDALONE_CONFIG = JSON.stringify(nextConfig)
 
 require('next')
-const { startServer } = require('next/dist/server/lib/start-server')
+const { startServer } = require('next-hybrid/dist/server/lib/start-server')
 
 if (
   Number.isNaN(keepAliveTimeout) ||

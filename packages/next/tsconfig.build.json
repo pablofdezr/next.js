@@ -1,5 +1,14 @@
 {
   "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "strict": false,
+    "noImplicitAny": false
+  },
+  "include": [
+    "src",
+    "types/compiled.d.ts"
+  ],
   // Copied from tsconfig.json to not overwrite.
   "exclude": [
     "dist",

@@ -3,9 +3,9 @@
 // local tsconfig.json
 
 // TODO: Use tsconfig#paths instead
-declare module 'next/dist/compiled/next-devtools'
+declare module 'next-hybrid/dist/compiled/next-devtools'
 
-declare module 'next/dist/compiled/webpack/webpack' {
+declare module 'next-hybrid/dist/compiled/webpack/webpack' {
   export function init(): void
   export let BasicEvaluatedExpression: any
   export let GraphHelpers: any
@@ -41,7 +41,7 @@ declare module 'next/dist/compiled/webpack/webpack' {
   export var webpack: any
 }
 
-declare module 'next/dist/compiled/superstruct' {
+declare module 'next-hybrid/dist/compiled/superstruct' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   export type Struct<T, S> = any
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -50,20 +50,22 @@ declare module 'next/dist/compiled/superstruct' {
   export type Describe<T> = any
 }
 
-declare module 'next/dist/compiled/jest-worker' {
+declare module 'next-hybrid/dist/compiled/jest-worker' {
   export class Worker {
     constructor(...args: any[])
     end(): any
   }
 }
 
-declare module 'next/dist/compiled/amphtml-validator' {
+declare module 'next-hybrid/dist/compiled/amphtml-validator' {
   export type Validator = {
     validateString(html: string): Promise<any>
   }
   export function getInstance(validatorPath: string): Promise<Validator>
   export type ValidationError = any
 }
+
+declare module 'next-hybrid/dist/compiled/*'
 
 declare module 'react-server-dom-webpack/server'
 declare module 'react-server-dom-webpack/static'

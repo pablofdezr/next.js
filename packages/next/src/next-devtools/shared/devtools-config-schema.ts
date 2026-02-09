@@ -1,5 +1,5 @@
 import type { DevToolsConfig } from '../dev-overlay/shared'
-import { z } from 'next/dist/compiled/zod'
+import { z } from 'next-hybrid/dist/compiled/zod'
 
 export const devToolsConfigSchema: z.ZodType<DevToolsConfig> = z.object({
   theme: z.enum(['light', 'dark', 'system']).optional(),

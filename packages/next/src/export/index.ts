@@ -13,7 +13,7 @@ import {
 import type { PagesManifest } from '../build/webpack/plugins/pages-manifest-plugin'
 
 import { bold, yellow } from '../lib/picocolors'
-import findUp from 'next/dist/compiled/find-up'
+import findUp from 'next-hybrid/dist/compiled/find-up'
 import { existsSync, promises as fs } from 'fs'
 
 import '../server/require-hook'

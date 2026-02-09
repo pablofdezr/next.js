@@ -4,7 +4,7 @@ import * as inspector from 'inspector'
 import { join, extname, relative } from 'path'
 import { pathToFileURL } from 'url'
 
-import ws from 'next/dist/compiled/ws'
+import ws from 'next-hybrid/dist/compiled/ws'
 
 import type { OutputState } from '../../build/output/store'
 import { store as consoleStore } from '../../build/output/store'

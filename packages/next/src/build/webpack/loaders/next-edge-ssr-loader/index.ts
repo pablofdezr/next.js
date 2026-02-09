@@ -41,7 +41,7 @@ They are generated in `createPagesMapping` where we don't have access to `isEdge
 so we have to do it here. It's not that bad because it keeps all references to ESM modules magic in this place.
 */
 function swapDistFolderWithEsmDistFolder(path: string) {
-  return path.replace('next/dist/pages', 'next/dist/esm/pages')
+  return path.replace('next-hybrid/dist/pages', 'next-hybrid/dist/esm/pages')
 }
 
 function getRouteModuleOptions(page: string) {

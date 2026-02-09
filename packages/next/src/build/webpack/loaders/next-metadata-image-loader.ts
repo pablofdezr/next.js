@@ -9,7 +9,7 @@ import type {
 } from './metadata/types'
 import { existsSync, promises as fs } from 'fs'
 import path from 'path'
-import loaderUtils from 'next/dist/compiled/loader-utils3'
+import loaderUtils from 'next-hybrid/dist/compiled/loader-utils3'
 import { getImageSize } from '../../../server/image-optimizer'
 import { imageExtMimeTypeMap } from '../../../lib/mime-type'
 import { WEBPACK_RESOURCE_QUERIES } from '../../../lib/constants'
@@ -80,7 +80,7 @@ async function nextMetadataImageLoader(
       // smaller.
       resourcePath + '?' + WEBPACK_RESOURCE_QUERIES.metadataImageMeta
     )}
-    import { fillMetadataSegment } from 'next/dist/lib/metadata/get-metadata-route'
+    import { fillMetadataSegment } from 'next-hybrid/dist/lib/metadata/get-metadata-route'
 
     const imageModule = {
       ${exportedFieldsExcludingDefault
@@ -169,7 +169,7 @@ async function nextMetadataImageLoader(
   }
 
   return `\
-  import { fillMetadataSegment } from 'next/dist/lib/metadata/get-metadata-route'
+  import { fillMetadataSegment } from 'next-hybrid/dist/lib/metadata/get-metadata-route'
 
   export default async (props) => {
     const imageData = ${JSON.stringify(imageData)}

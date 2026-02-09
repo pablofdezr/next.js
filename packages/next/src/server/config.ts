@@ -1,7 +1,7 @@
 import { existsSync } from 'fs'
 import { basename, extname, join, relative, isAbsolute, resolve } from 'path'
 import { pathToFileURL } from 'url'
-import findUp from 'next/dist/compiled/find-up'
+import findUp from 'next-hybrid/dist/compiled/find-up'
 import * as Log from '../build/output/log'
 import * as ciEnvironment from '../server/ci-info'
 import {
@@ -33,7 +33,7 @@ import { setHttpClientAndAgentOptions } from './setup-http-agent-env'
 import { pathHasPrefix } from '../shared/lib/router/utils/path-has-prefix'
 import { matchRemotePattern } from '../shared/lib/match-remote-pattern'
 
-import type { ZodError } from 'next/dist/compiled/zod'
+import type { ZodError } from 'next-hybrid/dist/compiled/zod'
 import { hasNextSupport } from '../server/ci-info'
 import { transpileConfig } from '../build/next-config-ts/transpile-config'
 import { dset } from '../shared/lib/dset'
@@ -787,7 +787,7 @@ function assignDefaultsAndValidate(
     typeof result.experimental?.serverActions?.bodySizeLimit !== 'undefined'
   ) {
     const bytes =
-      require('next/dist/compiled/bytes') as typeof import('next/dist/compiled/bytes')
+      require('next-hybrid/dist/compiled/bytes') as typeof import('next-hybrid/dist/compiled/bytes')
     const bodySizeLimit = result.experimental.serverActions.bodySizeLimit
     let value: number | null
 
@@ -896,7 +896,7 @@ function assignDefaultsAndValidate(
 
     if (typeof proxyClientMaxBodySize === 'string') {
       const bytes =
-        require('next/dist/compiled/bytes') as typeof import('next/dist/compiled/bytes')
+        require('next-hybrid/dist/compiled/bytes') as typeof import('next-hybrid/dist/compiled/bytes')
       normalizedValue = bytes.parse(proxyClientMaxBodySize)
     } else if (typeof proxyClientMaxBodySize === 'number') {
       normalizedValue = proxyClientMaxBodySize

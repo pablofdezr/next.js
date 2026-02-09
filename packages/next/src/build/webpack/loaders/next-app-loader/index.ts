@@ -1,4 +1,4 @@
-import type webpack from 'next/dist/compiled/webpack/webpack'
+import type webpack from 'next-hybrid/dist/compiled/webpack/webpack'
 import {
   UNDERSCORE_GLOBAL_ERROR_ROUTE,
   UNDERSCORE_NOT_FOUND_ROUTE,
@@ -73,9 +73,9 @@ const HTTP_ACCESS_FALLBACKS = {
   unauthorized: 'unauthorized',
 } as const
 const defaultHTTPAccessFallbackPaths = {
-  'not-found': 'next/dist/client/components/builtin/not-found.js',
-  forbidden: 'next/dist/client/components/builtin/forbidden.js',
-  unauthorized: 'next/dist/client/components/builtin/unauthorized.js',
+  'not-found': 'next-hybrid/dist/client/components/builtin/not-found.js',
+  forbidden: 'next-hybrid/dist/client/components/builtin/forbidden.js',
+  unauthorized: 'next-hybrid/dist/client/components/builtin/unauthorized.js',
 } as const
 
 const FILE_TYPES = {
@@ -94,13 +94,13 @@ const PAGE_SEGMENT = 'page$'
 const PARALLEL_VIRTUAL_SEGMENT = 'slot$'
 
 const defaultGlobalErrorPath =
-  'next/dist/client/components/builtin/global-error.js'
-const defaultNotFoundPath = 'next/dist/client/components/builtin/not-found.js'
-const defaultEmptyStubPath = 'next/dist/client/components/builtin/empty-stub.js'
-const defaultLayoutPath = 'next/dist/client/components/builtin/layout.js'
+  'next-hybrid/dist/client/components/builtin/global-error.js'
+const defaultNotFoundPath = 'next-hybrid/dist/client/components/builtin/not-found.js'
+const defaultEmptyStubPath = 'next-hybrid/dist/client/components/builtin/empty-stub.js'
+const defaultLayoutPath = 'next-hybrid/dist/client/components/builtin/layout.js'
 const defaultGlobalNotFoundPath =
-  'next/dist/client/components/builtin/global-not-found.js'
-const appErrorPath = 'next/dist/client/components/builtin/app-error.js'
+  'next-hybrid/dist/client/components/builtin/global-not-found.js'
+const appErrorPath = 'next-hybrid/dist/client/components/builtin/app-error.js'
 
 type DirResolver = (pathToResolve: string) => string
 type PathResolver = (

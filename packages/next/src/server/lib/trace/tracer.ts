@@ -10,12 +10,12 @@ import type {
   Tracer,
   AttributeValue,
   TextMapGetter,
-} from 'next/dist/compiled/@opentelemetry/api'
+} from 'next-hybrid/dist/compiled/@opentelemetry/api'
 import { isThenable } from '../../../shared/lib/is-thenable'
 
 const NEXT_OTEL_PERFORMANCE_PREFIX = process.env.NEXT_OTEL_PERFORMANCE_PREFIX
 
-let api: typeof import('next/dist/compiled/@opentelemetry/api')
+let api: typeof import('next-hybrid/dist/compiled/@opentelemetry/api')
 
 // we want to allow users to use their own version of @opentelemetry/api if they
 // want to, so we try to require it first, and if it fails we fall back to the
@@ -31,7 +31,7 @@ if (process.env.NEXT_RUNTIME === 'edge') {
     api = require('@opentelemetry/api') as typeof import('@opentelemetry/api')
   } catch (err) {
     api =
-      require('next/dist/compiled/@opentelemetry/api') as typeof import('next/dist/compiled/@opentelemetry/api')
+      require('next-hybrid/dist/compiled/@opentelemetry/api') as typeof import('next-hybrid/dist/compiled/@opentelemetry/api')
   }
 }
 

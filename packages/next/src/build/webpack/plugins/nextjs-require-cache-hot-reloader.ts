@@ -1,4 +1,4 @@
-import type { webpack } from 'next/dist/compiled/webpack/webpack'
+import type { webpack } from 'next-hybrid/dist/compiled/webpack/webpack'
 import { deleteCache } from '../../../server/dev/require-cache'
 import { clearModuleContext } from '../../../server/web/sandbox'
 import path from 'path'

@@ -330,12 +330,12 @@ export async function createPagesMapping({
       return {
         ...(hasAppPages && {
           [UNDERSCORE_NOT_FOUND_ROUTE_ENTRY]: require.resolve(
-            'next/dist/client/components/builtin/global-not-found'
+            'next-hybrid/dist/client/components/builtin/global-not-found'
           ),
         }),
         ...(hasAppGlobalError && {
           [UNDERSCORE_GLOBAL_ERROR_ROUTE_ENTRY]: require.resolve(
-            'next/dist/client/components/builtin/app-error'
+            'next-hybrid/dist/client/components/builtin/app-error'
           ),
         }),
         ...pages,
@@ -348,7 +348,7 @@ export async function createPagesMapping({
         delete pages['/_document']
       }
 
-      const root = isDev && pagesDir ? PAGES_DIR_ALIAS : 'next/dist/pages'
+      const root = isDev && pagesDir ? PAGES_DIR_ALIAS : 'next-hybrid/dist/pages'
 
       if (Object.keys(pages).length === 0 && !appDirOnly) {
         appDirOnly = true

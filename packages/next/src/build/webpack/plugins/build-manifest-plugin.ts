@@ -1,7 +1,7 @@
 import type { BloomFilter } from '../../../shared/lib/bloom-filter'
 import type { CustomRoutes } from '../../../lib/load-custom-routes'
-import devalue from 'next/dist/compiled/devalue'
-import { webpack, sources } from 'next/dist/compiled/webpack/webpack'
+import devalue from 'next-hybrid/dist/compiled/devalue'
+import { webpack, sources } from 'next-hybrid/dist/compiled/webpack/webpack'
 import {
   BUILD_MANIFEST,
   MIDDLEWARE_BUILD_MANIFEST,

@@ -1,6 +1,6 @@
 import type { FlightRouterState } from '../../shared/lib/app-router-types'
 import { flightRouterStateSchema } from './types'
-import { assert } from 'next/dist/compiled/superstruct'
+import { assert } from 'next-hybrid/dist/compiled/superstruct'
 
 export function parseAndValidateFlightRouterState(
   stateHeader: string | string[]

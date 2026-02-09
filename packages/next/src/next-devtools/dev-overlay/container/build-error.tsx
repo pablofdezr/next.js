@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react'
-import stripAnsi from 'next/dist/compiled/strip-ansi'
+import stripAnsi from 'next-hybrid/dist/compiled/strip-ansi'
 import { Terminal } from '../components/terminal'
 import { ErrorOverlayLayout } from '../components/errors/error-overlay-layout/error-overlay-layout'
 import type { ErrorBaseProps } from '../components/errors/error-overlay/error-overlay'

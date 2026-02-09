@@ -1,6 +1,6 @@
 import { promises as fs } from 'fs'
-import loaderUtils from 'next/dist/compiled/loader-utils3'
-import { sources, webpack } from 'next/dist/compiled/webpack/webpack'
+import loaderUtils from 'next-hybrid/dist/compiled/loader-utils3'
+import { sources, webpack } from 'next-hybrid/dist/compiled/webpack/webpack'
 
 const PLUGIN_NAME = 'CopyFilePlugin'
 

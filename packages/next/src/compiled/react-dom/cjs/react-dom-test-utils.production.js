@@ -9,7 +9,7 @@
  */
 
 "use strict";
-var React = require("next/dist/compiled/react"),
+var React = require("next-hybrid/dist/compiled/react"),
   didWarnAboutUsingAct = !1;
 exports.act = function (callback) {
   !1 === didWarnAboutUsingAct &&

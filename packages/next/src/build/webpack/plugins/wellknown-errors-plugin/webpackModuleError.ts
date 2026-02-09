@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs'
 import * as path from 'path'
-import type { webpack } from 'next/dist/compiled/webpack/webpack'
+import type { webpack } from 'next-hybrid/dist/compiled/webpack/webpack'
 
 import { getBabelError } from './parseBabel'
 import { getCssError } from './parseCss'

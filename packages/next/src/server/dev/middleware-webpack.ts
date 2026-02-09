@@ -1,7 +1,7 @@
 import { findSourceMap, type SourceMap } from 'module'
 import path from 'path'
 import { fileURLToPath, pathToFileURL } from 'url'
-import { SourceMapConsumer } from 'next/dist/compiled/source-map08'
+import { SourceMapConsumer } from 'next-hybrid/dist/compiled/source-map08'
 import { getSourceMapFromFile } from './get-source-map-from-file'
 import {
   devirtualizeReactServerURL,
@@ -27,7 +27,7 @@ import type webpack from 'webpack'
 import type {
   NullableMappedPosition,
   RawSourceMap,
-} from 'next/dist/compiled/source-map08'
+} from 'next-hybrid/dist/compiled/source-map08'
 import { formatStackFrameFile } from '../../next-devtools/shared/webpack-module-path'
 import type { MappedPosition } from 'source-map'
 import { inspect } from 'util'
@@ -36,7 +36,7 @@ function shouldIgnoreSource(sourceURL: string): boolean {
   return (
     sourceURL.includes('node_modules') ||
     // Only relevant for when Next.js is symlinked e.g. in the Next.js monorepo
-    sourceURL.includes('next/dist') ||
+    sourceURL.includes('next-hybrid/dist') ||
     sourceURL.startsWith('node:')
   )
 }

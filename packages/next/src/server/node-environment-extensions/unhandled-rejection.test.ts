@@ -148,7 +148,7 @@ describe('unhandled-rejection filter', () => {
   describe('environment variable configuration', () => {
     it('should install filter by default', async () => {
       async function testForWorker() {
-        require('next/dist/server/node-environment-extensions/unhandled-rejection')
+        require('next-hybrid/dist/server/node-environment-extensions/unhandled-rejection')
 
         reportResult({
           type: 'count',
@@ -167,7 +167,7 @@ describe('unhandled-rejection filter', () => {
     it('should not install filter when disabled', async () => {
       async function testForWorker() {
         process.env.NEXT_UNHANDLED_REJECTION_FILTER = 'disabled'
-        require('next/dist/server/node-environment-extensions/unhandled-rejection')
+        require('next-hybrid/dist/server/node-environment-extensions/unhandled-rejection')
 
         reportResult({
           type: 'count',
@@ -186,7 +186,7 @@ describe('unhandled-rejection filter', () => {
     it('should install filter rejections when environment variable is enabled', async () => {
       async function testForWorker() {
         process.env.NEXT_UNHANDLED_REJECTION_FILTER = 'enabled'
-        require('next/dist/server/node-environment-extensions/unhandled-rejection')
+        require('next-hybrid/dist/server/node-environment-extensions/unhandled-rejection')
 
         reportResult({
           type: 'count',
@@ -205,7 +205,7 @@ describe('unhandled-rejection filter', () => {
     it('should install filter rejections when environment variable is enabled in debug mode', async () => {
       async function testForWorker() {
         process.env.NEXT_UNHANDLED_REJECTION_FILTER = 'debug'
-        require('next/dist/server/node-environment-extensions/unhandled-rejection')
+        require('next-hybrid/dist/server/node-environment-extensions/unhandled-rejection')
 
         reportResult({
           type: 'count',
@@ -229,7 +229,7 @@ describe('unhandled-rejection filter', () => {
           originalWarn(...args)
         }
 
-        require('next/dist/server/node-environment-extensions/unhandled-rejection')
+        require('next-hybrid/dist/server/node-environment-extensions/unhandled-rejection')
 
         const filterListener = process.listeners('unhandledRejection')[0]
         process.removeListener('unhandledRejection', filterListener)
@@ -258,7 +258,7 @@ describe('unhandled-rejection filter', () => {
           originalWarn(...args)
         }
 
-        require('next/dist/server/node-environment-extensions/unhandled-rejection')
+        require('next-hybrid/dist/server/node-environment-extensions/unhandled-rejection')
 
         const filterListener = process.listeners('unhandledRejection')[0]
         process.off('unhandledRejection', filterListener)
@@ -287,7 +287,7 @@ describe('unhandled-rejection filter', () => {
           originalWarn(...args)
         }
 
-        require('next/dist/server/node-environment-extensions/unhandled-rejection')
+        require('next-hybrid/dist/server/node-environment-extensions/unhandled-rejection')
 
         const filterListener = process.listeners('unhandledRejection')[0]
         process.removeAllListeners()
@@ -317,7 +317,7 @@ describe('unhandled-rejection filter', () => {
           originalWarn(...args)
         }
 
-        require('next/dist/server/node-environment-extensions/unhandled-rejection')
+        require('next-hybrid/dist/server/node-environment-extensions/unhandled-rejection')
 
         const filterListener = process.listeners('unhandledRejection')[0]
         process.removeAllListeners()
@@ -335,11 +335,11 @@ describe('unhandled-rejection filter', () => {
     it('should suppress rejections from aborted prerender contexts', async () => {
       async function testForWorker() {
         process.env.NEXT_UNHANDLED_REJECTION_FILTER = '1'
-        require('next/dist/server/node-environment-extensions/unhandled-rejection')
+        require('next-hybrid/dist/server/node-environment-extensions/unhandled-rejection')
 
         const {
           workUnitAsyncStorage,
-        } = require('next/dist/server/app-render/work-unit-async-storage.external')
+        } = require('next-hybrid/dist/server/app-render/work-unit-async-storage.external')
 
         process.on('unhandledRejection', (reason) => {
           reportResult({ type: 'uhr', reason: String(reason) })
@@ -403,11 +403,11 @@ describe('unhandled-rejection filter', () => {
     it('should suppress rejections from aborted prerender-client contexts', async () => {
       async function testForWorker() {
         process.env.NEXT_UNHANDLED_REJECTION_FILTER = '1'
-        require('next/dist/server/node-environment-extensions/unhandled-rejection')
+        require('next-hybrid/dist/server/node-environment-extensions/unhandled-rejection')
 
         const {
           workUnitAsyncStorage,
-        } = require('next/dist/server/app-render/work-unit-async-storage.external')
+        } = require('next-hybrid/dist/server/app-render/work-unit-async-storage.external')
 
         process.on('unhandledRejection', (reason) => {
           reportResult({ type: 'uhr', reason: String(reason) })
@@ -471,11 +471,11 @@ describe('unhandled-rejection filter', () => {
     it('should suppress rejections from aborted prerender-runtime contexts', async () => {
       async function testForWorker() {
         process.env.NEXT_UNHANDLED_REJECTION_FILTER = '1'
-        require('next/dist/server/node-environment-extensions/unhandled-rejection')
+        require('next-hybrid/dist/server/node-environment-extensions/unhandled-rejection')
 
         const {
           workUnitAsyncStorage,
-        } = require('next/dist/server/app-render/work-unit-async-storage.external')
+        } = require('next-hybrid/dist/server/app-render/work-unit-async-storage.external')
 
         process.on('unhandledRejection', (reason) => {
           reportResult({ type: 'uhr', reason: String(reason) })
@@ -539,11 +539,11 @@ describe('unhandled-rejection filter', () => {
     it('should pass through rejections from non-aborted prerender contexts', async () => {
       async function testForWorker() {
         process.env.NEXT_UNHANDLED_REJECTION_FILTER = '1'
-        require('next/dist/server/node-environment-extensions/unhandled-rejection')
+        require('next-hybrid/dist/server/node-environment-extensions/unhandled-rejection')
 
         const {
           workUnitAsyncStorage,
-        } = require('next/dist/server/app-render/work-unit-async-storage.external')
+        } = require('next-hybrid/dist/server/app-render/work-unit-async-storage.external')
 
         process.on('unhandledRejection', (reason) => {
           reportResult({ type: 'uhr', reason: String(reason) })
@@ -582,7 +582,7 @@ describe('unhandled-rejection filter', () => {
     it('should call console.error when no handlers are present', async () => {
       async function testForWorker() {
         process.env.NEXT_UNHANDLED_REJECTION_FILTER = '1'
-        require('next/dist/server/node-environment-extensions/unhandled-rejection')
+        require('next-hybrid/dist/server/node-environment-extensions/unhandled-rejection')
 
         console.error = (...args: Array<any>) => {
           reportResult({ type: 'error-log', message: args.join(' ') })
@@ -603,7 +603,7 @@ describe('unhandled-rejection filter', () => {
     it('should handle process.once listeners correctly', async () => {
       async function testForWorker() {
         process.env.NEXT_UNHANDLED_REJECTION_FILTER = 'enabled'
-        require('next/dist/server/node-environment-extensions/unhandled-rejection')
+        require('next-hybrid/dist/server/node-environment-extensions/unhandled-rejection')
 
         let callCount = 0
 
@@ -638,7 +638,7 @@ describe('unhandled-rejection filter', () => {
     it('should handle process.removeListener correctly', async () => {
       async function testForWorker() {
         process.env.NEXT_UNHANDLED_REJECTION_FILTER = 'enabled'
-        require('next/dist/server/node-environment-extensions/unhandled-rejection')
+        require('next-hybrid/dist/server/node-environment-extensions/unhandled-rejection')
 
         const handler1 = (reason: unknown) => {
           reportResult({ type: 'uhr', reason: `[1]: ${String(reason)}` })
@@ -708,11 +708,11 @@ describe('unhandled-rejection filter', () => {
     it('should uninstall filter when removeAllListeners() is called without arguments', async () => {
       async function testForWorker() {
         process.env.NEXT_UNHANDLED_REJECTION_FILTER = 'enabled'
-        require('next/dist/server/node-environment-extensions/unhandled-rejection')
+        require('next-hybrid/dist/server/node-environment-extensions/unhandled-rejection')
 
         const {
           workUnitAsyncStorage,
-        } = require('next/dist/server/app-render/work-unit-async-storage.external')
+        } = require('next-hybrid/dist/server/app-render/work-unit-async-storage.external')
 
         process.on('unhandledRejection', (reason) => {
           reportResult({ type: 'uhr', reason: String(reason) })
@@ -770,11 +770,11 @@ describe('unhandled-rejection filter', () => {
     it('should not uninstall filter when removeAllListeners("unhandledRejection") is called', async () => {
       async function testForWorker() {
         process.env.NEXT_UNHANDLED_REJECTION_FILTER = 'enabled'
-        require('next/dist/server/node-environment-extensions/unhandled-rejection')
+        require('next-hybrid/dist/server/node-environment-extensions/unhandled-rejection')
 
         const {
           workUnitAsyncStorage,
-        } = require('next/dist/server/app-render/work-unit-async-storage.external')
+        } = require('next-hybrid/dist/server/app-render/work-unit-async-storage.external')
 
         process.on('unhandledRejection', (reason) => {
           reportResult({ type: 'uhr', reason: String(reason) })
@@ -829,7 +829,7 @@ describe('unhandled-rejection filter', () => {
       // during event handling.
       async function testForWorker() {
         process.env.NEXT_UNHANDLED_REJECTION_FILTER = 'enabled'
-        require('next/dist/server/node-environment-extensions/unhandled-rejection')
+        require('next-hybrid/dist/server/node-environment-extensions/unhandled-rejection')
 
         const onceHandler = (reason: unknown) => {
           reportResult({ type: 'uhr', reason: `once: ${String(reason)}` })
@@ -935,7 +935,7 @@ describe('unhandled-rejection filter', () => {
         const originalNames = originalMethods.map((m) => m.name)
 
         process.env.NEXT_UNHANDLED_REJECTION_FILTER = 'enabled'
-        require('next/dist/server/node-environment-extensions/unhandled-rejection')
+        require('next-hybrid/dist/server/node-environment-extensions/unhandled-rejection')
 
         const patchedMethods = [
           process.on,
@@ -995,11 +995,11 @@ describe('unhandled-rejection filter', () => {
     it('should handle errors thrown by user handlers gracefully', async () => {
       async function testForWorker() {
         process.env.NEXT_UNHANDLED_REJECTION_FILTER = 'enabled'
-        require('next/dist/server/node-environment-extensions/unhandled-rejection')
+        require('next-hybrid/dist/server/node-environment-extensions/unhandled-rejection')
 
         const {
           workUnitAsyncStorage,
-        } = require('next/dist/server/app-render/work-unit-async-storage.external')
+        } = require('next-hybrid/dist/server/app-render/work-unit-async-storage.external')
 
         process.on('unhandledRejection', () => {
           throw new Error('Handler error')
@@ -1039,11 +1039,11 @@ describe('unhandled-rejection filter', () => {
         })
 
         process.env.NEXT_UNHANDLED_REJECTION_FILTER = 'enabled'
-        require('next/dist/server/node-environment-extensions/unhandled-rejection')
+        require('next-hybrid/dist/server/node-environment-extensions/unhandled-rejection')
 
         const {
           workUnitAsyncStorage,
-        } = require('next/dist/server/app-render/work-unit-async-storage.external')
+        } = require('next-hybrid/dist/server/app-render/work-unit-async-storage.external')
 
         // Test non-filtered rejection
         workUnitAsyncStorage.run(
@@ -1081,7 +1081,7 @@ describe('unhandled-rejection filter', () => {
         })
 
         process.env.NEXT_UNHANDLED_REJECTION_FILTER = 'enabled'
-        require('next/dist/server/node-environment-extensions/unhandled-rejection')
+        require('next-hybrid/dist/server/node-environment-extensions/unhandled-rejection')
 
         process.removeAllListeners('unhandledRejection')
 
@@ -1091,7 +1091,7 @@ describe('unhandled-rejection filter', () => {
 
         const {
           workUnitAsyncStorage,
-        } = require('next/dist/server/app-render/work-unit-async-storage.external')
+        } = require('next-hybrid/dist/server/app-render/work-unit-async-storage.external')
 
         // Test non-filtered rejection
         workUnitAsyncStorage.run(

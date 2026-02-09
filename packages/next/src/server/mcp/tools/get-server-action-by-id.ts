@@ -1,5 +1,5 @@
-import type { McpServer } from 'next/dist/compiled/@modelcontextprotocol/sdk/server/mcp'
-import { z } from 'next/dist/compiled/zod'
+import type { McpServer } from 'next-hybrid/dist/compiled/@modelcontextprotocol/sdk/server/mcp'
+import { z } from 'next-hybrid/dist/compiled/zod'
 import { promises as fs } from 'fs'
 import { join } from 'path'
 import { mcpTelemetryTracker } from '../mcp-telemetry-tracker'

@@ -4,7 +4,7 @@ import {
   type McpServerOptions,
 } from './get-or-create-mcp-server'
 import { parseBody } from '../api-utils/node/parse-body'
-import { StreamableHTTPServerTransport } from 'next/dist/compiled/@modelcontextprotocol/sdk/server/streamableHttp'
+import { StreamableHTTPServerTransport } from 'next-hybrid/dist/compiled/@modelcontextprotocol/sdk/server/streamableHttp'
 
 export function getMcpMiddleware(options: McpServerOptions) {
   return async function (

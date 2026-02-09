@@ -1,5 +1,5 @@
-import picomatch from 'next/dist/compiled/picomatch'
-import { z } from 'next/dist/compiled/zod'
+import picomatch from 'next-hybrid/dist/compiled/picomatch'
+import { z } from 'next-hybrid/dist/compiled/zod'
 import { tryToParsePath } from '../../../lib/try-to-parse-path'
 import type { RouteHas } from '../../../lib/load-custom-routes'
 

@@ -2,9 +2,9 @@ import type { IncomingMessage, ServerResponse } from 'http'
 import type { NextApiRequest, NextApiResponse } from '../../../shared/lib/utils'
 import type { PageConfig, ResponseLimit } from '../../../types'
 import type { __ApiPreviewProps } from '../.'
-import type { CookieSerializeOptions } from 'next/dist/compiled/cookie'
+import type { CookieSerializeOptions } from 'next-hybrid/dist/compiled/cookie'
 
-import bytes from 'next/dist/compiled/bytes'
+import bytes from 'next-hybrid/dist/compiled/bytes'
 import { generateETag } from '../../lib/etag'
 import { sendEtagResponse } from '../../send-payload'
 import { Stream } from 'stream'
@@ -143,7 +143,7 @@ function setDraftMode<T>(
   // https://tools.ietf.org/html/rfc6265#section-4.1.1
   // `Max-Age: 0` is not valid, thus ignored, and the cookie is persisted.
   const { serialize } =
-    require('next/dist/compiled/cookie') as typeof import('next/dist/compiled/cookie')
+    require('next-hybrid/dist/compiled/cookie') as typeof import('next-hybrid/dist/compiled/cookie')
   const previous = res.getHeader('Set-Cookie')
   res.setHeader(`Set-Cookie`, [
     ...(typeof previous === 'string'
@@ -181,7 +181,7 @@ function setPreviewData<T>(
   }
 
   const jsonwebtoken =
-    require('next/dist/compiled/jsonwebtoken') as typeof import('next/dist/compiled/jsonwebtoken')
+    require('next-hybrid/dist/compiled/jsonwebtoken') as typeof import('next-hybrid/dist/compiled/jsonwebtoken')
   const { encryptWithSecret } =
     require('../../crypto-utils') as typeof import('../../crypto-utils')
   const payload = jsonwebtoken.sign(
@@ -209,7 +209,7 @@ function setPreviewData<T>(
   }
 
   const { serialize } =
-    require('next/dist/compiled/cookie') as typeof import('next/dist/compiled/cookie')
+    require('next-hybrid/dist/compiled/cookie') as typeof import('next-hybrid/dist/compiled/cookie')
   const previous = res.getHeader('Set-Cookie')
   res.setHeader(`Set-Cookie`, [
     ...(typeof previous === 'string'

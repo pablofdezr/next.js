@@ -30,7 +30,7 @@ import { warnOnce } from '../shared/lib/utils/warn-once'
 import { RouterContext } from '../shared/lib/router-context.shared-runtime'
 
 // This is replaced by webpack alias
-import defaultLoader from 'next/dist/shared/lib/image-loader'
+import defaultLoader from 'next-hybrid/dist/shared/lib/image-loader'
 import { useMergedRef } from './use-merged-ref'
 
 // This is replaced by webpack define plugin

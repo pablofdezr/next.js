@@ -1,6 +1,6 @@
 import { getModuleBuildInfo } from '../get-module-build-info'
 import { stringifyRequest } from '../../stringify-request'
-import type { webpack } from 'next/dist/compiled/webpack/webpack'
+import type { webpack } from 'next-hybrid/dist/compiled/webpack/webpack'
 import { WEBPACK_RESOURCE_QUERIES } from '../../../../lib/constants'
 import type { ProxyConfig } from '../../../analysis/get-page-static-info'
 import { loadEntrypoint } from '../../../load-entrypoint'

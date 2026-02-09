@@ -6,8 +6,8 @@ import {
   onINP,
   onFCP,
   onTTFB,
-} from 'next/dist/compiled/web-vitals'
-import type { Metric } from 'next/dist/compiled/web-vitals'
+} from 'next-hybrid/dist/compiled/web-vitals'
+import type { Metric } from 'next-hybrid/dist/compiled/web-vitals'
 
 export function useReportWebVitals(
   reportWebVitalsFn: (metric: Metric) => void

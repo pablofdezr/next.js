@@ -41,7 +41,7 @@ import type { Revalidate } from './lib/cache-control'
 import type { COMPILER_NAMES } from '../shared/lib/constants'
 
 import React, { type JSX } from 'react'
-import ReactDOMServerPages from 'next/dist/server/ReactDOMServerPages'
+import ReactDOMServerPages from 'next-hybrid/dist/server/ReactDOMServerPages'
 import { StyleRegistry, createStyleRegistry } from 'styled-jsx'
 import {
   GSP_NO_RETURNED_VALUE,
@@ -85,7 +85,7 @@ import {
   renderToInitialFizzStream,
 } from './stream-utils/node-web-streams-helper'
 import { ImageConfigContext } from '../shared/lib/image-config-context.shared-runtime'
-import stripAnsi from 'next/dist/compiled/strip-ansi'
+import stripAnsi from 'next-hybrid/dist/compiled/strip-ansi'
 import { stripInternalQueries } from './internal-utils'
 import {
   adaptForAppRouterInstance,
@@ -604,7 +604,7 @@ export async function renderToHTMLImpl(
 
   if (dev) {
     const { isValidElementType } =
-      require('next/dist/compiled/react-is') as typeof import('next/dist/compiled/react-is')
+      require('next-hybrid/dist/compiled/react-is') as typeof import('next-hybrid/dist/compiled/react-is')
     if (!isValidElementType(Component)) {
       throw new Error(
         `The default export is not a React Component in page: "${pathname}"`

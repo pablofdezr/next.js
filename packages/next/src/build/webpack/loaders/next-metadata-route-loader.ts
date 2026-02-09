@@ -135,7 +135,7 @@ async function getDynamicTextRouteCode(
 /* dynamic asset route */
 import { NextResponse } from 'next/server'
 import handler from ${JSON.stringify(resourcePath)}
-import { resolveRouteData } from 'next/dist/build/webpack/loaders/metadata/resolve-route-data'
+import { resolveRouteData } from 'next-hybrid/dist/build/webpack/loaders/metadata/resolve-route-data'
 
 const contentType = ${JSON.stringify(getContentType(resourcePath))}
 const fileType = ${JSON.stringify(getFilenameAndExtension(resourcePath).name)}
@@ -258,7 +258,7 @@ async function getSingleSitemapRouteCode(
 /* single sitemap route */
 import { NextResponse } from 'next/server'
 import { default as handler } from ${JSON.stringify(resourcePath)}
-import { resolveRouteData } from 'next/dist/build/webpack/loaders/metadata/resolve-route-data'
+import { resolveRouteData } from 'next-hybrid/dist/build/webpack/loaders/metadata/resolve-route-data'
 
 const contentType = ${JSON.stringify(getContentType(resourcePath))}
 const fileType = ${JSON.stringify(getFilenameAndExtension(resourcePath).name)}
@@ -288,7 +288,7 @@ async function getDynamicSitemapRouteCode(
 /* dynamic sitemap route with generateSitemaps */
 import { NextResponse } from 'next/server'
 import { default as handler, generateSitemaps } from ${JSON.stringify(resourcePath)}
-import { resolveRouteData } from 'next/dist/build/webpack/loaders/metadata/resolve-route-data'
+import { resolveRouteData } from 'next-hybrid/dist/build/webpack/loaders/metadata/resolve-route-data'
 
 const contentType = ${JSON.stringify(getContentType(resourcePath))}
 const fileType = ${JSON.stringify(getFilenameAndExtension(resourcePath).name)}

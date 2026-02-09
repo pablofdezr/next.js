@@ -1,5 +1,5 @@
 module.exports =
-  typeof EdgeRuntime === 'string' ? edge() : require("next/dist/compiled/@edge-runtime/primitives")
+  typeof EdgeRuntime === 'string' ? edge() : require("next-hybrid/dist/compiled/@edge-runtime/primitives")
 
 function edge() {
   return {

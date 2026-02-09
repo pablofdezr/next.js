@@ -1,8 +1,8 @@
-import createStore from 'next/dist/compiled/unistore'
+import createStore from 'next-hybrid/dist/compiled/unistore'
 import formatWebpackMessages from '../../shared/lib/format-webpack-messages'
 import { store as consoleStore } from './store'
 import type { OutputState } from './store'
-import type { webpack } from 'next/dist/compiled/webpack/webpack'
+import type { webpack } from 'next-hybrid/dist/compiled/webpack/webpack'
 import { COMPILER_NAMES } from '../../shared/lib/constants'
 import type { CompilerNameValues } from '../../shared/lib/constants'
 

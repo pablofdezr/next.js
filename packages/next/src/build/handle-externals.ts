@@ -222,14 +222,14 @@ export function makeExternalHandler({
     // Make sure @vercel/og is loaded as ESM for Node.js runtime
     if (
       shouldUseReactServerCondition(layer) &&
-      request === 'next/dist/compiled/@vercel/og/index.node.js'
+      request === 'next-hybrid/dist/compiled/@vercel/og/index.node.js'
     ) {
       return `module ${request}`
     }
 
     // Specific Next.js imports that should remain external
     // TODO-APP: Investigate if we can remove this.
-    if (request.startsWith('next/dist/')) {
+    if (request.startsWith('next-hybrid/dist/')) {
       // Non external that needs to be transpiled
       // Image loader needs to be transpiled
       if (/^next[\\/]dist[\\/]shared[\\/]lib[\\/]image-loader/.test(request)) {
@@ -413,10 +413,10 @@ function resolveNextExternal(localRes: string) {
   // if the file ends with .external, we need to make it a commonjs require in all cases
   // this is used mainly to share the async local storage across the routing, rendering and user layers.
   if (isExternal) {
-    // it's important we return the path that starts with `next/dist/` here instead of the absolute path
+    // it's important we return the path that starts with `next-hybrid/dist/` here instead of the absolute path
     // otherwise NFT will get tripped up
     return `commonjs ${normalizePathSep(
-      localRes.replace(/.*?next[/\\]dist/, 'next/dist')
+      localRes.replace(/.*?next[/\\]dist/, 'next-hybrid/dist')
     )}`
   }
 }

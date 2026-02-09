@@ -1,8 +1,8 @@
 import fs from 'fs/promises'
 import path from 'path'
 import url from 'url'
-import type { RawSourceMap } from 'next/dist/compiled/source-map08'
-import dataUriToBuffer from 'next/dist/compiled/data-uri-to-buffer'
+import type { RawSourceMap } from 'next-hybrid/dist/compiled/source-map08'
+import dataUriToBuffer from 'next-hybrid/dist/compiled/data-uri-to-buffer'
 
 function getSourceMapUrl(fileContents: string): string | null {
   const regex = /\/\/[#@] ?sourceMappingURL=([^\s'"]+)\s*$/gm

@@ -9,7 +9,7 @@
  */
 
 "use strict";
-var React = require("next/dist/compiled/react"),
+var React = require("next-hybrid/dist/compiled/react"),
   REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"),
   REACT_FRAGMENT_TYPE = Symbol.for("react.fragment");
 if (!React.__SERVER_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE)

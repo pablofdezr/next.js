@@ -1,4 +1,4 @@
-import { configure } from 'next/dist/compiled/safe-stable-stringify'
+import { configure } from 'next-hybrid/dist/compiled/safe-stable-stringify'
 import { getTerminalLoggingConfig } from './terminal-logging-config'
 import { UNDEFINED_MARKER } from '../../shared/forward-logs-shared'
 

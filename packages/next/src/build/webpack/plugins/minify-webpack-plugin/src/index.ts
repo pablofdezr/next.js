@@ -5,8 +5,8 @@ import {
   WebpackError,
   type CacheFacade,
   type Compilation,
-} from 'next/dist/compiled/webpack/webpack'
-import pLimit from 'next/dist/compiled/p-limit'
+} from 'next-hybrid/dist/compiled/webpack/webpack'
+import pLimit from 'next-hybrid/dist/compiled/p-limit'
 import { getCompilationSpan } from '../../../utils'
 
 function buildError(error: any, file: string) {

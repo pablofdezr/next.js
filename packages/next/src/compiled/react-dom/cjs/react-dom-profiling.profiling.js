@@ -16,9 +16,9 @@
   "function" ===
     typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart &&
   __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-var Scheduler = require("next/dist/compiled/scheduler"),
-  React = require("next/dist/compiled/react"),
-  ReactDOM = require("next/dist/compiled/react-dom");
+var Scheduler = require("next-hybrid/dist/compiled/scheduler"),
+  React = require("next-hybrid/dist/compiled/react"),
+  ReactDOM = require("next-hybrid/dist/compiled/react-dom");
 function formatProdErrorMessage(code) {
   var url = "https://react.dev/errors/" + code;
   if (1 < arguments.length) {

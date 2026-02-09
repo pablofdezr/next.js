@@ -13,7 +13,7 @@ import type { MiddlewareRouteMatch } from '../../../shared/lib/router/utils/midd
 import path from 'path'
 import fs from 'fs/promises'
 import * as Log from '../../../build/output/log'
-import setupDebug from 'next/dist/compiled/debug'
+import setupDebug from 'next-hybrid/dist/compiled/debug'
 import { LRUCache } from '../lru-cache'
 import loadCustomRoutes, { type Rewrite } from '../../../lib/load-custom-routes'
 import { modifyRouteRegex } from '../../../lib/redirect-status'

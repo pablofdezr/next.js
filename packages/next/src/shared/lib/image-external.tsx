@@ -5,7 +5,7 @@ import { getImgProps } from './get-img-props'
 import { Image } from '../../client/image-component'
 
 // This is replaced by webpack alias
-import defaultLoader from 'next/dist/shared/lib/image-loader'
+import defaultLoader from 'next-hybrid/dist/shared/lib/image-loader'
 
 /**
  * For more advanced use cases, you can call `getImageProps()`

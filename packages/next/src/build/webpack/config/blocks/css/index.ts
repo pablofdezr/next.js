@@ -1,5 +1,5 @@
-import curry from 'next/dist/compiled/lodash.curry'
-import type { webpack } from 'next/dist/compiled/webpack/webpack'
+import curry from 'next-hybrid/dist/compiled/lodash.curry'
+import type { webpack } from 'next-hybrid/dist/compiled/webpack/webpack'
 import { loader, plugin } from '../../helpers'
 import { pipe } from '../../utils'
 import type { ConfigurationContext, ConfigurationFn } from '../../utils'
@@ -168,7 +168,7 @@ export const css = curry(async function css(
     // First, process files with `sass-loader`: this inlines content, and
     // compiles away the proprietary syntax.
     {
-      loader: require.resolve('next/dist/compiled/sass-loader'),
+      loader: require.resolve('next-hybrid/dist/compiled/sass-loader'),
       options: {
         implementation: sassImplementation,
         // Source maps are required so that `resolve-url-loader` can locate
@@ -197,10 +197,10 @@ export const css = curry(async function css(
   const fns: ConfigurationFn[] = []
 
   const googleLoader = require.resolve(
-    'next/dist/compiled/@next/font/google/loader'
+    'next-hybrid/dist/compiled/@next/font/google/loader'
   )
   const localLoader = require.resolve(
-    'next/dist/compiled/@next/font/local/loader'
+    'next-hybrid/dist/compiled/@next/font/local/loader'
   )
   const nextFontLoaders: Array<[string | RegExp, string, any?]> = [
     [require.resolve('next/font/google/target.css'), googleLoader],
@@ -369,7 +369,7 @@ export const css = curry(async function css(
             // CSS imports have side effects, even on the server side.
             sideEffects: true,
             test: [regexCssGlobal, regexSassGlobal],
-            use: require.resolve('next/dist/compiled/ignore-loader'),
+            use: require.resolve('next-hybrid/dist/compiled/ignore-loader'),
           }),
         ].filter(nonNullable),
       })

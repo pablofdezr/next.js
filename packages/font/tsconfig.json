@@ -6,7 +6,11 @@
     "esModuleInterop": true,
     "target": "es2019",
     "outDir": "dist",
-    "rootDir": "src"
+    "rootDir": "src",
+    "baseUrl": ".",
+    "paths": {
+      "next/font": ["../next/font"]
+    }
   },
   "include": ["src/**/*.ts"]
 }

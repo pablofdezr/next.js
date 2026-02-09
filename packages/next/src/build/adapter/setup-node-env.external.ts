@@ -4,9 +4,9 @@
 // as expected without require `next-server`
 if (process.env.NEXT_RUNTIME !== 'edge') {
   // eslint-disable-next-line @next/internal/typechecked-require
-  require('next/dist/server/node-environment')
+  require('next-hybrid/dist/server/node-environment')
   // eslint-disable-next-line @next/internal/typechecked-require
-  require('next/dist/server/require-hook')
+  require('next-hybrid/dist/server/require-hook')
   // eslint-disable-next-line @next/internal/typechecked-require
-  require('next/dist/server/node-polyfill-crypto')
+  require('next-hybrid/dist/server/node-polyfill-crypto')
 }

@@ -888,7 +888,7 @@ export async function handleAction({
           const bodySizeLimitBytes =
             bodySizeLimit !== defaultBodySizeLimit
               ? (
-                  require('next/dist/compiled/bytes') as typeof import('next/dist/compiled/bytes')
+                  require('next-hybrid/dist/compiled/bytes') as typeof import('next-hybrid/dist/compiled/bytes')
                 ).parse(bodySizeLimit)
               : 1024 * 1024 // 1 MB
 
@@ -925,7 +925,7 @@ export async function handleAction({
               }
 
               const busboy = (
-                require('next/dist/compiled/busboy') as typeof import('next/dist/compiled/busboy')
+                require('next-hybrid/dist/compiled/busboy') as typeof import('next-hybrid/dist/compiled/busboy')
               )({
                 defParamCharset: 'utf8',
                 headers: req.headers,

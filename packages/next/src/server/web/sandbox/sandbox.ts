@@ -1,6 +1,6 @@
 import type { NodejsRequestData, FetchEventResult } from '../types'
 import type { EdgeFunctionDefinition } from '../../../build/webpack/plugins/middleware-plugin'
-import type { EdgeRuntime } from 'next/dist/compiled/edge-runtime'
+import type { EdgeRuntime } from 'next-hybrid/dist/compiled/edge-runtime'
 import {
   getModuleContext,
   requestStore,
