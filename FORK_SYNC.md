@@ -88,3 +88,53 @@ Expected result: `0 <n>` (0 behind, n ahead).
 - If the rebase repeatedly skips commits, that usually means they already exist
   upstream.
 - **Dependencies**: After syncing, it's good practice to run `pnpm install` to ensure your lockfile matches any new upstream dependencies, though your rebase should ideally handle this if there were no conflicts in the lockfile.
+
+## Publishing to NPM (`next-hybrid`)
+
+Once you have synced with upstream and verified the changes, follow these steps to publish a new version of `next-hybrid`.
+
+### 1. Ensure Internal Paths are Correct
+
+Next.js uses hardcoded internal paths. Since we renamed the package to `next-hybrid`, we must ensure all internal references to `next/dist` are updated to `next-hybrid/dist`. This is required for the package to find its own bundles at runtime.
+
+Run these commands in the root of the repo to fix any new upstream references:
+
+```bash
+# Update taskfile and config files
+sed -i '' 's/"next\/dist/"next-hybrid\/dist/g' packages/next/taskfile.js
+sed -i '' "s/'next\/dist/'next-hybrid\/dist/g" packages/next/taskfile.js
+sed -i '' 's/"next\/dist/"next-hybrid\/dist/g' packages/next/next-runtime.webpack-config.js
+sed -i '' 's/"next\/dist/"next-hybrid\/dist/g' packages/next/tsconfig.json
+
+# Update all source files (src directory)
+grep -rl "\"next/dist" packages/next/src | xargs sed -i '' 's/"next\/dist/"next-hybrid\/dist/g'
+grep -rl "'next/dist" packages/next/src | xargs sed -i '' "s/'next\/dist/'next-hybrid\/dist/g"
+```
+
+### 2. Build the Package
+
+Navigate to the `next` package and run the release build:
+
+```bash
+cd packages/next
+pnpm run build
+```
+
+*Note: If `generate_types` fails, it is often due to strict type mismatches in the vendored dependencies after the rename. The build is configured to continue anyway.*
+
+### 3. Publish to NPM
+
+Publish using the `hybrid` tag to keep it separated from regular releases:
+
+```bash
+pnpm publish --no-git-checks --tag hybrid --access public --no-provenance
+```
+
+## Summary of Hybrid Modifications
+
+The following local changes are essential to keep `next-hybrid` working:
+- **`package.json`**: Name changed to `next-hybrid`.
+- **`taskfile.js`**: `generate_types` wrapped in try/catch to prevent build aborts on type errors.
+- **`next-runtime.webpack-config.js`**: Fixed `externalsMap` and internal aliases to use absolute paths or the `next-hybrid` name.
+- **`tsconfig.build.json`**: `skipLibCheck: true` and `strict: false` added to facilitate type generation for the renamed package.
+- **`types/compiled.d.ts`**: Stubbed modules updated to use the `next-hybrid/dist/compiled/` prefix.
