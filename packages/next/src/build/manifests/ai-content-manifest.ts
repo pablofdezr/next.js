@@ -1,4 +1,4 @@
-export type AIContentFormat = 'html' | 'markdown' | 'json' | 'llm'
+export type AIContentFormat = 'html' | 'markdown' | 'json' | 'llm' | 'text'
 
 export interface AIContentManifestEntry {
   route: string
@@ -27,6 +27,8 @@ export function formatToExtension(format: AIContentFormat): string {
       return '.json'
     case 'llm':
       return '.llm'
+    case 'text':
+      return '.txt'
     default:
       return ''
   }
@@ -40,6 +42,8 @@ export function extensionToFormat(ext: string): AIContentFormat | null {
       return 'json'
     case '.llm':
       return 'llm'
+    case '.txt':
+      return 'text'
     default:
       return null
   }

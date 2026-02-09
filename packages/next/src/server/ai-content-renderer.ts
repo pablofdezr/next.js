@@ -14,6 +14,7 @@ export interface AIContent {
     system: string
     user: string
   }
+  text?: string
 }
 
 export interface RenderAIContentContext {
@@ -113,6 +114,13 @@ export class AIContentRenderer {
           )
         }
         return content.llm
+      case 'text':
+        if (!content.text) {
+          throw new AIContentFormatError(
+            'Text format requested but not provided'
+          )
+        }
+        return content.text
       case 'html':
         throw new AIContentFormatError(
           'HTML format should not be rendered here'

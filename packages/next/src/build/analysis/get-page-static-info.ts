@@ -128,7 +128,12 @@ const SERVER_ACTION_DIRECTIVE = 'use server'
 
 const AI_CONTENT_EXPORT = 'experimentalGenerateAI'
 const AI_FORMATS_EXPORT = 'experimentalAIFormats'
-const DEFAULT_AI_FORMATS: AIContentFormat[] = ['markdown', 'json', 'llm']
+const DEFAULT_AI_FORMATS: AIContentFormat[] = [
+  'markdown',
+  'json',
+  'llm',
+  'text',
+]
 
 export type RSCModuleType = 'server' | 'client'
 export function getRSCModuleInformation(
@@ -360,6 +365,7 @@ function detectAIFormatsFromContent(content: string): AIContentFormat[] {
   if (/\bmarkdown\s*:/.test(content)) formats.push('markdown')
   if (/\bjson\s*:/.test(content)) formats.push('json')
   if (/\bllm\s*:/.test(content)) formats.push('llm')
+  if (/\btext\s*:/.test(content)) formats.push('text')
   return formats
 }
 
@@ -377,7 +383,10 @@ function getAIContentInfo({ ast, content }: { ast: any; content: string }): {
     if (Array.isArray(exportedFormats)) {
       supportedAIFormats = exportedFormats.filter(
         (format): format is AIContentFormat =>
-          format === 'markdown' || format === 'json' || format === 'llm'
+          format === 'markdown' ||
+          format === 'json' ||
+          format === 'llm' ||
+          format === 'text'
       )
     }
   } catch (e) {

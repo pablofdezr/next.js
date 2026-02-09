@@ -11,8 +11,8 @@ App Router (for example `/house-in-[city]`) and **experimental AI Content Negoti
 - Works with the App Router layouts and params API.
 
 ### AI Content Negotiation (Experimental)
-- Serve Markdown, JSON, or LLM-optimized payloads from the same route.
-- Negotiate content via file extension (e.g. `.md`, `.json`, `.llm`) or `Accept` header.
+- Serve Markdown, JSON, Text, or LLM-optimized payloads from the same route.
+- Negotiate content via file extension (e.g. `.md`, `.json`, `.txt`, `.llm`) or `Accept` header.
 - Define `experimentalGenerateAI` in your page to produce these formats.
 
 ## Create a new app (floating latest)
@@ -82,7 +82,7 @@ Define a page that exports `experimentalGenerateAI`:
 // app/ai/[slug]/page.tsx
 import type { ExperimentalAIContent, ExperimentalAIContentContext } from 'next/experimental'
 
-export const experimentalAIFormats = ['markdown', 'json'] as const
+export const experimentalAIFormats = ['markdown', 'json', 'text'] as const
 
 export default function Page({ params }) {
   return <h1>HTML View</h1>
@@ -92,7 +92,8 @@ export async function experimentalGenerateAI(ctx: ExperimentalAIContentContext):
   const { slug } = ctx.params as { slug: string }
   return {
     markdown: `# Content for ${slug}`,
-    json: { slug, type: 'generated' }
+    json: { slug, type: 'generated' },
+    text: `Content for ${slug}`
   }
 }
 ```
@@ -102,6 +103,7 @@ export async function experimentalGenerateAI(ctx: ExperimentalAIContentContext):
 - `/ai/foo` -> HTML
 - `/ai/foo.md` -> Markdown
 - `/ai/foo.json` -> JSON
+- `/ai/foo.txt` -> Text
 - `/ai/foo.llm` -> LLM JSON (if supported)
 
 ### Access via Accept Headers
@@ -114,6 +116,9 @@ curl -H "Accept: text/markdown" http://localhost:3000/ai/foo
 
 # Get JSON content
 curl -H "Accept: application/json" http://localhost:3000/ai/foo
+
+# Get Text content
+curl -H "Accept: text/plain" http://localhost:3000/ai/foo
 
 # Get LLM-optimized JSON content
 curl -H "Accept: application/llm+json" http://localhost:3000/ai/foo

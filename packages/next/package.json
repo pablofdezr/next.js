@@ -1,6 +1,6 @@
 {
   "name": "next-hybrid",
-  "version": "16.2.0-hybrid.0",
+  "version": "16.2.0-hybrid.1",
   "description": "The React Framework",
   "main": "./dist/server/next.js",
   "license": "MIT",

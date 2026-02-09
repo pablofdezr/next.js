@@ -40,6 +40,8 @@ export class AIContentNegotiator {
         return 'application/json; charset=utf-8'
       case 'llm':
         return 'application/llm+json; charset=utf-8'
+      case 'text':
+        return 'text/plain; charset=utf-8'
       case 'html':
         return 'text/html; charset=utf-8'
       default:
@@ -48,7 +50,7 @@ export class AIContentNegotiator {
   }
 
   private static extractExtension(pathname: string): string | null {
-    const match = pathname.match(/\.(md|json|llm)$/i)
+    const match = pathname.match(/\.(md|json|llm|txt)$/i)
     return match ? match[0] : null
   }
 
@@ -99,6 +101,9 @@ export class AIContentNegotiator {
       mediaType === 'application/x.llm+json'
     ) {
       return 'llm'
+    }
+    if (mediaType === 'text/plain') {
+      return 'text'
     }
     if (mediaType === 'text/html' || mediaType === 'application/xhtml+xml') {
       return 'html'

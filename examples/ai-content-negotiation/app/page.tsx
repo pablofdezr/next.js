@@ -71,6 +71,12 @@ export default function Page() {
                 >
                   .llm
                 </a>
+                <a
+                  href={`/ai/${item.slug}.txt`}
+                  className="hover:text-slate-700"
+                >
+                  .txt
+                </a>
               </div>
             </div>
           ))}
@@ -110,6 +116,12 @@ export default function Page() {
                 >
                   .json
                 </a>
+                <a
+                  href={`/trip-to-${item.destination}.txt`}
+                  className="hover:text-slate-700"
+                >
+                  .txt
+                </a>
               </div>
             </div>
           ))}
@@ -139,6 +151,9 @@ export default function Page() {
               <a href="/paris.llm" className="hover:text-slate-700">
                 .llm
               </a>
+              <a href="/paris.txt" className="hover:text-slate-700">
+                .txt
+              </a>
             </div>
           </div>
         </div>
@@ -150,6 +165,7 @@ export default function Page() {
           <pre className="overflow-x-auto p-4 text-xs text-slate-700">
             {`curl -H "Accept: text/markdown" http://localhost:3000/ai/sevilla
 curl -H "Accept: application/json" http://localhost:3000/ai/sevilla
+curl -H "Accept: text/plain" http://localhost:3000/ai/sevilla
 curl -H "Accept: application/llm+json" http://localhost:3000/ai/sevilla`}
           </pre>
         </div>

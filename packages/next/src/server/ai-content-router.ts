@@ -58,7 +58,12 @@ type DevRoutingOptions = {
   ensurePage?: EnsurePage
 }
 
-const DEFAULT_AI_FORMATS: AIContentFormat[] = ['markdown', 'json', 'llm']
+const DEFAULT_AI_FORMATS: AIContentFormat[] = [
+  'markdown',
+  'json',
+  'llm',
+  'text',
+]
 
 export class AIContentRouter {
   private manifest: AIContentManifest | null = null
@@ -310,7 +315,10 @@ export class AIContentRouter {
       : DEFAULT_AI_FORMATS
     const filteredFormats = exportedFormats.filter(
       (format: string): format is AIContentFormat =>
-        format === 'markdown' || format === 'json' || format === 'llm'
+        format === 'markdown' ||
+        format === 'json' ||
+        format === 'llm' ||
+        format === 'text'
     )
     const supportedFormats = normalizeSupportedFormats(
       filteredFormats.length ? filteredFormats : DEFAULT_AI_FORMATS
@@ -360,7 +368,7 @@ export class AIContentRouter {
     formatFromExtension: AIContentFormat | null
     hasExtension: boolean
   } {
-    const match = pathname.match(/\.(md|json|llm)$/i)
+    const match = pathname.match(/\.(md|json|llm|txt)$/i)
     if (!match) {
       return {
         basePath: pathname,

@@ -10,4 +10,5 @@ export interface ExperimentalAIContent {
     system: string
     user: string
   }
+  text?: string
 }
