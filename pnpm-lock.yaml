@@ -429,7 +429,7 @@ importers:
       nanoid:
         specifier: 3.1.30
         version: 3.1.30
-      next:
+      next-hybrid:
         specifier: workspace:*
         version: link:packages/next
       node-fetch:
@@ -770,7 +770,7 @@ importers:
 
   bench/app-router-server:
     dependencies:
-      next:
+      next-hybrid:
         specifier: workspace:*
         version: link:../../packages/next
       next-minimal-server:
@@ -812,7 +812,7 @@ importers:
       mermaid:
         specifier: ^10.9.1
         version: 10.9.1
-      next:
+      next-hybrid:
         specifier: workspace:*
         version: link:../../packages/next
       tailwindcss:
@@ -821,7 +821,7 @@ importers:
 
   bench/module-cost:
     devDependencies:
-      next:
+      next-hybrid:
         specifier: workspace:*
         version: link:../../packages/next
       playwright:
@@ -839,7 +839,7 @@ importers:
       fuzzponent:
         specifier: workspace:*
         version: link:../fuzzponent
-      next:
+      next-hybrid:
         specifier: workspace:*
         version: link:../../packages/next
       pretty-ms:
@@ -857,7 +857,7 @@ importers:
       fuzzponent:
         specifier: workspace:*
         version: link:../fuzzponent
-      next:
+      next-hybrid:
         specifier: workspace:*
         version: link:../../packages/next
       pretty-ms:
@@ -875,7 +875,7 @@ importers:
       fuzzponent:
         specifier: workspace:*
         version: link:../fuzzponent
-      next:
+      next-hybrid:
         specifier: workspace:*
         version: link:../../packages/next
       pretty-ms:
@@ -887,7 +887,7 @@ importers:
 
   bench/next-minimal-server:
     dependencies:
-      next:
+      next-hybrid:
         specifier: workspace:*
         version: link:../../packages/next
 
@@ -896,7 +896,7 @@ importers:
       fuzzponent:
         specifier: workspace:*
         version: link:../fuzzponent
-      next:
+      next-hybrid:
         specifier: workspace:*
         version: link:../../packages/next
       rimraf:
@@ -947,21 +947,31 @@ importers:
 
   crates/next-core/js:
     dependencies:
-      next:
+      next-hybrid:
         specifier: workspace:*
         version: link:../../../packages/next
 
   examples/hybrid-routing:
     dependencies:
-      next:
+      next-hybrid:
         specifier: workspace:*
         version: link:../../packages/next
       react:
-        specifier: 19.3.0-canary-65eec428-20251218
-        version: 19.3.0-canary-65eec428-20251218
+        specifier: 19.3.0-canary-2dd9b7cf-20260208
+        version: 19.3.0-canary-2dd9b7cf-20260208
       react-dom:
-        specifier: 19.3.0-canary-65eec428-20251218
-        version: 19.3.0-canary-65eec428-20251218(react@19.3.0-canary-65eec428-20251218)
+        specifier: 19.3.0-canary-2dd9b7cf-20260208
+        version: 19.3.0-canary-2dd9b7cf-20260208(react@19.3.0-canary-2dd9b7cf-20260208)
+    devDependencies:
+      autoprefixer:
+        specifier: 10.4.2
+        version: 10.4.2(postcss@8.4.31)
+      postcss:
+        specifier: 8.4.31
+        version: 8.4.31
+      tailwindcss:
+        specifier: 3.2.7
+        version: 3.2.7(postcss@8.4.31)
 
   packages/create-next-app:
     devDependencies:
@@ -1956,7 +1966,7 @@ importers:
     devDependencies:
       next:
         specifier: 16.2.0-canary.32
-        version: link:../next
+        version: 16.2.0-canary.32(@babel/core@7.26.10)(@opentelemetry/api@1.6.0)(@playwright/test@1.51.1)(babel-plugin-macros@3.1.0)(babel-plugin-react-compiler@0.0.0-experimental-3fde738-20250918)(react-dom@19.3.0-canary-fd524fe0-20251121(react@19.3.0-canary-2dd9b7cf-20260208))(react@19.3.0-canary-2dd9b7cf-20260208)(sass@1.77.8)
       outdent:
         specifier: 0.8.0
         version: 0.8.0
@@ -2071,8 +2081,11 @@ importers:
       '@vercel/webpack-nft':
         specifier: workspace:*
         version: link:../webpack-nmt
-    devDependencies:
       next:
+        specifier: '>= 12'
+        version: 16.0.8(@babel/core@7.26.10)(@opentelemetry/api@1.6.0)(@playwright/test@1.51.1)(babel-plugin-macros@3.1.0)(babel-plugin-react-compiler@0.0.0-experimental-3fde738-20250918)(react-dom@19.3.0-canary-fd524fe0-20251121(react@19.3.0-canary-fd524fe0-20251121))(react@19.3.0-canary-fd524fe0-20251121)(sass@1.77.8)
+    devDependencies:
+      next-hybrid:
         specifier: workspace:*
         version: link:../../../packages/next
 
@@ -4416,6 +4429,9 @@ packages:
   '@next/env@16.0.8':
     resolution: {integrity: sha512-xP4WrQZuj9MdmLJy3eWFHepo+R3vznsMSS8Dy3wdA7FKpjCiesQ6DxZvdGziQisj0tEtCgBKJzjcAc4yZOgLEQ==}
 
+  '@next/env@16.2.0-canary.32':
+    resolution: {integrity: sha512-T2574beEaYnVyAX4yLlRHOZUDbj114cBf8v7FDdu/SJ6EK4GD9EQTB0cCNiR9huX2w27CuGZb2Xj4y6RGk8S5g==}
+
   '@next/rspack-binding-android-arm-eabi@1.0.2':
     resolution: {integrity: sha512-ayoNrm5Z9xYIHdYfhUSvzPzNXRunMXx5B6Bonch9pJBfyC/3tUlcqVlI5+1HS+H4euWtPMeGqe8bARjQ71J/ug==}
     cpu: [arm]
@@ -4494,6 +4510,12 @@ packages:
     cpu: [arm64]
     os: [darwin]
 
+  '@next/swc-darwin-arm64@16.2.0-canary.32':
+    resolution: {integrity: sha512-w6B8ArKEgJU+f7iS8IszkFac5c6zNhZI8MtA5zjH2gVWXgt3/Nt5ZXs7woLLOp6xOStGseu8aOPvdvkCM3iLdw==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [darwin]
+
   '@next/swc-darwin-x64@15.5.7':
     resolution: {integrity: sha512-UP6CaDBcqaCBuiq/gfCEJw7sPEoX1aIjZHnBWN9v9qYHQdMKvCKcAVs4OX1vIjeE+tC5EIuwDTVIoXpUes29lg==}
     engines: {node: '>= 10'}
@@ -4502,6 +4524,12 @@ packages:
 
   '@next/swc-darwin-x64@16.0.8':
     resolution: {integrity: sha512-+zu2N3QQ0ZOb6RyqQKfcu/pn0UPGmg+mUDqpAAEviAcEVEYgDckemOpiMRsBP3IsEKpcoKuNzekDcPczEeEIzA==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [darwin]
+
+  '@next/swc-darwin-x64@16.2.0-canary.32':
+    resolution: {integrity: sha512-9vYpnjIYDB/SE8X3MEfkqsObXtVjZZS3bsCtNSJ9fWLKCl3sFyHIOU7xP9F8jPKJ0eO04HiGkVi5/uYO9Vq9UQ==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [darwin]
@@ -4518,6 +4546,12 @@ packages:
     cpu: [arm64]
     os: [linux]
 
+  '@next/swc-linux-arm64-gnu@16.2.0-canary.32':
+    resolution: {integrity: sha512-Xy4SsWvElz7hYYnxPHk/QHQ0QaJ6uPGlykniLftUjGUm3Llnh+e8jXRkn7U7OR/N7oPgcJsvlFUxnXndmkDVzA==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [linux]
+
   '@next/swc-linux-arm64-musl@15.5.7':
     resolution: {integrity: sha512-nfymt+SE5cvtTrG9u1wdoxBr9bVB7mtKTcj0ltRn6gkP/2Nu1zM5ei8rwP9qKQP0Y//umK+TtkKgNtfboBxRrw==}
     engines: {node: '>= 10'}
@@ -4526,6 +4560,12 @@ packages:
 
   '@next/swc-linux-arm64-musl@16.0.8':
     resolution: {integrity: sha512-JaXFAlqn8fJV+GhhA9lpg6da/NCN/v9ub98n3HoayoUSPOVdoxEEt86iT58jXqQCs/R3dv5ZnxGkW8aF4obMrQ==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [linux]
+
+  '@next/swc-linux-arm64-musl@16.2.0-canary.32':
+    resolution: {integrity: sha512-ygRl8SUliCAg6npuI/4D6KKH/Zj5EGQqGnt7+o3ZV4EmzwTdPDuQRQec/FW2B2bQYGFjzVpGkw5J4fE33uJ/Bg==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
@@ -4542,6 +4582,12 @@ packages:
     cpu: [x64]
     os: [linux]
 
+  '@next/swc-linux-x64-gnu@16.2.0-canary.32':
+    resolution: {integrity: sha512-vC7QWKtVWUxIYZo2dvF1uAXofM3UAhyHhmIei3D2dBYoDeKyjYBwS+dtZHMKUsZ9yLY4rnFmzYFRONB623zRTw==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [linux]
+
   '@next/swc-linux-x64-musl@15.5.7':
     resolution: {integrity: sha512-4IUO539b8FmF0odY6/SqANJdgwn1xs1GkPO5doZugwZ3ETF6JUdckk7RGmsfSf7ws8Qb2YB5It33mvNL/0acqA==}
     engines: {node: '>= 10'}
@@ -4550,6 +4596,12 @@ packages:
 
   '@next/swc-linux-x64-musl@16.0.8':
     resolution: {integrity: sha512-8+KClEC/GLI2dLYcrWwHu5JyC5cZYCFnccVIvmxpo6K+XQt4qzqM5L4coofNDZYkct/VCCyJWGbZZDsg6w6LFA==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [linux]
+
+  '@next/swc-linux-x64-musl@16.2.0-canary.32':
+    resolution: {integrity: sha512-ih5QOTDY2dVn/SkampjwQzYA7LPwziys8y8j1mZ5LFBkkJ2F99kl7DGCFb9i5KYBTBuOqahM11KdN8nHEjYojw==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
@@ -4566,6 +4618,12 @@ packages:
     cpu: [arm64]
     os: [win32]
 
+  '@next/swc-win32-arm64-msvc@16.2.0-canary.32':
+    resolution: {integrity: sha512-Xb9MS81rhhgI2JixCdDrp4cjDCGjiD/igiG+i1ctxBi2nxVUaJK2fLSc9GHsZtwT/Z3jRAzApedbqUL4ZXqRiQ==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [win32]
+
   '@next/swc-win32-x64-msvc@15.5.7':
     resolution: {integrity: sha512-gMzgBX164I6DN+9/PGA+9dQiwmTkE4TloBNx8Kv9UiGARsr9Nba7IpcBRA1iTV9vwlYnrE3Uy6I7Aj6qLjQuqw==}
     engines: {node: '>= 10'}
@@ -4574,6 +4632,12 @@ packages:
 
   '@next/swc-win32-x64-msvc@16.0.8':
     resolution: {integrity: sha512-jWpWjWcMQu2iZz4pEK2IktcfR+OA9+cCG8zenyLpcW8rN4rzjfOzH4yj/b1FiEAZHKS+5Vq8+bZyHi+2yqHbFA==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [win32]
+
+  '@next/swc-win32-x64-msvc@16.2.0-canary.32':
+    resolution: {integrity: sha512-2FsmiPI+gW1ABkHodsImxosmX+SlGYnkhqcN+AJzrVhtz1ifaTgHz2IULKKwHbtR860epfxpUDhjyz7glgiMeQ==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
@@ -7665,6 +7729,13 @@ packages:
 
   atomically@2.0.3:
     resolution: {integrity: sha512-kU6FmrwZ3Lx7/7y3hPS5QnbJfaohcIul5fGqf7ok+4KklIEk9tJ0C2IQPdacSbVUWv6zVHXEBWoWd6NrVMT7Cw==}
+
+  autoprefixer@10.4.2:
+    resolution: {integrity: sha512-9fOPpHKuDW1w/0EKfRmVnxTDt8166MAnLI3mgZ1JCnhNtYWxcJ6Ud5CO/AVOZi/AvFa8DY9RTy3h3+tFBlrrdQ==}
+    engines: {node: ^10 || ^12 || >=14}
+    hasBin: true
+    peerDependencies:
+      postcss: ^8.1.0
 
   autoprefixer@10.4.21:
     resolution: {integrity: sha512-O+A6LWV5LDHSJD3LjHYoNi4VLsj/Whi7k6zG12xTYaU4cQ8oxQGckXNX8cRHK5yOZ/ppVHe0ZBXGzSV9jXdVbQ==}
@@ -13854,11 +13925,6 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
-  nanoid@3.3.7:
-    resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
-    engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
-    hasBin: true
-
   napi-postinstall@0.3.4:
     resolution: {integrity: sha512-PHI5f1O0EP5xJ9gQmFGMS6IZcrVvTjpXjz7Na41gTE7eE2hK11lg04CECCYEEjdc17EV4DO+fkGEtt7TpTaTiQ==}
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
@@ -13926,6 +13992,27 @@ packages:
     resolution: {integrity: sha512-LmcZzG04JuzNXi48s5P+TnJBsTGPJunViNKV/iE4uM6kstjTQsQhvsAv+xF6MJxU2Pr26tl15eVbp0jQnsv6/g==}
     engines: {node: '>=20.9.0'}
     deprecated: This version has a security vulnerability. Please upgrade to a patched version. See https://nextjs.org/blog/security-update-2025-12-11 for more details.
+    hasBin: true
+    peerDependencies:
+      '@opentelemetry/api': ^1.1.0
+      '@playwright/test': ^1.51.1
+      babel-plugin-react-compiler: '*'
+      react: 19.3.0-canary-2dd9b7cf-20260208
+      react-dom: 19.3.0-canary-2dd9b7cf-20260208
+      sass: ^1.3.0
+    peerDependenciesMeta:
+      '@opentelemetry/api':
+        optional: true
+      '@playwright/test':
+        optional: true
+      babel-plugin-react-compiler:
+        optional: true
+      sass:
+        optional: true
+
+  next@16.2.0-canary.32:
+    resolution: {integrity: sha512-YPD1qDJ2ag51TbG/nIpAlDk+fXKveZy+W7cV0gFdzeoDLvUOTGoqiuty2apjnpq0w+JAAJeF6qIPRDFYjfWv9g==}
+    engines: {node: '>=20.9.0'}
     hasBin: true
     peerDependencies:
       '@opentelemetry/api': ^1.1.0
@@ -14719,9 +14806,6 @@ packages:
 
   picocolors@1.0.1:
     resolution: {integrity: sha512-anP1Z8qwhkbmu7MFP5iTt+wQKXgwzf7zTyGlcdzabySa9vd0Xt392U0rVmz9poOaBj0uHJKyyo9/upk0HrEQew==}
-
-  picocolors@1.1.0:
-    resolution: {integrity: sha512-TQ92mBOW0l3LeMeyLV6mzy/kWr8lkd/hp3mTg7wYK7zJhuBStmGMBG0BdeDZS/dZx1IukaX6Bk11zcln25o1Aw==}
 
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
@@ -21620,6 +21704,8 @@ snapshots:
 
   '@next/env@16.0.8': {}
 
+  '@next/env@16.2.0-canary.32': {}
+
   '@next/rspack-binding-android-arm-eabi@1.0.2':
     optional: true
 
@@ -21684,10 +21770,16 @@ snapshots:
   '@next/swc-darwin-arm64@16.0.8':
     optional: true
 
+  '@next/swc-darwin-arm64@16.2.0-canary.32':
+    optional: true
+
   '@next/swc-darwin-x64@15.5.7':
     optional: true
 
   '@next/swc-darwin-x64@16.0.8':
+    optional: true
+
+  '@next/swc-darwin-x64@16.2.0-canary.32':
     optional: true
 
   '@next/swc-linux-arm64-gnu@15.5.7':
@@ -21696,10 +21788,16 @@ snapshots:
   '@next/swc-linux-arm64-gnu@16.0.8':
     optional: true
 
+  '@next/swc-linux-arm64-gnu@16.2.0-canary.32':
+    optional: true
+
   '@next/swc-linux-arm64-musl@15.5.7':
     optional: true
 
   '@next/swc-linux-arm64-musl@16.0.8':
+    optional: true
+
+  '@next/swc-linux-arm64-musl@16.2.0-canary.32':
     optional: true
 
   '@next/swc-linux-x64-gnu@15.5.7':
@@ -21708,10 +21806,16 @@ snapshots:
   '@next/swc-linux-x64-gnu@16.0.8':
     optional: true
 
+  '@next/swc-linux-x64-gnu@16.2.0-canary.32':
+    optional: true
+
   '@next/swc-linux-x64-musl@15.5.7':
     optional: true
 
   '@next/swc-linux-x64-musl@16.0.8':
+    optional: true
+
+  '@next/swc-linux-x64-musl@16.2.0-canary.32':
     optional: true
 
   '@next/swc-win32-arm64-msvc@15.5.7':
@@ -21720,10 +21824,16 @@ snapshots:
   '@next/swc-win32-arm64-msvc@16.0.8':
     optional: true
 
+  '@next/swc-win32-arm64-msvc@16.2.0-canary.32':
+    optional: true
+
   '@next/swc-win32-x64-msvc@15.5.7':
     optional: true
 
   '@next/swc-win32-x64-msvc@16.0.8':
+    optional: true
+
+  '@next/swc-win32-x64-msvc@16.2.0-canary.32':
     optional: true
 
   '@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1':
@@ -25177,6 +25287,16 @@ snapshots:
     dependencies:
       stubborn-fs: 1.2.5
       when-exit: 2.1.2
+
+  autoprefixer@10.4.2(postcss@8.4.31):
+    dependencies:
+      browserslist: 4.28.1
+      caniuse-lite: 1.0.30001746
+      fraction.js: 4.3.7
+      normalize-range: 0.1.2
+      picocolors: 1.0.1
+      postcss: 8.4.31
+      postcss-value-parser: 4.2.0
 
   autoprefixer@10.4.21(postcss@8.4.31):
     dependencies:
@@ -33449,8 +33569,6 @@ snapshots:
 
   nanoid@3.3.11: {}
 
-  nanoid@3.3.7: {}
-
   napi-postinstall@0.3.4: {}
 
   native-url@0.3.4:
@@ -33529,7 +33647,62 @@ snapshots:
       '@playwright/test': 1.51.1
       babel-plugin-react-compiler: 0.0.0-experimental-3fde738-20250918
       sass: 1.77.8
-      sharp: 0.34.4
+      sharp: 0.34.5
+    transitivePeerDependencies:
+      - '@babel/core'
+      - babel-plugin-macros
+
+  next@16.0.8(@babel/core@7.26.10)(@opentelemetry/api@1.6.0)(@playwright/test@1.51.1)(babel-plugin-macros@3.1.0)(babel-plugin-react-compiler@0.0.0-experimental-3fde738-20250918)(react-dom@19.3.0-canary-fd524fe0-20251121(react@19.3.0-canary-fd524fe0-20251121))(react@19.3.0-canary-fd524fe0-20251121)(sass@1.77.8):
+    dependencies:
+      '@next/env': 16.0.8
+      '@swc/helpers': 0.5.15
+      caniuse-lite: 1.0.30001746
+      postcss: 8.4.31
+      react: 19.3.0-canary-fd524fe0-20251121
+      react-dom: 19.3.0-canary-fd524fe0-20251121(react@19.3.0-canary-fd524fe0-20251121)
+      styled-jsx: 5.1.6(@babel/core@7.26.10)(babel-plugin-macros@3.1.0)(react@19.3.0-canary-fd524fe0-20251121)
+    optionalDependencies:
+      '@next/swc-darwin-arm64': 16.0.8
+      '@next/swc-darwin-x64': 16.0.8
+      '@next/swc-linux-arm64-gnu': 16.0.8
+      '@next/swc-linux-arm64-musl': 16.0.8
+      '@next/swc-linux-x64-gnu': 16.0.8
+      '@next/swc-linux-x64-musl': 16.0.8
+      '@next/swc-win32-arm64-msvc': 16.0.8
+      '@next/swc-win32-x64-msvc': 16.0.8
+      '@opentelemetry/api': 1.6.0
+      '@playwright/test': 1.51.1
+      babel-plugin-react-compiler: 0.0.0-experimental-3fde738-20250918
+      sass: 1.77.8
+      sharp: 0.34.5
+    transitivePeerDependencies:
+      - '@babel/core'
+      - babel-plugin-macros
+
+  next@16.2.0-canary.32(@babel/core@7.26.10)(@opentelemetry/api@1.6.0)(@playwright/test@1.51.1)(babel-plugin-macros@3.1.0)(babel-plugin-react-compiler@0.0.0-experimental-3fde738-20250918)(react-dom@19.3.0-canary-fd524fe0-20251121(react@19.3.0-canary-2dd9b7cf-20260208))(react@19.3.0-canary-2dd9b7cf-20260208)(sass@1.77.8):
+    dependencies:
+      '@next/env': 16.2.0-canary.32
+      '@swc/helpers': 0.5.15
+      baseline-browser-mapping: 2.9.19
+      caniuse-lite: 1.0.30001746
+      postcss: 8.4.31
+      react: 19.3.0-canary-2dd9b7cf-20260208
+      react-dom: 19.3.0-canary-fd524fe0-20251121(react@19.3.0-canary-2dd9b7cf-20260208)
+      styled-jsx: 5.1.6(@babel/core@7.26.10)(babel-plugin-macros@3.1.0)(react@19.3.0-canary-2dd9b7cf-20260208)
+    optionalDependencies:
+      '@next/swc-darwin-arm64': 16.2.0-canary.32
+      '@next/swc-darwin-x64': 16.2.0-canary.32
+      '@next/swc-linux-arm64-gnu': 16.2.0-canary.32
+      '@next/swc-linux-arm64-musl': 16.2.0-canary.32
+      '@next/swc-linux-x64-gnu': 16.2.0-canary.32
+      '@next/swc-linux-x64-musl': 16.2.0-canary.32
+      '@next/swc-win32-arm64-msvc': 16.2.0-canary.32
+      '@next/swc-win32-x64-msvc': 16.2.0-canary.32
+      '@opentelemetry/api': 1.6.0
+      '@playwright/test': 1.51.1
+      babel-plugin-react-compiler: 0.0.0-experimental-3fde738-20250918
+      sass: 1.77.8
+      sharp: 0.34.5
     transitivePeerDependencies:
       - '@babel/core'
       - babel-plugin-macros
@@ -34508,8 +34681,6 @@ snapshots:
 
   picocolors@1.0.1: {}
 
-  picocolors@1.1.0: {}
-
   picocolors@1.1.1: {}
 
   picomatch@2.3.1: {}
@@ -35304,8 +35475,8 @@ snapshots:
 
   postcss@8.4.31:
     dependencies:
-      nanoid: 3.3.7
-      picocolors: 1.1.0
+      nanoid: 3.3.11
+      picocolors: 1.0.1
       source-map-js: 1.2.1
 
   postcss@8.5.3:
@@ -35657,6 +35828,11 @@ snapshots:
       scheduler: 0.28.0-canary-2dd9b7cf-20260208
 
   react-dom@19.3.0-canary-2dd9b7cf-20260208(react@19.3.0-canary-2dd9b7cf-20260208):
+    dependencies:
+      react: 19.3.0-canary-2dd9b7cf-20260208
+      scheduler: 0.28.0-canary-2dd9b7cf-20260208
+
+  react-dom@19.3.0-canary-fd524fe0-20251121(react@19.3.0-canary-2dd9b7cf-20260208):
     dependencies:
       react: 19.3.0-canary-2dd9b7cf-20260208
       scheduler: 0.28.0-canary-2dd9b7cf-20260208
@@ -37544,6 +37720,14 @@ snapshots:
     dependencies:
       client-only: 0.0.1
       react: 19.3.0-canary-2dd9b7cf-20260208
+    optionalDependencies:
+      '@babel/core': 7.26.10
+      babel-plugin-macros: 3.1.0
+
+  styled-jsx@5.1.6(@babel/core@7.26.10)(babel-plugin-macros@3.1.0)(react@19.3.0-canary-fd524fe0-20251121):
+    dependencies:
+      client-only: 0.0.1
+      react: 19.3.0-canary-fd524fe0-20251121
     optionalDependencies:
       '@babel/core': 7.26.10
       babel-plugin-macros: 3.1.0

@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "rimraf": "6.0.1",
-    "next": "workspace:*",
+    "next-hybrid": "workspace:*",
     "playwright": "^1.40.0"
   }
 }

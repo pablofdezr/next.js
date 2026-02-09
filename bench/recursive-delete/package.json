@@ -6,7 +6,7 @@
   },
   "devDependencies": {
     "fuzzponent": "workspace:*",
-    "next": "workspace:*",
+    "next-hybrid": "workspace:*",
     "rimraf": "6.0.1"
   }
 }

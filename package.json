@@ -238,7 +238,7 @@
     "minimatch": "3.0.4",
     "moment": "^2.24.0",
     "nanoid": "3.1.30",
-    "next": "workspace:*",
+    "next-hybrid": "workspace:*",
     "node-fetch": "2.6.7",
     "node-plop": "0.31.1",
     "npm-run-all": "4.1.5",

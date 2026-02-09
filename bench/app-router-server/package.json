@@ -5,7 +5,7 @@
   "dependencies": {
     "webpack-bundle-analyzer": "^4.6.1",
     "webpack-stats-plugin": "^1.1.0",
-    "next": "workspace:*",
+    "next-hybrid": "workspace:*",
     "next-minimal-server": "workspace:*"
   },
   "scripts": {
